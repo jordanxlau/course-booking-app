@@ -17,11 +17,18 @@ import com.example.course_booking_app.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    Button enter;
+    EditText username, password;
+    String u, p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        //Initialize attributes and action listeners
+        enter = findViewById(R.id.enter);
+        enter.setOnClickListener(this);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
 
         //Removed this attribute
         /*binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -73,5 +86,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.enter){
+            u = username.getText().toString();
+            p = password.getText().toString();
+        }
     }
 }
