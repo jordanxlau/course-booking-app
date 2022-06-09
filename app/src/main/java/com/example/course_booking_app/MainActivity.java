@@ -1,5 +1,6 @@
 package com.example.course_booking_app;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -17,21 +18,33 @@ import com.example.course_booking_app.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.sql.Array;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    //Widget declarations
     Button enter;
     EditText username, password;
-    String u, p;
+    ListView userListView;
+
+    //Other field declarations
+    String u, p;//
+    ArrayList<String> userList;
+    ArrayAdapter<String> adapter;//Should be String
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Preset code
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -43,20 +56,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        //Initialize attributes and action listeners
+        //Initialize widgets and action listeners
         enter = findViewById(R.id.enter);
         enter.setOnClickListener(this);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
+        userListView = findViewById(R.id.userListView);
 
-        //Removed this attribute
-        /*binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        //Initialize database handler
+        UserData db = new UserData(this);
+        viewData(db);
+
+        //Initialize productList
+        userList = new ArrayList<String>();
+    }
+
+    //For viewing database data
+    private void viewData(UserData db){
+        Cursor cursor = db.getData();
+        if (cursor.getCount() == 0)
+            Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT);
+        else
+            while(cursor.moveToNext()){
+                userList.add( cursor.getString(1) );
             }
-        });*/
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userList);
+            userListView.setAdapter(adapter);
     }
 
     @Override
@@ -93,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId()==R.id.enter){
             u = username.getText().toString();
             p = password.getText().toString();
+            Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
+            //Change view to logged in screen
         }
     }
 }
