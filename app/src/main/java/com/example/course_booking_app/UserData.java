@@ -8,19 +8,19 @@ import android.database.Cursor;
 //This class handles the database
 public class UserData extends SQLiteOpenHelper {
 
-    public final String TABLE_NAME = "users";
-    public final String PRIMARY_KEY = "";
-    public final String USER = "";
+    public static final String TABLE_NAME = "users";
+    public static final String PRIMARY_KEY = "usersID";
+    public static final String COL_USER = "user"; //first column name
 
     public UserData(Context context){
-        super(context, "products.db", null, 1);
+        super(context, "users.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create = "CREATE TABLE " + TABLE_NAME + "("
                 + PRIMARY_KEY + " INTEGER PRIMARY KEY,"
-                + USER + " TEXT "
+                + COL_USER + " TEXT "
                 + ")";
         db.execSQL(create);
     }
@@ -36,4 +36,9 @@ public class UserData extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME;
         return db.rawQuery(query, null); // returns "cursor" all products from the table
     }
+
+    public void addUser(){
+
+    }
+
 }
