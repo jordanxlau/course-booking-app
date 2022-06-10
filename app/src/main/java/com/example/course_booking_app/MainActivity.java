@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
     //Other field declarations
     //String u, p;
     ArrayList<String> userList;
-    ArrayAdapter adapter;//Should be String?
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +55,24 @@ public class MainActivity extends AppCompatActivity{
         //Initialize database handler
         UserData db = new UserData(this);
 
+        //Add preset users to the database
+        db.addUser("admin", "admin123");
+
         //Create action listener
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String u = username.getText().toString();
-                String p = password.getText().toString();
+                String name = username.getText().toString();
+                String pass = password.getText().toString();
+
                 Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
-                //Change view to logged in screen
+                if (db.findPassword(name) == null) {//No password associated with this user, i.e. user doesn't exist
+                    //Display error message (can't find user)
+                } else if (db.findPassword(name) == pass) {//Password matches username
+                    //Move to next screen
+                } else {//User exists but password is incorrect
+                    //Display error message (password incorrect)
+                }
             }
         });
 
