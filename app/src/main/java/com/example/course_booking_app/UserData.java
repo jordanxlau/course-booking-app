@@ -64,7 +64,8 @@ public class UserData extends SQLiteOpenHelper {
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";//Select all from users.db where username = given username
+        //SELECT * FROM users.db WHERE username = "user"
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = " + user;
         Cursor cursor = db.rawQuery(query, null);
         String pass;
 
