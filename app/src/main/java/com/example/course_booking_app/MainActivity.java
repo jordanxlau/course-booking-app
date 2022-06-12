@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity{
     EditText username, password;
     public static TextView message;
     Spinner userType;
+    ListView list;
+    ArrayAdapter adapter;
+
 
     //Other field declarations
     ArrayList<String> userList;
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity{
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
+        list = findViewById(R.id.list);
+
 
         //Initialize userList
         userList = new ArrayList<>();
@@ -122,12 +128,12 @@ public class MainActivity extends AppCompatActivity{
             //Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT);
         } else {
             while (cursor.moveToNext()) {
-                userList.add(cursor.getString(1));
+                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
             }
         }
 
-        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userList);
-        //message.setAdapter(adapter);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
+        list.setAdapter(adapter);
     }
 
 }
