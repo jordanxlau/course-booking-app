@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity{
     ListView list;
     ArrayAdapter adapter;
 
-
     //Other field declarations
     ArrayList<String> userList;
 
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity{
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// Specify the layout to use when the list of choices appears
         userType.setAdapter(adapter);// Apply the adapter to the spinner
-
 
         //Create action listeners
         enter.setOnClickListener(new View.OnClickListener() {
@@ -117,17 +115,21 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public void openAdministratorActivity(){
+    //These helper methods open other pages of the app
+    //Opens administrator welcome page
+    protected void openAdministratorActivity(){
         Intent intent = new Intent(this, AdministratorActivity.class);
         startActivity(intent);
     }
 
-    public void openInstructorActivity(){
+    //Opens instructor welcome page
+    protected void openInstructorActivity(){
         Intent intent = new Intent(this, InstructorActivity.class);
         startActivity(intent);
     }
 
-    public void openStudentActivity(){
+    //Opens student welcome page
+    protected void openStudentActivity(){
         Intent intent = new Intent(this, InstructorActivity.class);
         startActivity(intent);
     }
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity{
             //Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT);
         } else {
             while (cursor.moveToNext()) {
-                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
+                userList.add(cursor.getString(1) + "     "  + cursor.getString(2) + "     "  + cursor.getString(3));
             }
         }
 
