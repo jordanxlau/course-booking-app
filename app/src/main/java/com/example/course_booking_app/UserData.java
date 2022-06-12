@@ -91,7 +91,7 @@ public class UserData extends SQLiteOpenHelper {
 
         cursor.close();
 
-        //If user doesn't match any in database, foundPassword will be null
+        //If user doesn't match any in database, foundType will be null
         return foundType;
 
     }
