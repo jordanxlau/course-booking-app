@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(this, AdministratorActivity.class);
         startActivity(intent);
     }
+
     //For viewing database data
     private void viewData(UserData db){
         Cursor cursor = db.getData();
