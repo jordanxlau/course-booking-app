@@ -18,12 +18,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
 
     //Widget declarations
-    Button enter;
+    Button enter, create;
     EditText username, password;
     TextView message;
 
     //Other field declarations
-    //String u, p;
     ArrayList<String> userList;
     ArrayAdapter adapter;
 
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
         password = findViewById(R.id.password);
         message = findViewById(R.id.message);
         enter = findViewById(R.id.enter);
+        create = findViewById(R.id.create);
 
         //Initialize userList
         userList = new ArrayList<>();
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
         //Write default message
         //Toast.makeText(MainActivity.this, "Enter Password and Username", Toast.LENGTH_SHORT);
 
-        //Create action listener
+        //Create action listeners
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +73,13 @@ public class MainActivity extends AppCompatActivity{
                     message.setText("wrong password");
                 }
                 System.out.println("Trace: " + foundPass);
+            }
+        });
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

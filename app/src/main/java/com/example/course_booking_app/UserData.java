@@ -53,14 +53,6 @@ public class UserData extends SQLiteOpenHelper {
         db.close();
     }
 
-    /*Checks if a certain user and password exist in the database
-    public boolean exists(String name, String pass){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "IF EXISTS(SELECT " + name + ", " + pass + "FROM " + TABLE_NAME + " WITH(NOLOCK))";
-        db.execSQL(query);
-        return true;
-    }*/
-
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
