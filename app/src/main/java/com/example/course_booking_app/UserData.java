@@ -67,15 +67,18 @@ public class UserData extends SQLiteOpenHelper {
         //SELECT * FROM users.db WHERE username = "user"
         String query = "SELECT " + COL_PASS + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
         Cursor cursor = db.rawQuery(query, null);
-        String pass;
+        String foundPassword = null;
 
         if(cursor.moveToFirst()){//If password matches
-            pass = cursor.getString(2);
-            cursor.close();
-            return pass;
-        } else {//If password doesn't match
-            return null;
+            foundPassword = cursor.getString(0);
+            System.out.println(foundPassword);
         }
+
+        cursor.close();
+
+        //If user doesn't match any in database, foundPassword will be null
+        return foundPassword;
+
     }
 
 }

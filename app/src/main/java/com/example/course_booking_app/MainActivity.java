@@ -58,19 +58,21 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 String name = username.getText().toString();
-                String pass = password.getText().toString();
+                String actualPass = password.getText().toString();
+                String foundPass = db.findPassword(name);//the password of the username entered
 
                 //Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
-                if (db.findPassword(name) == null) {//No password associated with this user, i.e. user doesn't exist
+                if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
                     //Display error message (can't find user)
                     message.setText("can't find user");
-                } else if (db.findPassword(name) == pass) {//Password matches username
+                } else if (foundPass.equals(actualPass)) {//Password matches username
                     //Move to next screen
                     message.setText("found user");
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
                     message.setText("wrong password");
                 }
+                System.out.println("Trace: " + foundPass);
             }
         });
 
