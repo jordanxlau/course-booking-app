@@ -9,14 +9,14 @@ import android.database.Cursor;
 //This class handles the database
 public class UserData extends SQLiteOpenHelper {
 
-    public static final String TABLE_NAME = "users2"; //Table name
+    public static final String TABLE_NAME = "users"; //Table name
     public static final String PRIMARY_KEY = "usersID"; //Primary Key
     public static final String COL_NAME = "username"; //First column name (user names)
     public static final String COL_PASS = "password"; //Second column name (user passwords)
     public static final String COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
 
     public UserData(Context context){
-        super(context, "users2.db", null, 1);
+        super(context, "users4.db", null, 1);
     }
 
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called?
@@ -47,19 +47,23 @@ public class UserData extends SQLiteOpenHelper {
     public void addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        System.out.println("TRACE ADDUSER()");
 
-        values.put(COL_NAME, username);
-        values.put(COL_PASS, password);
-        values.put(COL_TYPE, type);
+        //Only adds the user if it cannot find a password associated with that user (and therefore the user doesn't yet exist)
+        if (this.findPassword(username) == null) {
+            values.put(COL_NAME, username);
+            values.put(COL_PASS, password);
+            values.put(COL_TYPE, type);
 
-        db.insert(TABLE_NAME, null, values);
+            db.insert(TABLE_NAME, null, values);
+        }
         db.close();
     }
 
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT * FROM users.db WHERE username = "user"
+        //SELECT "password" FROM users.db WHERE username = "user"
         String query = "SELECT " + COL_PASS + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
         Cursor cursor = db.rawQuery(query, null);
         String foundPassword = null;

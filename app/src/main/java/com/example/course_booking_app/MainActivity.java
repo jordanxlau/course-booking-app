@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity{
 
     //Other field declarations
     ArrayList<String> userList;
-    //ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity{
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
         list = findViewById(R.id.list);
-
 
         //Initialize userList
         userList = new ArrayList<>();
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity{
                     //Display error message (password incorrect)
                     message.setText("wrong password");
                 }
-                System.out.println("Trace: " + foundPass);
             }
         });
 
@@ -99,9 +96,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //Add a user of the correct user account type to the database
+                System.out.println("TRACE CREATE");
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
+                System.out.println(name + " " + pass + " " + type);
                 db.addUser(name, pass, type);
             }
         });
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //Opens administrator activity window
     public void openAdministratorActivity(){
         Intent intent = new Intent(this, AdministratorActivity.class);
         startActivity(intent);
