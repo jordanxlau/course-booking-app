@@ -55,12 +55,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(upgrade);
     }
 
-//    public Cursor getData(){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        String query = "SELECT * FROM " + TABLE_NAME;
-//        return db.rawQuery(query, null); // returns "cursor" all products from the table
-//    }
+    public Cursor getUserData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + USER_TABLE_NAME;
+        return db.rawQuery(query, null); // returns "cursor" all products from the table
+    }
 
     public ArrayList<UserModal> getUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -138,4 +138,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return foundType;
 
     }
+
+    //Public method deleting a user from the database. Returns true if successfully deleted.
+    //NOTE: currently no password needed to delete
+    public boolean removeUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean result = false;
+
+        //SELECT * FROM users WHERE "username" = "username"
+        String query = "SELECT * FROM "+ USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            result = true;
+            db.delete(USER_TABLE_NAME, USER_COL_NAME + "=?", new String[]{username});
+            cursor.close();
+        }
+
+        return result;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.course_booking_app;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,14 +20,17 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
 
     //Widget/Attribute declarations
-    Button enter, create;
-    EditText username, password;
+    protected Button enter, create;
+    protected EditText username, password;
     public static TextView message;
-    Spinner userType;
-    ArrayAdapter adapter;
+    protected Spinner userType;
+    protected ListView list;
+    protected ArrayAdapter adapter;
+    public static DatabaseHandler db;
 
     //Other field declarations
-    ArrayList<String> userList;
+    protected ArrayList<String> userList;
+    public static String currentUser = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +47,16 @@ public class MainActivity extends AppCompatActivity{
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
+        list = findViewById(R.id.list);
 
         //Initialize userList
         userList = new ArrayList<>();
 
         //Initialize database handler
-        DatabaseHandler db = new DatabaseHandler(this);
+        db = new DatabaseHandler(this);
 
         //Add preset users to the database
         db.addUser("admin", "admin123", "admin");
-
-        //Write default message
-        //Toast.makeText(MainActivity.this, "Enter Password and Username", Toast.LENGTH_SHORT);
 
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
@@ -70,7 +72,6 @@ public class MainActivity extends AppCompatActivity{
                 String actualPass = password.getText().toString();
                 String foundPass = db.findPassword(userEntered);//the password of the username entered
 
-                //Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
                     //Display error message (can't find user)
                     message.setText("can't find user");
@@ -78,7 +79,9 @@ public class MainActivity extends AppCompatActivity{
                     //Move to next screen
                     message.setText("found user");
                     String userType = db.findUserType(userEntered);
-
+                    //Update the public field currentUser
+                    currentUser = userEntered;
+                    //Open the correct welcome page
                     if(userType.equals("admin")){
                         openAdministratorActivity();
                     }
@@ -109,8 +112,8 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-//        //View database data
-//        viewData(db);
+        //View database data
+        viewData(db);
 
     }
 
@@ -129,25 +132,24 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-//    //For viewing database data
-//    private void viewData(DatabaseHandler db){
-//        Cursor cursor = db.getData();
-//
-//        if (cursor == null) {
-//            return;
-//        }
-//
-//        if (cursor.getCount() == 0) {
-//            message.setText("No data");
-//            //Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT);
-//        } else {
-//            while (cursor.moveToNext()) {
-//                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
-//            }
-//        }
-//
-//        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
-//        list.setAdapter(adapter);
-//    }
+    //For viewing database data
+    private void viewData(DatabaseHandler db){
+        Cursor cursor = db.getUserData();
+
+        if (cursor == null) {
+            return;
+        }
+
+        if (cursor.getCount() == 0) {
+            message.setText("No data");
+        } else {
+            while (cursor.moveToNext()) {
+                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
+            }
+        }
+
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
+        list.setAdapter(adapter);
+    }
 
 }
