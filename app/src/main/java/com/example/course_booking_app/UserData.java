@@ -76,4 +76,24 @@ public class UserData extends SQLiteOpenHelper {
 
     }
 
+    //Finds the password of a certain user
+    public String findUserType(String user){
+        SQLiteDatabase db = this.getReadableDatabase();
+        //SELECT "userType" FROM users.db WHERE username = "user"
+        String query = "SELECT " + COL_TYPE + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        String foundType = null;
+
+        if(cursor.moveToFirst()){//If password matches
+            foundType = cursor.getString(0);
+            System.out.println(foundType);
+        }
+
+        cursor.close();
+
+        //If user doesn't match any in database, foundPassword will be null
+        return foundType;
+
+    }
+
 }
