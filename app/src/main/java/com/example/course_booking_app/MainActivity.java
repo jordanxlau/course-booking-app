@@ -1,7 +1,6 @@
 package com.example.course_booking_app;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity{
     Spinner userType;
     ListView list;
     ArrayAdapter adapter;
-
 
     //Other field declarations
     ArrayList<String> userList;
@@ -53,7 +50,7 @@ public class MainActivity extends AppCompatActivity{
         userList = new ArrayList<>();
 
         //Initialize database handler
-        UserData db = new UserData(this);
+        DatabaseHandler db = new DatabaseHandler(this);
 
         //Add preset users to the database
         db.addUser("admin", "admin123", "admin");
@@ -87,10 +84,10 @@ public class MainActivity extends AppCompatActivity{
                     if(userType.equals("admin")){
                         openAdministratorActivity();
                     }
-                    else if(userType.equals("Teacher")){
+                    else if(userType.equals("teacher")){
                         openInstructorActivity();
                     }
-                    else if(userType.equals("Student")){
+                    else if(userType.equals("student")){
                         openStudentActivity();
                     }
 
@@ -134,25 +131,25 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    //For viewing database data
-    private void viewData(UserData db){
-        Cursor cursor = db.getData();
-
-        if (cursor == null) {
-            return;
-        }
-
-        if (cursor.getCount() == 0) {
-            message.setText("No data");
-            //Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT);
-        } else {
-            while (cursor.moveToNext()) {
-                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
-            }
-        }
-
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
-        list.setAdapter(adapter);
-    }
+//    //For viewing database data
+//    private void viewData(DatabaseHandler db){
+//        Cursor cursor = db.getData();
+//
+//        if (cursor == null) {
+//            return;
+//        }
+//
+//        if (cursor.getCount() == 0) {
+//            message.setText("No data");
+//            //Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT);
+//        } else {
+//            while (cursor.moveToNext()) {
+//                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
+//            }
+//        }
+//
+//        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
+//        list.setAdapter(adapter);
+//    }
 
 }

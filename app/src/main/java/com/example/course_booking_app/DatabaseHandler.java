@@ -6,29 +6,47 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+
 //This class handles the database
-public class UserData extends SQLiteOpenHelper {
+public class DatabaseHandler extends SQLiteOpenHelper {
 
-    public static final String TABLE_NAME = "users"; //Table name
-    public static final String PRIMARY_KEY = "usersID"; //Primary Key
-    public static final String COL_NAME = "username"; //First column name (user names)
-    public static final String COL_PASS = "password"; //Second column name (user passwords)
-    public static final String COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
+    public static final String USER_TABLE_NAME = "users"; //Table name
+    public static final String USER_PRIMARY_KEY = "usersID"; //Primary Key
+    public static final String USER_COL_NAME = "username"; //First column name (user names)
+    public static final String USER_COL_PASS = "password"; //Second column name (user passwords)
+    public static final String USER_COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
 
-    public UserData(Context context){
+    public static final String COURSE_TABLE_NAME = "courses";
+    public static final String COURSE_PRIMARY_KEY = "coursesID";
+    public static final String COURSE_COL_CODE = "courseCode";
+    public static final String COURSE_COL_NAME = "courseName";
+    public static final String COURSE_COL_INSTRUCTOR = "courseInstructor";
+
+    public DatabaseHandler(Context context){
         super(context, "users4.db", null, 1);
     }
 
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called?
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE " + TABLE_NAME
+        String createUsers = "CREATE TABLE " + USER_TABLE_NAME
                 + "("
-                + PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
-                + COL_NAME + " STRING, "
-                + COL_PASS + " STRING, "
-                + COL_TYPE + " STRING"
+                + USER_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
+                + USER_COL_NAME + " STRING, "
+                + USER_COL_PASS + " STRING, "
+                + USER_COL_TYPE + " STRING"
                 + ")";
-        db.execSQL(create);
+
+        String createCourses = "CREATE TABLE " + COURSE_TABLE_NAME
+                + "("
+                + COURSE_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
+                + COURSE_COL_CODE + " STRING, "
+                + COURSE_COL_NAME + " STRING, "
+                + COURSE_COL_INSTRUCTOR + " STRING"
+                + ")";
+
+        db.execSQL(createUsers);
+        db.execSQL(createCourses);
     }
 
     @Override //"DROP" Removes a table
@@ -37,12 +55,12 @@ public class UserData extends SQLiteOpenHelper {
         db.execSQL(upgrade);
     }
 
-    public Cursor getData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + TABLE_NAME;
-        return db.rawQuery(query, null); // returns "cursor" all products from the table
-    }
+//    public Cursor getData(){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        String query = "SELECT * FROM " + TABLE_NAME;
+//        return db.rawQuery(query, null); // returns "cursor" all products from the table
+//    }
 
     public void addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -51,11 +69,11 @@ public class UserData extends SQLiteOpenHelper {
 
         //Only adds the user if it cannot find a password associated with that user (and therefore the user doesn't yet exist)
         if (this.findPassword(username) == null) {
-            values.put(COL_NAME, username);
-            values.put(COL_PASS, password);
-            values.put(COL_TYPE, type);
+            values.put(USER_COL_NAME, username);
+            values.put(USER_COL_PASS, password);
+            values.put(USER_COL_TYPE, type);
 
-            db.insert(TABLE_NAME, null, values);
+            db.insert(USER_TABLE_NAME, null, values);
         }
         db.close();
     }
@@ -64,7 +82,7 @@ public class UserData extends SQLiteOpenHelper {
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
         //SELECT "password" FROM users.db WHERE username = "user"
-        String query = "SELECT " + COL_PASS + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
+        String query = "SELECT " + USER_COL_PASS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
         Cursor cursor = db.rawQuery(query, null);
         String foundPassword = null;
 
@@ -84,7 +102,7 @@ public class UserData extends SQLiteOpenHelper {
     public String findUserType(String user){
         SQLiteDatabase db = this.getReadableDatabase();
         //SELECT "userType" FROM users.db WHERE username = "user"
-        String query = "SELECT " + COL_TYPE + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
+        String query = "SELECT " + USER_COL_TYPE + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
         Cursor cursor = db.rawQuery(query, null);
         String foundType = null;
 
@@ -99,5 +117,4 @@ public class UserData extends SQLiteOpenHelper {
         return foundType;
 
     }
-
 }
