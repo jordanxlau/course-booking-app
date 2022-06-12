@@ -1,5 +1,6 @@
 package com.example.course_booking_app;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -78,16 +79,8 @@ public class MainActivity extends AppCompatActivity{
                     //Move to next screen
                     message.setText("found user");
                     String userType = db.findUserType(userEntered);
-                    if(userType.equals("admin")){
-                        //admin redirect
-                        openAdministratorActivity();
-                    }
-                    else if(userType.equals("student")){
-                        //student redirect
-                    }
-                    else if(userType.equals("instructor")){
-                        //instructor redirect
-                    }
+                    openAdministratorActivity();
+
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
                     message.setText("wrong password");
@@ -95,11 +88,6 @@ public class MainActivity extends AppCompatActivity{
                 System.out.println("Trace: " + foundPass);
             }
         });
-
-        public void openAdministratorActivity(){
-            Intent intent = new Intent(this, AdministratorActivity.class);
-            startActivity(intent);
-        }
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +105,10 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    public void openAdministratorActivity(){
+        Intent intent = new Intent(this, AdministratorActivity.class);
+        startActivity(intent);
+    }
     //For viewing database data
     private void viewData(UserData db){
         Cursor cursor = db.getData();
