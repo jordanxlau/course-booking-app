@@ -9,13 +9,13 @@ import android.database.Cursor;
 //This class handles the database
 public class UserData extends SQLiteOpenHelper {
 
-    public static final String TABLE_NAME = "users"; //Table name
+    public static final String TABLE_NAME = "users2"; //Table name
     public static final String PRIMARY_KEY = "usersID"; //Primary Key
     public static final String COL_NAME = "username"; //First column name (user names)
     public static final String COL_PASS = "password"; //Second column name (user passwords)
 
     public UserData(Context context){
-        super(context, "users.db", null, 1);
+        super(context, "users2.db", null, 1);
     }
 
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called?
@@ -65,7 +65,7 @@ public class UserData extends SQLiteOpenHelper {
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
         //SELECT * FROM users.db WHERE username = "user"
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = " + user;
+        String query = "SELECT " + COL_PASS + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
         Cursor cursor = db.rawQuery(query, null);
         String pass;
 
