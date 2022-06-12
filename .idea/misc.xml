@@ -3,17 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/account_format.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_administrator.xml" value="0.275" />
-        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/content_main.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_first.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_second.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/evand008/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.2980072463768116" />
-        <entry key="..\:/Users/jorda/Desktop/AndroidStudioProjects/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/jorda/Desktop/AndroidStudioProjects/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.2875" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
