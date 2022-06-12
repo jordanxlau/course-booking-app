@@ -80,11 +80,10 @@ public class MainActivity extends AppCompatActivity{
                     //Display error message (can't find user)
                     message.setText("can't find user");
                 } else if (foundPass.equals(actualPass)) {//Password matches username
-                    //Move to next screen
                     message.setText("found user");
+                    //Move to next screen
                     String userType = db.findUserType(userEntered);
                     openAdministratorActivity();
-
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
                     message.setText("wrong password");
