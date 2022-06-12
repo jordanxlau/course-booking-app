@@ -1,5 +1,6 @@
 package com.example.course_booking_app;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity{
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String userEntered = username.getText().toString();
                 String actualPass = password.getText().toString();
-                String foundPass = db.findPassword(  username.getText().toString()  );//the password of the username entered
+                String foundPass = db.findPassword(userEntered);//the password of the username entered
 
                 //Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
@@ -76,6 +78,9 @@ public class MainActivity extends AppCompatActivity{
                 } else if (foundPass.equals(actualPass)) {//Password matches username
                     //Move to next screen
                     message.setText("found user");
+                    String userType = db.findUserType(userEntered);
+                    openAdministratorActivity();
+
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
                     message.setText("wrong password");
@@ -100,6 +105,10 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    public void openAdministratorActivity(){
+        Intent intent = new Intent(this, AdministratorActivity.class);
+        startActivity(intent);
+    }
     //For viewing database data
     private void viewData(UserData db){
         Cursor cursor = db.getData();
