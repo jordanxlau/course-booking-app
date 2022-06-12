@@ -15,7 +15,7 @@ public class SpinnerActivity extends Activity implements AdapterView.OnItemSelec
         // You can retrieve the selected item using parent.getItemAtPosition(pos)
         userType = findViewById(R.id.userType);
         userType.setOnItemSelectedListener(this);
-        selectedItem = parent.getItemAtPosition(pos).toString().toLowerCase();
+        selectedItem = parent.getItemAtPosition(pos).toString();
     }
 
     @Override

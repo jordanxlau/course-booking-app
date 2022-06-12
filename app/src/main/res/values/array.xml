@@ -2,7 +2,7 @@
 <resources>
     <string-array name="user_account_type_array">
         <item> -- Account to Create -- </item>
-        <item>Teacher</item>
-        <item>Student</item>
+        <item>teacher</item>
+        <item>student</item>
     </string-array>
 </resources>

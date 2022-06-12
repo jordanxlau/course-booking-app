@@ -44,39 +44,43 @@ public class UserData extends SQLiteOpenHelper {
         return db.rawQuery(query, null); // returns "cursor" all products from the table
     }
 
-    //public method adding a user to the database
-    public void addUser(String username, String password, String type) {
+    //Public method adding a user to the database. Returns true if successfully added.
+    public boolean addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        System.out.println("TRACE ADDUSER()");
+        boolean result = false;
 
-        //Only adds the user if it cannot find a password associated with that user (and therefore the user doesn't yet exist)
-        if (this.findPassword(username) == null) {
+        //Only adds the user if:
+        // it cannot find a password associated with that user (and therefore the user doesn't yet exist)
+        // user has selected an account type
+        if (this.findPassword(username) == null && !type.equals("-- Account to Create --")) {
+            System.out.println("type: " + type);
             values.put(COL_NAME, username);
             values.put(COL_PASS, password);
             values.put(COL_TYPE, type);
-
             db.insert(TABLE_NAME, null, values);
+            result = true;
         }
-        db.close();
+
+        return result;
     }
 
-    //public method deleting a user from the database. returns true if successfully deleted
+    //Public method deleting a user from the database. Returns true if successfully deleted.
     //NOTE: currently no password needed to delete
     public boolean removeUser(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean result = false;
 
+        //SELECT * FROM users WHERE "username" = "username"
         String query = "SELECT * FROM "+ TABLE_NAME + " WHERE " + COL_NAME + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
-            String nameStr = cursor.getString(1);
+            //String nameStr = cursor.getString(1);
             result = true;
             db.delete(TABLE_NAME, COL_NAME + "=?", new String[]{username});
             cursor.close();
         }
-        db.close();
 
         return result;
     }
@@ -84,21 +88,20 @@ public class UserData extends SQLiteOpenHelper {
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT "password" FROM users.db WHERE username = "user"
+        String foundPassword = null;
+
+        //SELECT "password" FROM users WHERE "username" = "user"
         String query = "SELECT " + COL_PASS + " FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = \"" + user + "\"";
         Cursor cursor = db.rawQuery(query, null);
-        String foundPassword = null;
 
         if(cursor.moveToFirst()){//If password matches
             foundPassword = cursor.getString(0);
-            System.out.println(foundPassword);
         }
 
         cursor.close();
 
         //If user doesn't match any in database, foundPassword will be null
         return foundPassword;
-
     }
 
     //Finds the password of a certain user
@@ -111,7 +114,6 @@ public class UserData extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){//If password matches
             foundType = cursor.getString(0);
-            System.out.println(foundType);
         }
 
         cursor.close();

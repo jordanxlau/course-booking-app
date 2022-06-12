@@ -76,10 +76,10 @@ public class MainActivity extends AppCompatActivity{
                 //Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
                     //Display error message
-                    message.setText("can't find user");
+                    message.setText("User not found");
                 } else if (foundPass.equals(actualPass)) {//Password matches username
                     //Display success message
-                    message.setText("found user");
+                    message.setText("User found");
 
                     //Move to next screen
                     String account = db.findUserType(userEntered);
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity{
                     }
                 } else {//User exists but password is incorrect
                     //Display error message
-                    message.setText("wrong password");
+                    message.setText("Wrong password");
                 }
             }
         });
@@ -101,18 +101,25 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //Add a user of the correct user account type to the database
-                System.out.println("TRACE CREATE");
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
-                System.out.println(name + " " + pass + " " + type);
-                db.addUser(name, pass, type);
+                if (db.addUser(name, pass, type)) {
+                    message.setText("Account created");
+                } else {
+                    message.setText("Select account type");
+                }
             }
         });
 
         //View database data
         viewData(db);
 
+        //Temporary deltetion of certain accounts
+        db.removeUser("gfasgfd");
+        db.removeUser("hello");
+        db.removeUser("hgfdjhgfd");
+        db.removeUser("ghgfds");
     }
 
     //These helper methods open other pages of the app
