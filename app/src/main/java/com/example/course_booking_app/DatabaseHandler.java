@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override //"DROP" Removes a table
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String upgrade = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        String upgrade = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
         db.execSQL(upgrade);
     }
 
