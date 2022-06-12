@@ -83,7 +83,16 @@ public class MainActivity extends AppCompatActivity{
                     //Move to next screen
                     message.setText("found user");
                     String userType = db.findUserType(userEntered);
-                    openAdministratorActivity();
+
+                    if(userType.equals("admin")){
+                        openAdministratorActivity();
+                    }
+                    else if(userType.equals("Teacher")){
+                        openInstructorActivity();
+                    }
+                    else if(userType.equals("Student")){
+                        openStudentActivity();
+                    }
 
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
@@ -110,9 +119,18 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    //Opens administrator activity window
     public void openAdministratorActivity(){
         Intent intent = new Intent(this, AdministratorActivity.class);
+        startActivity(intent);
+    }
+
+    public void openInstructorActivity(){
+        Intent intent = new Intent(this, InstructorActivity.class);
+        startActivity(intent);
+    }
+
+    public void openStudentActivity(){
+        Intent intent = new Intent(this, InstructorActivity.class);
         startActivity(intent);
     }
 
