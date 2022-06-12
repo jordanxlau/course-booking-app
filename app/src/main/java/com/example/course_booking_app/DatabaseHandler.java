@@ -62,6 +62,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        return db.rawQuery(query, null); // returns "cursor" all products from the table
 //    }
 
+    public ArrayList<UserModal> getUsers(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorUsers = db.rawQuery("SELECT * FROM " + USER_TABLE_NAME, null);
+
+        ArrayList<UserModal> userModalArrayList = new ArrayList<>();
+
+        if(cursorUsers.moveToFirst()){
+            do{
+                userModalArrayList.add(new UserModal(cursorUsers.getString(0),
+                                            cursorUsers.getString(1),
+                                            cursorUsers.getString(2),
+                                            cursorUsers.getString(3)));
+            } while(cursorUsers.moveToNext());
+        }
+
+        cursorUsers.close();
+        return userModalArrayList;
+
+    }
+
     public void addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

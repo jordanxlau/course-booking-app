@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity{
     EditText username, password;
     public static TextView message;
     Spinner userType;
-    ListView list;
     ArrayAdapter adapter;
 
     //Other field declarations
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity{
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
-        list = findViewById(R.id.list);
 
         //Initialize userList
         userList = new ArrayList<>();
