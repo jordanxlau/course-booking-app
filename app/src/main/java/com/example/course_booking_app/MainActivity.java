@@ -77,29 +77,23 @@ public class MainActivity extends AppCompatActivity{
 
                 //Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
-                    //Display error message (can't find user)
+                    //Display error message
                     message.setText("can't find user");
                 } else if (foundPass.equals(actualPass)) {//Password matches username
+                    //Display success message
                     message.setText("found user");
-                    //Move to next screen
-                    String userType = db.findUserType(userEntered);
-<<<<<<< HEAD
 
-                    if(userType.equals("admin")){
+                    //Move to next screen
+                    String account = db.findUserType(userEntered);
+                    if(account.equals("admin")) {
                         openAdministratorActivity();
-                    }
-                    else if(userType.equals("Teacher")){
+                    } else if(account.equals("teacher")) {
                         openInstructorActivity();
-                    }
-                    else if(userType.equals("Student")){
+                    } else {
                         openStudentActivity();
                     }
-
-=======
-                    openAdministratorActivity();
->>>>>>> 2f9cfb53b1ace88a247db841a151c7136fe0a8e2
                 } else {//User exists but password is incorrect
-                    //Display error message (password incorrect)
+                    //Display error message
                     message.setText("wrong password");
                 }
             }
