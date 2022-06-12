@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void openStudentActivity(){
-        Intent intent = new Intent(this, InstructorActivity.class);
+        Intent intent = new Intent(this, StudentActivity.class);
         startActivity(intent);
     }
 
