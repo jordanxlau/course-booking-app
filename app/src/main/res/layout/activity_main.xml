@@ -55,6 +55,12 @@
             android:backgroundTint="@color/garnet"
             android:textColor="@color/white"/>
 
+        <Spinner
+            android:id="@+id/userType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/user_account_type_array" />
+
     </LinearLayout>
 
     <TextView

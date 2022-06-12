@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +18,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-    //Widget declarations
+    //Widget/Attribute declarations
     Button enter, create;
     EditText username, password;
-    TextView message;
+    public static TextView message;
+    Spinner userType;
 
     //Other field declarations
     ArrayList<String> userList;
-    ArrayAdapter adapter;
+    //ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
         message = findViewById(R.id.message);
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
+        userType = findViewById(R.id.userType);
 
         //Initialize userList
         userList = new ArrayList<>();
@@ -48,18 +51,23 @@ public class MainActivity extends AppCompatActivity{
         UserData db = new UserData(this);
 
         //Add preset users to the database
-        db.addUser("admin", "admin123");
+        db.addUser("admin", "admin123", "admin");
 
         //Write default message
         //Toast.makeText(MainActivity.this, "Enter Password and Username", Toast.LENGTH_SHORT);
+
+        //Objects to help with the Spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// Specify the layout to use when the list of choices appears
+        userType.setAdapter(adapter);// Apply the adapter to the spinner
+
 
         //Create action listeners
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = username.getText().toString();
                 String actualPass = password.getText().toString();
-                String foundPass = db.findPassword(name);//the password of the username entered
+                String foundPass = db.findPassword(  username.getText().toString()  );//the password of the username entered
 
                 //Toast.makeText(MainActivity.this, "add user", Toast.LENGTH_SHORT).show();
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
@@ -79,7 +87,11 @@ public class MainActivity extends AppCompatActivity{
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Add a user of the correct user account type to the database
+                String name = username.getText().toString();
+                String pass = password.getText().toString();
+                String type = userType.getSelectedItem().toString();
+                db.addUser(name, pass, type);
             }
         });
 
