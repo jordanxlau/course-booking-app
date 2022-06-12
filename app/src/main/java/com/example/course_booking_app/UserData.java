@@ -44,6 +44,7 @@ public class UserData extends SQLiteOpenHelper {
         return db.rawQuery(query, null); // returns "cursor" all products from the table
     }
 
+    //public method adding a user to the database
     public void addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -58,6 +59,26 @@ public class UserData extends SQLiteOpenHelper {
             db.insert(TABLE_NAME, null, values);
         }
         db.close();
+    }
+
+    //public method deleting a user from the database. returns true if successfully deleted
+    //NOTE: currently no password needed to delete
+    public boolean removeUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean result = false;
+
+        String query = "SELECT * FROM "+ TABLE_NAME + " WHERE " + COL_NAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            String nameStr = cursor.getString(1);
+            result = true;
+            db.delete(TABLE_NAME, COL_NAME + "=?", new String[]{username});
+            cursor.close();
+        }
+        db.close();
+
+        return result;
     }
 
     //Finds the password of a certain user
