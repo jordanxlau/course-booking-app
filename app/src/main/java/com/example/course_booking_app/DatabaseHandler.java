@@ -61,13 +61,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(upgrade);
     }
 
-    //Gets users in the form of Cursor
-    public Cursor getUserData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + USER_TABLE_NAME;
-        return db.rawQuery(query, null); // returns "cursor" all products from the table
-    }
+//    //Gets users in the form of Cursor
+//    public Cursor getUserData(){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        String query = "SELECT * FROM " + USER_TABLE_NAME;
+//        return db.rawQuery(query, null); // returns "cursor" all products from the table
+//    }
 
     //Gets users in the form of ArrayList
     public ArrayList<UserModal> getUsers(){
