@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class AdministratorActivity extends AppCompatActivity {
+public class AdministratorActivity extends AppCompatActivity{
 
     //Declarations
     protected Button back, delete;
@@ -48,7 +48,7 @@ public class AdministratorActivity extends AppCompatActivity {
         usersRV.setAdapter(userRVAdapter);
 
         //Initialize usernameDisplay
-        usernameDisplay.setText("user: " + MainActivity.currentUser);
+        usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){

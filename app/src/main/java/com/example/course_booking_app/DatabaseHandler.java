@@ -95,15 +95,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        if (this.findPassword(username) == null && !type.equals("-- Account to Create --")) { //cannot find a password associated with that user (the user doesn't yet exist)
+        if (this.findPassword(username) == null && !type.equals("--Select account type for creation--")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
             db.insert(USER_TABLE_NAME, null, values);
-        } else if (type.equals("-- Account to Create --")){//Account type not selected yet
-            MainActivity.message.setText("Select account type");
+        } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
+            MainActivity.message.setText("Error: Please select account type!");
         } else if (this.findPassword(username) != null){
-            MainActivity.message.setText("User already exists");
+            MainActivity.message.setText("Error: User already exists!");
         }
     }
 

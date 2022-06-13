@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="user_account_type_array">
-        <item> -- Account to Create -- </item>
-        <item>teacher</item>
+        <item>--Select account type for creation--</item>
         <item>student</item>
+        <item>instructor</item>
     </string-array>
 </resources>
