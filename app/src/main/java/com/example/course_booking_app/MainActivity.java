@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        //View database data
-        viewData(db);
+//        //View database data
+//        viewData(db);
 
         //Temporary accounts to be removed
         db.removeUser("jordan");

@@ -1,6 +1,9 @@
 package com.example.course_booking_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
@@ -18,8 +21,8 @@ public class AdministratorActivity extends AppCompatActivity {
 
     private ArrayList<UserModal> userModalArrayList;
     private DatabaseHandler dbHandler;
-    private UserRV
-
+    private UserRVAdapter userRVAdapter;
+    private RecyclerView usersRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,18 @@ public class AdministratorActivity extends AppCompatActivity {
         delete = findViewById(R.id.delete);
         usernameDisplay = findViewById(R.id.usernameDisplay);
         textView = findViewById(R.id.textView);
+
+        userModalArrayList = new ArrayList<>();
+        dbHandler = new DatabaseHandler(AdministratorActivity.this);
+
+        userModalArrayList = dbHandler.getUsers();
+
+        userRVAdapter = new UserRVAdapter(userModalArrayList, AdministratorActivity.this);
+        usersRV = findViewById(R.id.recyclerView);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AdministratorActivity.this, RecyclerView.VERTICAL, false);
+        usersRV.setLayoutManager(linearLayoutManager);
+        usersRV.setAdapter(userRVAdapter);
 
         //Initialize usernameDisplay
         usernameDisplay.setText("user: " + MainActivity.currentUser);

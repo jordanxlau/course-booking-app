@@ -29,7 +29,7 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // on below line we are inflating our layout
         // file for our recycler view items.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_rv_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -37,17 +37,17 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // on below line we are setting data
         // to our views of recycler view item.
-        userModal modal = userModalArrayList.get(position);
-        holder.userNameTV.setText(modal.getuserName());
-        holder.courseDescTV.setText(modal.getCourseDescription());
-        holder.courseDurationTV.setText(modal.getCourseDuration());
-        holder.courseTracksTV.setText(modal.getCourseTracks());
+        UserModal modal = userModalArrayList.get(position);
+        holder.userIDTV.setText(modal.getID());
+        holder.userNameTV.setText(modal.getUsername());
+        holder.userPasswordTV.setText(modal.getPassword());
+        holder.userTypeTV.setText(modal.getUsertype());
     }
 
     @Override
     public int getItemCount() {
         // returning the size of our array list
-        return courseModalArrayList.size();
+        return userModalArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,10 +58,10 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // initializing our text views
-            userIDTV = itemView.findViewById(R.id.idTVCourseName);
-            userNameTV = itemView.findViewById(R.id.idTVCourseDescription);
-            userPasswordTV = itemView.findViewById(R.id.idTVCourseDuration);
-            userTypeTV = itemView.findViewById(R.id.idTVCourseTracks);
+            userIDTV = itemView.findViewById(R.id.idTVuserID);
+            userNameTV = itemView.findViewById(R.id.idTVuserName);
+            userPasswordTV = itemView.findViewById(R.id.idTVuserPassword);
+            userTypeTV = itemView.findViewById(R.id.idTVuserPassword);
         }
     }
 }
