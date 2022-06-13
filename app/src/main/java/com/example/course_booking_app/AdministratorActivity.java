@@ -73,7 +73,6 @@ public class AdministratorActivity extends AppCompatActivity{
                 }
             }
         });
-
     }
 
     //Re-opens main page
