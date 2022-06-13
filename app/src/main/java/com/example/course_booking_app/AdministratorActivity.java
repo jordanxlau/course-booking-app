@@ -53,15 +53,22 @@ public class AdministratorActivity extends AppCompatActivity{
                 String purgedUser;
 
                 pos = viewHolder.getAdapterPosition();
-
                 purgedUser = userModalArrayList.get(pos).getUsername();
-                MainActivity.db.removeUser(purgedUser);
-                userModalArrayList.remove(pos);
-                userRVAdapter.notifyDataSetChanged();
 
                 Context context = getApplicationContext();
-                CharSequence text = "Account '" + purgedUser + "' deleted!";
+                CharSequence text;
                 int duration = Toast.LENGTH_LONG;
+
+                if(purgedUser.equals("admin")){
+                    text = "The default administrator account cannot be deleted!";
+                    userRVAdapter.notifyDataSetChanged();
+                }
+                else{
+                    text = "Account '" + purgedUser + "' deleted!";
+                    MainActivity.db.removeUser(purgedUser);
+                    userModalArrayList.remove(pos);
+                    userRVAdapter.notifyDataSetChanged();
+                }
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
