@@ -11,24 +11,27 @@ import java.util.ArrayList;
 //This class handles the database
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    //Initializations for Users table
     public static final String USER_TABLE_NAME = "users"; //Table name
     public static final String USER_PRIMARY_KEY = "usersID"; //Primary Key
     public static final String USER_COL_NAME = "username"; //First column name (user names)
     public static final String USER_COL_PASS = "password"; //Second column name (user passwords)
     public static final String USER_COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
 
-    public static final String COURSE_TABLE_NAME = "courses";
-    public static final String COURSE_PRIMARY_KEY = "coursesID";
-    public static final String COURSE_COL_CODE = "courseCode";
-    public static final String COURSE_COL_NAME = "courseName";
-    public static final String COURSE_COL_INSTRUCTOR = "courseInstructor";
+    //Initializations for Courses table
+    public static final String COURSE_TABLE_NAME = "courses"; //Table name
+    public static final String COURSE_PRIMARY_KEY = "coursesID"; //Primary Key
+    public static final String COURSE_COL_CODE = "courseCode"; //First column name (course codes)
+    public static final String COURSE_COL_NAME = "courseName"; //Second column name (course names)
+    public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
 
     public DatabaseHandler(Context context){
         super(context, "users4.db", null, 1);
     }
 
-    @Override //"CREATE TABLE" Creates a table automagically when constructor is called?
+    @Override //"CREATE TABLE" Creates a table automagically when constructor is called
     public void onCreate(SQLiteDatabase db) {
+        //Users table
         String createUsers = "CREATE TABLE " + USER_TABLE_NAME
                 + "("
                 + USER_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
@@ -37,6 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + USER_COL_TYPE + " STRING"
                 + ")";
 
+        //Courses table
         String createCourses = "CREATE TABLE " + COURSE_TABLE_NAME
                 + "("
                 + COURSE_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
@@ -49,12 +53,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(createCourses);
     }
 
-    @Override //"DROP" Removes a table
+    @Override //"DROP" Removes both tables (never called?)
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String upgrade = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
         db.execSQL(upgrade);
+        upgrade = "DROP TABLE IF EXISTS " + COURSE_TABLE_NAME;
+        db.execSQL(upgrade);
     }
 
+    //Gets users in the form of Cursor
     public Cursor getUserData(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -62,6 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.rawQuery(query, null); // returns "cursor" all products from the table
     }
 
+    //Gets users in the form of ArrayList
     public ArrayList<UserModal> getUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -72,17 +80,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursorUsers.moveToFirst()){
             do{
                 userModalArrayList.add(new UserModal(cursorUsers.getString(0),
-                                            cursorUsers.getString(1),
-                                            cursorUsers.getString(2),
-                                            cursorUsers.getString(3)));
+                    cursorUsers.getString(1),
+                    cursorUsers.getString(2),
+                    cursorUsers.getString(3)));
             } while(cursorUsers.moveToNext());
         }
 
         cursorUsers.close();
         return userModalArrayList;
-
     }
 
+    //Adds a user to the Users table
     public void addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -113,10 +121,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursor.close();
-
         //If user doesn't match any in database, foundPassword will be null
         return foundPassword;
-
     }
 
     //Finds the password of a certain user
@@ -136,11 +142,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //If user doesn't match any in database, foundType will be null
         return foundType;
-
     }
 
     //Public method deleting a user from the database. Returns true if successfully deleted.
-    //NOTE: currently no password needed to delete
+    //NOTE: currently no password needed to delete an account
     public boolean removeUser(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

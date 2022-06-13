@@ -13,7 +13,7 @@ public class AdministratorActivity extends AppCompatActivity {
     //Declarations
     protected Button back, delete;
     protected TextView textView, usernameDisplay;
-    protected boolean doublePressed = false; //this boolean condirms whether the user has confirmed their account deletion by double pressing delete
+    protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
