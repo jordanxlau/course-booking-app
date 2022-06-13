@@ -15,11 +15,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/idTVuserName"
+            android:id="@+id/idTVuserID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="User Name"
+            android:text="User ID"
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -29,17 +29,17 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/idTVuserID"
+                android:id="@+id/idTVuserPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="User ID"
+                android:text="User Type"
                 android:textColor="@color/black" />
 
 
             <TextView
-                android:id="@+id/idTVuserPassword"
+                android:id="@+id/idTVuserName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -40,7 +40,7 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
         UserModal modal = userModalArrayList.get(position);
         holder.userIDTV.setText(modal.getID());
         holder.userNameTV.setText(modal.getUsername());
-        holder.userPasswordTV.setText(modal.getPassword());
+        holder.userPasswordTV.setText("account type:");
         holder.userTypeTV.setText(modal.getUsertype());
     }
 
@@ -61,7 +61,8 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
             userIDTV = itemView.findViewById(R.id.idTVuserID);
             userNameTV = itemView.findViewById(R.id.idTVuserName);
             userPasswordTV = itemView.findViewById(R.id.idTVuserPassword);
-            userTypeTV = itemView.findViewById(R.id.idTVuserPassword);
+            userTypeTV = itemView.findViewById(R.id.idTVuserType);
+
         }
     }
 }
