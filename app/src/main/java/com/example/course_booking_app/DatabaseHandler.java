@@ -94,17 +94,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        System.out.println("TRACE ADDUSER()");
 
-        //Only adds the user if it cannot find a password associated with that user (and therefore the user doesn't yet exist)
-        if (this.findPassword(username) == null) {
+        if (this.findPassword(username) == null && !type.equals("-- Account to Create --")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
-
             db.insert(USER_TABLE_NAME, null, values);
+        } else if (type.equals("-- Account to Create --")){//Account type not selected yet
+            MainActivity.message.setText("Select account type");
+        } else if (this.findPassword(username) != null){
+            MainActivity.message.setText("User already exists");
         }
-        db.close();
     }
 
     //Finds the password of a certain user
@@ -117,7 +117,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){//If password matches
             foundPassword = cursor.getString(0);
-            System.out.println(foundPassword);
         }
 
         cursor.close();
@@ -135,11 +134,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){//If password matches
             foundType = cursor.getString(0);
-            System.out.println(foundType);
         }
 
         cursor.close();
-
         //If user doesn't match any in database, foundType will be null
         return foundType;
     }

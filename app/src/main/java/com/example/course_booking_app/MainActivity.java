@@ -74,27 +74,25 @@ public class MainActivity extends AppCompatActivity{
 
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
                     //Display error message (can't find user)
-                    message.setText("can't find user");
+                    message.setText("User not found");
                 } else if (foundPass.equals(actualPass)) {//Password matches username
                     //Move to next screen
-                    message.setText("found user");
-                    String userType = db.findUserType(userEntered);
+                    message.setText("Logging in...");
                     //Update the public field currentUser
                     currentUser = userEntered;
                     //Open the correct welcome page
-                    if(userType.equals("admin")){
+                    String typeEntered = db.findUserType(userEntered);
+                    if(typeEntered.equals("admin")){
                         openAdministratorActivity();
-                    }
-                    else if(userType.equals("teacher")){
+                    } else if(typeEntered.equals("teacher")){
                         openInstructorActivity();
-                    }
-                    else if(userType.equals("student")){
+                    } else {
                         openStudentActivity();
                     }
 
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
-                    message.setText("wrong password");
+                    message.setText("Wrong password");
                 }
             }
         });
@@ -103,11 +101,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //Add a user of the correct user account type to the database
-                System.out.println("TRACE CREATE");
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
-                System.out.println(name + " " + pass + " " + type);
                 db.addUser(name, pass, type);
             }
         });
@@ -115,19 +111,26 @@ public class MainActivity extends AppCompatActivity{
         //View database data
         viewData(db);
 
+        //Temporary accounts to be removed
+        db.removeUser("jordan");
+        db.removeUser("adfg");
+        db.removeUser("hgfds");
     }
 
-    public void openAdministratorActivity(){
+    //Opens admin welcome page
+    protected void openAdministratorActivity(){
         Intent intent = new Intent(this, AdministratorActivity.class);
         startActivity(intent);
     }
 
-    public void openInstructorActivity(){
+    //Opens instructor welcome page
+    protected void openInstructorActivity(){
         Intent intent = new Intent(this, InstructorActivity.class);
         startActivity(intent);
     }
 
-    public void openStudentActivity(){
+    //Opens student welcome page
+    protected void openStudentActivity(){
         Intent intent = new Intent(this, StudentActivity.class);
         startActivity(intent);
     }
@@ -140,11 +143,9 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
 
-        if (cursor.getCount() == 0) {
-            message.setText("No data");
-        } else {
+        if (cursor.getCount() != 0) {
             while (cursor.moveToNext()) {
-                userList.add(cursor.getString(1) + "     "  + cursor.getString(2));
+                userList.add(cursor.getString(1) + "     "  + cursor.getString(2) + "     "  + cursor.getString(3));
             }
         }
 
