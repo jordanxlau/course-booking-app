@@ -39,7 +39,7 @@ public class AdministratorActivity extends AppCompatActivity{
         usernameDisplay = findViewById(R.id.usernameDisplay);
         textView = findViewById(R.id.textView);
 
-        //setup
+        //Item Touch Helper setup
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
 
             @Override
@@ -75,6 +75,7 @@ public class AdministratorActivity extends AppCompatActivity{
             }
         };
 
+        //Other setup
         userModalArrayList = new ArrayList<>();
         dbHandler = new DatabaseHandler(AdministratorActivity.this);
 
@@ -104,12 +105,12 @@ public class AdministratorActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (doublePressed == true) {
-                    textView.setText("Account deleted");
+                    textView.setText("Account deleted.");
                     System.out.println( (MainActivity.db).removeUser(MainActivity.currentUser) );
                     doublePressed = false;
                     openMain();
                 } else {
-                    textView.setText("Press again to confirm");
+                    textView.setText("Press again to confirm.");
                     doublePressed = true;
                 }
             }

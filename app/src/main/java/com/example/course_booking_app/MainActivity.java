@@ -57,11 +57,14 @@ public class MainActivity extends AppCompatActivity{
 
         //Add preset users to the database
         db.addUser("admin", "admin123", "administrator");
+
+        //Initialize message
+        message.setText("uOttawa Course Portal login");
+
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// Specify the layout to use when the list of choices appears
         userType.setAdapter(adapter);// Apply the adapter to the spinner
-
 
         //Create action listeners
         enter.setOnClickListener(new View.OnClickListener() {
@@ -103,15 +106,16 @@ public class MainActivity extends AppCompatActivity{
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
-                db.addUser(name, pass, type);
+                if ( db.addUser(name, pass, type) ) {
+                    message.setText("Account Created");
+                }
             }
         });
 
-//        //View database data
-//        viewData(db);
+/*        //View database data
+        viewData(db);*/
 
         //Temporary accounts to be removed
-        db.removeUser("jordan");
         db.removeUser("adfg");
         db.removeUser("hgfds");
     }
@@ -134,22 +138,22 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-//    //For viewing database data
-//    private void viewData(DatabaseHandler db){
-//        Cursor cursor = db.getUserData();
-//
-//        if (cursor == null) {
-//            return;
-//        }
-//
-//        if (cursor.getCount() != 0) {
-//            while (cursor.moveToNext()) {
-//                userList.add(cursor.getString(1) + "     "  + cursor.getString(2) + "     "  + cursor.getString(3));
-//            }
-//        }
-//
-//        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
-//        list.setAdapter(adapter);
-//    }
+/*    //For viewing database data
+    private void viewData(DatabaseHandler db){
+        Cursor cursor = db.getUserData();
+
+        if (cursor == null) {
+            return;
+        }
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                userList.add(cursor.getString(1) + "     "  + cursor.getString(2) + "     "  + cursor.getString(3));
+            }
+        }
+
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
+        list.setAdapter(adapter);
+    }*/
 
 }

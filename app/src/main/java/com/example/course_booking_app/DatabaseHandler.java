@@ -61,13 +61,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(upgrade);
     }
 
-//    //Gets users in the form of Cursor
-//    public Cursor getUserData(){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        String query = "SELECT * FROM " + USER_TABLE_NAME;
-//        return db.rawQuery(query, null); // returns "cursor" all products from the table
-//    }
+/*  //Gets users in the form of Cursor
+    public Cursor getUserData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + USER_TABLE_NAME;
+        return db.rawQuery(query, null); // returns "cursor" all products from the table
+    }*/
 
     //Gets users in the form of ArrayList
     public ArrayList<UserModal> getUsers(){
@@ -91,20 +91,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Adds a user to the Users table
-    public void addUser(String username, String password, String type) {
+    public boolean addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        boolean result = false;
 
         if (this.findPassword(username) == null && !type.equals("--Select account type for creation--")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
             db.insert(USER_TABLE_NAME, null, values);
+            result = true;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
-            MainActivity.message.setText("Error: Please select account type!");
+            MainActivity.message.setText("Please select account type!");
         } else if (this.findPassword(username) != null){
-            MainActivity.message.setText("Error: User already exists!");
+            MainActivity.message.setText("User already exists!");
         }
+
+        return result;
     }
 
     //Finds the password of a certain user
