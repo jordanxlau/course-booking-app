@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity{
         db = new DatabaseHandler(this);
 
         //Add preset users to the database
-        db.addUser("admin", "admin123", "admin");
-
+        db.addUser("admin", "admin123", "administrator");
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// Specify the layout to use when the list of choices appears
@@ -82,9 +81,9 @@ public class MainActivity extends AppCompatActivity{
                     currentUser = userEntered;
                     //Open the correct welcome page
                     String typeEntered = db.findUserType(userEntered);
-                    if(typeEntered.equals("admin")){
+                    if(typeEntered.equals("administrator")){
                         openAdministratorActivity();
-                    } else if(typeEntered.equals("teacher")){
+                    } else if(typeEntered.equals("instructor")){
                         openInstructorActivity();
                     } else {
                         openStudentActivity();
