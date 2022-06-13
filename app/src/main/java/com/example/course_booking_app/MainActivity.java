@@ -1,5 +1,6 @@
 package com.example.course_booking_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,11 +24,16 @@ public class MainActivity extends AppCompatActivity{
     //Widget/Attribute declarations
     protected Button enter, create;
     protected EditText username, password;
-    public static TextView message;
+    public static TextView message;//For welcome messages
     protected Spinner userType;
     protected ListView list;
     protected ArrayAdapter adapter;
     public static DatabaseHandler db;
+
+    //Toast declarations
+    public int duration = Toast.LENGTH_LONG;
+    public Toast toast;//for error messages
+    public Context context;
 
     //Other field declarations
     protected ArrayList<String> userList;
@@ -48,6 +55,9 @@ public class MainActivity extends AppCompatActivity{
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
         list = findViewById(R.id.list);
+
+        //Initialize context
+        context = getApplicationContext();
 
         //Initialize userList
         userList = new ArrayList<>();
@@ -76,10 +86,12 @@ public class MainActivity extends AppCompatActivity{
 
                 if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
                     //Display error message (can't find user)
-                    message.setText("User not found");
+                    toast = Toast.makeText(context, "User not found.", duration);
+                    toast.show();
                 } else if (foundPass.equals(actualPass)) {//Password matches username
                     //Move to next screen
-                    message.setText("Logging in...");
+                    toast = Toast.makeText(context, "Logging in...", Toast.LENGTH_SHORT);
+                    toast.show();
                     //Update the public field currentUser
                     currentUser = userEntered;
                     //Open the correct welcome page
@@ -94,7 +106,8 @@ public class MainActivity extends AppCompatActivity{
 
                 } else {//User exists but password is incorrect
                     //Display error message (password incorrect)
-                    message.setText("Wrong password");
+                    toast = Toast.makeText(context, "Wrong password!", duration);
+                    toast.show();
                 }
             }
         });
@@ -107,7 +120,8 @@ public class MainActivity extends AppCompatActivity{
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
                 if ( db.addUser(name, pass, type) ) {
-                    message.setText("Account Created");
+                    toast = Toast.makeText(context, "Account created.", duration);
+                    toast.show();
                 }
             }
         });

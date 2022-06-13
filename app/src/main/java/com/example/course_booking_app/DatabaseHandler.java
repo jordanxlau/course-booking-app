@@ -104,7 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             result = true;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
             MainActivity.message.setText("Please select account type!");
-        } else if (this.findPassword(username) != null){
+        } else if (this.findPassword(username) != null){//User already exists
             MainActivity.message.setText("User already exists!");
         }
 

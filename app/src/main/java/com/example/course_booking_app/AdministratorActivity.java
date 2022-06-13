@@ -18,11 +18,17 @@ import java.util.ArrayList;
 
 public class AdministratorActivity extends AppCompatActivity{
 
-    //Declarations
+    //Widget Declarations
     protected Button back, delete;
-    protected TextView textView, usernameDisplay;
+    protected TextView usernameDisplay;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
+    //Declarations for toast
+    public int duration = Toast.LENGTH_LONG;
+    public Toast toast;
+    public Context context;
+
+    //Other declarations
     private ArrayList<UserModal> userModalArrayList;
     private DatabaseHandler dbHandler;
     private UserRVAdapter userRVAdapter;
@@ -37,7 +43,9 @@ public class AdministratorActivity extends AppCompatActivity{
         back = findViewById(R.id.back);
         delete = findViewById(R.id.delete);
         usernameDisplay = findViewById(R.id.usernameDisplay);
-        textView = findViewById(R.id.textView);
+
+        //Initialize context
+        context = getApplicationContext();
 
         //Item Touch Helper setup
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
@@ -55,23 +63,19 @@ public class AdministratorActivity extends AppCompatActivity{
                 pos = viewHolder.getAdapterPosition();
                 purgedUser = userModalArrayList.get(pos).getUsername();
 
-                Context context = getApplicationContext();
-                CharSequence text;
-                int duration = Toast.LENGTH_LONG;
-
                 if(purgedUser.equals("admin")){
-                    text = "The default administrator account cannot be deleted!";
+                    toast = Toast.makeText(context, "Default admin account cannot be deleted!", duration);
+                    toast.show();
                     userRVAdapter.notifyDataSetChanged();
                 }
                 else{
-                    text = "Account '" + purgedUser + "' deleted!";
+                    toast = Toast.makeText(context, "Account '" + purgedUser + "' deleted!", duration);
+                    toast.show();
                     MainActivity.db.removeUser(purgedUser);
                     userModalArrayList.remove(pos);
                     userRVAdapter.notifyDataSetChanged();
                 }
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
             }
         };
 
@@ -105,12 +109,14 @@ public class AdministratorActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (doublePressed == true) {
-                    textView.setText("Account deleted.");
+                    toast = Toast.makeText(context, "Account deleted.", duration);
+                    toast.show();
                     System.out.println( (MainActivity.db).removeUser(MainActivity.currentUser) );
                     doublePressed = false;
                     openMain();
                 } else {
-                    textView.setText("Press again to confirm.");
+                    toast = Toast.makeText(context, "Press again to confirm.", duration);
+                    toast.show();
                     doublePressed = true;
                 }
             }
