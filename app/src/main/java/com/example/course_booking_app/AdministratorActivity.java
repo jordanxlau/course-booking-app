@@ -25,7 +25,7 @@ public class AdministratorActivity extends AppCompatActivity{
 
     //Declarations for toast
     public int duration = Toast.LENGTH_LONG;
-    public Toast toast;
+    public static Toast toast;
     public Context context;
 
     //Other declarations

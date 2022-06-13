@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity{
     public static DatabaseHandler db;
 
     //Toast declarations
-    public int duration = Toast.LENGTH_LONG;
-    public Toast toast;//for error messages
-    public Context context;
+    public static int duration = Toast.LENGTH_LONG;
+    public static Toast toast;//for error messages
+    public static Context context;
 
     //Other field declarations
     protected ArrayList<String> userList;
