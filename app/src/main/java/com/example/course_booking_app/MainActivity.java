@@ -2,7 +2,6 @@ package com.example.course_booking_app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,10 +21,7 @@ public class MainActivity extends AppCompatActivity{
     //Widget/Attribute declarations
     protected Button enter, create;
     protected EditText username, password;
-    public static TextView message;//For welcome messages
     protected Spinner userType;
-    protected ListView list;
-    protected ArrayAdapter adapter;
     public static DatabaseHandler db;
 
     //Toast declarations
@@ -50,7 +44,6 @@ public class MainActivity extends AppCompatActivity{
         //Initialize widgets
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        message = findViewById(R.id.message);
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
@@ -65,13 +58,10 @@ public class MainActivity extends AppCompatActivity{
         db = new DatabaseHandler(this);
 
         //Add preset users to the database
-        db.addUser("admin", "admin123", "administrator");
+        //db.addUser("admin", "admin123", "administrator");
 
         //add preset courses
-        db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
-
-        //Initialize message
-        message.setText("uOttawa Course Portal login");
+        //db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
 
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
@@ -128,12 +118,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-/*        //View database data
-        viewData(db);*/
-
-        //Temporary accounts to be removed
-        db.removeUser("adfg");
-        db.removeUser("hgfds");
     }
 
     //Opens admin welcome page

@@ -21,7 +21,7 @@ public class SpinnerActivity extends Activity implements AdapterView.OnItemSelec
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
-        MainActivity.message.setText("Select account type");
+        MainActivity.toast.makeText(MainActivity.context, "Select account type", MainActivity.duration).show();
     }
 
     public String getSelectedItem(){
