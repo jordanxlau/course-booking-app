@@ -12,9 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,10 +22,7 @@ public class MainActivity extends AppCompatActivity{
     //Widget/Attribute declarations
     protected Button enter, create;
     protected EditText username, password;
-    public static TextView message;//For welcome messages
     protected Spinner userType;
-    protected ListView list;
-    protected ArrayAdapter adapter;
     public static DatabaseHandler db;
 
     //Toast declarations
@@ -50,11 +45,9 @@ public class MainActivity extends AppCompatActivity{
         //Initialize widgets
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        message = findViewById(R.id.message);
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
-        list = findViewById(R.id.list);
 
         //Initialize context
         context = getApplicationContext();
@@ -70,9 +63,6 @@ public class MainActivity extends AppCompatActivity{
 
         //add preset courses
         db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
-
-        //Initialize message
-        message.setText("uOttawa Course Portal login");
 
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
