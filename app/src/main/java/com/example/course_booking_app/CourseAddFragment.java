@@ -99,44 +99,43 @@ public class CourseAddFragment extends Fragment{
 
                 boolean acceptable = false;
 
-                while(acceptable == false){
-                    if(tempCode.length() < 7){
-                        toastMessage = "Course code must be at least 7 characters in length!";
-                    }
-                    else if(tempName.length() < 5){
-                        toastMessage = "The course name field must not be empty!";
-                    }
-                    else if(tempInstructor.length() < 5){
-                        toastMessage = "The course instructor field must not be empty!";
+                if(tempCode.length() < 7){
+                    toastMessage = "Course code must be at least 7 characters in length!";
+                }
+                else if(tempName.length() < 5){
+                    toastMessage = "The course name field must not be empty!";
+                }
+                else if(tempInstructor.length() < 5){
+                    toastMessage = "The course instructor field must not be empty!";
+                }
+                else{
+                    acceptable = true;
+                    if(((CoursesActivity)getActivity()).isAdd == true){
+                        toastMessage = "New course has been added!";
                     }
                     else{
-                        acceptable = true;
-                        if(((CoursesActivity)getActivity()).isAdd == true){
-                            toastMessage = "New course has been added!";
-                        }
-                        else{
-                            toastMessage = "Existing course has been modified!";
-                        }
+                        toastMessage = "Existing course has been modified!";
                     }
-                    Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
 
-                if(((CoursesActivity)getActivity()).isAdd == true){
-                    ((CoursesActivity)getActivity()).dbHandler.addCourse(tempCode, tempName, tempInstructor);
+                if(acceptable == true) {
+                    if (((CoursesActivity) getActivity()).isAdd == true) {
+                        ((CoursesActivity) getActivity()).dbHandler.addCourse(tempCode, tempName, tempInstructor);
+                    } else {
+                        ContentValues cv = new ContentValues();
+                        ((CoursesActivity) getActivity()).dbHandler.modifyCourse(
+                                ((CoursesActivity) getActivity()).editEntry,
+                                tempCode,
+                                tempName,
+                                tempInstructor);
+                    }
+
+                    ((CoursesActivity) getActivity()).courseRVAdapter.notifyDataSetChanged();
+
+                    //this fragment will now remove itself
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
                 }
-                else {
-                    ContentValues cv = new ContentValues();
-                    ((CoursesActivity)getActivity()).dbHandler.modifyCourse(
-                            ((CoursesActivity)getActivity()).editEntry,
-                            tempCode,
-                            tempName,
-                            tempInstructor);
-                }
-
-                ((CoursesActivity)getActivity()).courseRVAdapter.notifyDataSetChanged();
-
-                //this fragment will now remove itself
-                getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
             }
         });
 
