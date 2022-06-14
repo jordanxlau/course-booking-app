@@ -140,6 +140,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+    //modify a course
+    public boolean modifyCourse(String identifier, String courseCode, String courseName, String courseInstructor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean result = false;
+
+        values.put(COURSE_COL_CODE, courseCode);
+        values.put(COURSE_COL_NAME, courseName);
+        values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+        db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{identifier});
+        result = true;
+
+        return result;
+    }
+
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();

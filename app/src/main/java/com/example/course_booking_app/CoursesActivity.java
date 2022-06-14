@@ -24,20 +24,21 @@ public class CoursesActivity extends AppCompatActivity{
     protected Button addCourse;
 
     //Declarations for toast
-    public int duration = Toast.LENGTH_LONG;
-    public int shortDuration = Toast.LENGTH_SHORT;
-    public static Toast toast;
-    public Context context;
+    private int duration = Toast.LENGTH_LONG;
+    private int shortDuration = Toast.LENGTH_SHORT;
+    private static Toast toast;
+    private Context context;
 
     //Other declarations
-    private ArrayList<CourseModal> courseModalArrayList;
-    private DatabaseHandler dbHandler;
-    private CourseRVAdapter courseRVAdapter;
-    private RecyclerView coursesRV;
+    public ArrayList<CourseModal> courseModalArrayList;
+    public DatabaseHandler dbHandler;
+    public CourseRVAdapter courseRVAdapter;
+    public RecyclerView coursesRV;
 
     //declaration for modified course
     public static CourseModal modifiedCourse = new CourseModal("","","","");
-    public static boolean isReady = false;
+    public static boolean isAdd;
+    public static String editEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +63,35 @@ public class CoursesActivity extends AppCompatActivity{
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int pos;
-                String purgedCourse;
-                String courseCode;
 
-                pos = viewHolder.getAdapterPosition();
-                purgedCourse = courseModalArrayList.get(pos).getID();
-                courseCode = courseModalArrayList.get(pos).getCode();
+                if(direction == ItemTouchHelper.RIGHT){
+                    int pos;
+                    String purgedCourse;
+                    String courseCode;
 
-                toast = Toast.makeText(context, "Course '" + courseCode + "' deleted!", duration);
-                toast.show();
-                MainActivity.db.removeCourse(purgedCourse);
-                courseModalArrayList.remove(pos);
-                courseRVAdapter.notifyDataSetChanged();
+                    pos = viewHolder.getAdapterPosition();
+                    purgedCourse = courseModalArrayList.get(pos).getID();
+                    courseCode = courseModalArrayList.get(pos).getCode();
+
+                    toast = Toast.makeText(context, "Course '" + courseCode + "' deleted!", duration);
+                    toast.show();
+                    MainActivity.db.removeCourse(purgedCourse);
+                    courseModalArrayList.remove(pos);
+                    courseRVAdapter.notifyDataSetChanged();
+                }
+                else if(direction == ItemTouchHelper.LEFT){
+                    int pos;
+                    pos = viewHolder.getAdapterPosition();
+                    modifiedCourse = courseModalArrayList.get(pos);
+                    isAdd = false;
+                    editEntry = modifiedCourse.getID();
+
+                    //create a fragment
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.courseFragment, new CourseAddFragment());
+                    ft.commit();
+
+                }
             }
         };
 
@@ -112,42 +129,12 @@ public class CoursesActivity extends AppCompatActivity{
         addCourse.setOnClickListener(new View.OnClickListener(){
             @Override
 
-            public void onClick(View v){
-                isReady = false;
-
+            public void onClick(View v) {
                 //create a fragment
+                isAdd = true;
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.courseFragment, new CourseAddFragment());
                 ft.commit();
-
-                while(isReady == false){
-
-                }
-
-                //add the user
-                String tempCode = modifiedCourse.getCode().trim();
-                String tempName = modifiedCourse.getName().trim();
-                String tempInstructor = modifiedCourse.getInstructor().trim();
-
-                String toastMessage = "";
-
-                if(tempCode.length() < 7){
-                    toastMessage = "Course code must be at least 7 characters in length!";
-                }
-                else if(tempName.length() < 5){
-                    toastMessage = "The course name field must not be empty!";
-                }
-                else if(tempInstructor.length() < 5){
-                    toastMessage = "The course instructor field must not be empty!";
-                }
-                else{
-                    toastMessage = "New course has been added!";
-                    dbHandler.addCourse(tempCode, tempName, tempInstructor);
-                    courseRVAdapter.notifyDataSetChanged();
-                }
-
-                toast = Toast.makeText(context, toastMessage, duration);
-                toast.show();
 
             }
         });

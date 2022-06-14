@@ -1,5 +1,7 @@
 package com.example.course_booking_app;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -14,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,16 +81,61 @@ public class CourseAddFragment extends Fragment{
         editCourseInstructor = (EditText) view.findViewById(R.id.editInstructor);
         addCourse = (Button) view.findViewById(R.id.addCourse);
 
+        if(((CoursesActivity)getActivity()).isAdd == false){
+            editCourseName.setText(((CoursesActivity)getActivity()).modifiedCourse.getName());
+            editCourseCode.setText(((CoursesActivity)getActivity()).modifiedCourse.getCode());
+            editCourseInstructor.setText(((CoursesActivity)getActivity()).modifiedCourse.getInstructor());
+        }
+
         addCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((CoursesActivity)getActivity()).modifiedCourse = new CourseModal("",
-                        editCourseCode.getText().toString(),
-                        editCourseName.getText().toString(),
-                        editCourseInstructor.getText().toString()
-                );
+                //add the user
+                String tempCode = editCourseCode.getText().toString();
+                String tempName = editCourseName.getText().toString();
+                String tempInstructor = editCourseInstructor.getText().toString();
+
+                String toastMessage = "";
+
+                boolean acceptable = false;
+
+                while(acceptable == false){
+                    if(tempCode.length() < 7){
+                        toastMessage = "Course code must be at least 7 characters in length!";
+                    }
+                    else if(tempName.length() < 5){
+                        toastMessage = "The course name field must not be empty!";
+                    }
+                    else if(tempInstructor.length() < 5){
+                        toastMessage = "The course instructor field must not be empty!";
+                    }
+                    else{
+                        acceptable = true;
+                        if(((CoursesActivity)getActivity()).isAdd == true){
+                            toastMessage = "New course has been added!";
+                        }
+                        else{
+                            toastMessage = "Existing course has been modified!";
+                        }
+                    }
+                    Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
+                }
+
+                if(((CoursesActivity)getActivity()).isAdd == true){
+                    ((CoursesActivity)getActivity()).dbHandler.addCourse(tempCode, tempName, tempInstructor);
+                }
+                else {
+                    ContentValues cv = new ContentValues();
+                    ((CoursesActivity)getActivity()).dbHandler.modifyCourse(
+                            ((CoursesActivity)getActivity()).editEntry,
+                            tempCode,
+                            tempName,
+                            tempInstructor);
+                }
+
+                ((CoursesActivity)getActivity()).courseRVAdapter.notifyDataSetChanged();
+
                 //this fragment will now remove itself
-                ((CoursesActivity)getActivity()).isReady = true;
                 getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
             }
         });
