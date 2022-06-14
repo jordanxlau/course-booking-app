@@ -113,7 +113,6 @@ public class AdministratorActivity extends AppCompatActivity{
         viewCourses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Goes back to MainActivity.java
                 openCourses();
             }
         });
@@ -140,8 +139,10 @@ public class AdministratorActivity extends AppCompatActivity{
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     protected void openCourses(){
         Intent intent = new Intent(this, CoursesActivity.class);
         startActivity(intent);
     }
+
 }

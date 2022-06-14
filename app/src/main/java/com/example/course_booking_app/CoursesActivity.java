@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class CoursesActivity extends AppCompatActivity{
     //Widget Declarations
     protected Button back;
     protected Button viewUsers;
+    protected Button addCourse;
 
     //Declarations for toast
     public int duration = Toast.LENGTH_LONG;
@@ -36,11 +36,12 @@ public class CoursesActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_administrator);
+        setContentView(R.layout.activity_courses);
 
         //Initialize widgets
         back = findViewById(R.id.back);
         viewUsers = findViewById(R.id.viewUsers);
+        addCourse = findViewById(R.id.addCourse);
 
         //Initialize context
         context = getApplicationContext();
@@ -61,18 +62,13 @@ public class CoursesActivity extends AppCompatActivity{
                 pos = viewHolder.getAdapterPosition();
                 purgedCourse = courseModalArrayList.get(pos).getCode();
 
-                if(purgedCourse.equals("admin")){
-                    toast = Toast.makeText(context, "Default admin account cannot be deleted!", duration);
-                    toast.show();
-                    courseRVAdapter.notifyDataSetChanged();
-                }
-                else{
-                    toast = Toast.makeText(context, "Course '" + purgedCourse + "' deleted!", duration);
-                    toast.show();
-                    MainActivity.db.removeUser(purgedCourse);
-                    courseModalArrayList.remove(pos);
-                    courseRVAdapter.notifyDataSetChanged();
-                }
+
+                toast = Toast.makeText(context, "Course '" + purgedCourse + "' deleted!", duration);
+                toast.show();
+                MainActivity.db.removeUser(purgedCourse);
+                courseModalArrayList.remove(pos);
+                courseRVAdapter.notifyDataSetChanged();
+
 
             }
         };

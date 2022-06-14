@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity{
         //Add preset users to the database
         db.addUser("admin", "admin123", "administrator");
 
+        //add preset courses
+        db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
+
         //Initialize message
         message.setText("uOttawa Course Portal login");
 
