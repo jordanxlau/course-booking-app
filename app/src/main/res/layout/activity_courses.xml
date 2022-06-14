@@ -6,27 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".AdministratorActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="24dp"
-        android:text="Welcome to the administrator control panel"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="406dp"
-        android:layout_height="571dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="400dp"
+        android:layout_height="597dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/addCourse" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -48,25 +36,24 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/viewCourses"
+            android:id="@+id/viewUsers"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/cardview_light_background"
             android:outlineSpotShadowColor="@color/black"
-            android:text="Manage Courses"
+            android:text="Manage Users"
             android:textColor="@color/garnet" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/usernameDisplay"
+    <Button
+        android:id="@+id/addCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="177dp"
-        android:text="logged in as: "
+        android:layout_marginTop="16dp"
+        android:text="Add Course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />

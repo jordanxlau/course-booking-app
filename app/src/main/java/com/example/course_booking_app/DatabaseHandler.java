@@ -61,14 +61,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(upgrade);
     }
 
-/*  //Gets users in the form of Cursor
-    public Cursor getUserData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + USER_TABLE_NAME;
-        return db.rawQuery(query, null); // returns "cursor" all products from the table
-    }*/
-
     //Gets users in the form of ArrayList
     public ArrayList<UserModal> getUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -90,6 +82,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return userModalArrayList;
     }
 
+    //Gets courses in the form of ArrayList
+    public ArrayList<CourseModal> getCourses(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCourses = db.rawQuery("SELECT * FROM " + COURSE_TABLE_NAME, null);
+
+        ArrayList<CourseModal> courseModalArrayList = new ArrayList<>();
+
+        if(cursorCourses.moveToFirst()){
+            do{
+                courseModalArrayList.add(new CourseModal(cursorCourses.getString(0),
+                        cursorCourses.getString(1),
+                        cursorCourses.getString(2),
+                        cursorCourses.getString(3)));
+            } while(cursorCourses.moveToNext());
+        }
+
+        cursorCourses.close();
+        return courseModalArrayList;
+    }
+
     //Adds a user to the Users table
     public boolean addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -107,6 +120,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } else if (this.findPassword(username) != null){//User already exists
             MainActivity.toast.makeText(MainActivity.context, "User already exists!", MainActivity.duration).show();
         }
+
+        return result;
+    }
+
+
+    //Adds a course to the courses table
+    public boolean addCourse(String courseCode, String courseName, String courseInstructor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean result = false;
+
+        values.put(COURSE_COL_CODE, courseCode);
+        values.put(COURSE_COL_NAME, courseName);
+        values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+        db.insert(COURSE_TABLE_NAME, null, values);
+        result = true;
 
         return result;
     }
@@ -158,6 +187,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             result = true;
             db.delete(USER_TABLE_NAME, USER_COL_NAME + "=?", new String[]{username});
+            cursor.close();
+        }
+
+        return result;
+    }
+
+    //Public method deleting a course from the database. Returns true if successfully deleted.
+    public boolean removeCourse(String courseName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean result = false;
+
+        //SELECT * FROM courses WHERE "courseName" = "courseName"
+        String query = "SELECT * FROM "+ COURSE_TABLE_NAME + " WHERE " + COURSE_COL_NAME + " = \"" + courseName + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            result = true;
+            db.delete(COURSE_TABLE_NAME, COURSE_COL_NAME + "=?", new String[]{courseName});
             cursor.close();
         }
 

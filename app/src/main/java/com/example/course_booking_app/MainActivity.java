@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity{
         //Add preset users to the database
         db.addUser("admin", "admin123", "administrator");
 
+        //add preset courses
+        db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
+
         //Initialize message
         message.setText("uOttawa Course Portal login");
 
@@ -151,23 +154,6 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(this, StudentActivity.class);
         startActivity(intent);
     }
-
-/*    //For viewing database data
-    private void viewData(DatabaseHandler db){
-        Cursor cursor = db.getUserData();
-
-        if (cursor == null) {
-            return;
-        }
-
-        if (cursor.getCount() != 0) {
-            while (cursor.moveToNext()) {
-                userList.add(cursor.getString(1) + "     "  + cursor.getString(2) + "     "  + cursor.getString(3));
-            }
-        }
-
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userList);
-        list.setAdapter(adapter);
-    }*/
+    
 
 }
