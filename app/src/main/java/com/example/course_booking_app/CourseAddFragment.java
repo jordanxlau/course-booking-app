@@ -86,6 +86,7 @@ public class CourseAddFragment extends Fragment{
                         editCourseName.getText().toString(),
                         editCourseInstructor.getText().toString()
                 );
+                //this fragment will now remove itself
                 getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
             }
         });

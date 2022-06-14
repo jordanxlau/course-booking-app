@@ -115,6 +115,11 @@ public class CoursesActivity extends AppCompatActivity{
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.courseFragment, new CourseAddFragment());
                 ft.commit();
+                //add the user
+                dbHandler.addCourse(modifiedCourse.getCode(),modifiedCourse.getName(),modifiedCourse.getInstructor());
+                toast = Toast.makeText(context, "New course has been added!", duration);
+                toast.show();
+                courseRVAdapter.notifyDataSetChanged();
             }
         });
     }
