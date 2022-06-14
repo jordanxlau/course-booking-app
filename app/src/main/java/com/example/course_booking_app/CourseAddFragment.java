@@ -1,8 +1,10 @@
 package com.example.course_booking_app;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +86,7 @@ public class CourseAddFragment extends Fragment{
                         editCourseName.getText().toString(),
                         editCourseInstructor.getText().toString()
                 );
-                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
             }
         });
 
@@ -94,5 +96,6 @@ public class CourseAddFragment extends Fragment{
     public CourseModal getModifiedCourse(){
         return this.modifiedCourse;
     }
+
 
 }

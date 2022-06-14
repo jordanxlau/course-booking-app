@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:elevation="3dp"
     tools:context=".CourseAddFragment">
 
     <EditText
@@ -18,6 +17,8 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:hint="Course Code"
+        android:textColorHint="@color/grey"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +31,8 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:hint="Course Name"
+        android:textColorHint="@color/grey"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editCourseCode" />
@@ -42,6 +45,8 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:hint="Instructor"
+        android:textColorHint="@color/grey"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editCourseName" />
