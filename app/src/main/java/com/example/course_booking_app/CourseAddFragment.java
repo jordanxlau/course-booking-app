@@ -18,7 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
  * Use the {@link CourseAddFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseAddFragment extends Fragment implements View.OnClickListener{
+public class CourseAddFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,10 +76,22 @@ public class CourseAddFragment extends Fragment implements View.OnClickListener{
         editCourseInstructor = (EditText) view.findViewById(R.id.editInstructor);
         addCourse = (Button) view.findViewById(R.id.addCourse);
 
+        addCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifiedCourse = new CourseModal("",
+                        editCourseCode.getText().toString(),
+                        editCourseName.getText().toString(),
+                        editCourseInstructor.getText().toString()
+                );
+            }
+        });
+
         return view;
     }
 
-
-
+    public CourseModal getModifiedCourse(){
+        return this.modifiedCourse;
+    }
 
 }

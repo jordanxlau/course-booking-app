@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity{
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
-        list = findViewById(R.id.list);
 
         //Initialize context
         context = getApplicationContext();

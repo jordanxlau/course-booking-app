@@ -36,5 +36,5 @@
         android:id="@+id/addCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Course" />
+        android:text="Effectuate Change" />
 </LinearLayout>
