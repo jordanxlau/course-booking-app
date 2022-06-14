@@ -33,6 +33,9 @@ public class CoursesActivity extends AppCompatActivity{
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
 
+    //declaration for modified course
+    public static CourseModal modifiedCourse = new CourseModal("","","","");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +103,15 @@ public class CoursesActivity extends AppCompatActivity{
             public void onClick(View v) {
                 //Goes back to MainActivity.java
                 openUsers();
+            }
+        });
+
+        addCourse.setOnClickListener(new View.OnClickListener(){
+            @Override
+
+            public void onClick(View v){
+                //create a fragment
+
             }
         });
     }
