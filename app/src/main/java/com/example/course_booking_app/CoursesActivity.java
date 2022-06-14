@@ -2,6 +2,7 @@ package com.example.course_booking_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -111,7 +112,9 @@ public class CoursesActivity extends AppCompatActivity{
 
             public void onClick(View v){
                 //create a fragment
-
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.courseFragment, new CourseAddFragment());
+                ft.commit();
             }
         });
     }
