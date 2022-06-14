@@ -44,6 +44,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:text="Course Name"
+                android:layout_gravity="center"
                 android:textColor="@color/black" />
 
         </LinearLayout>
