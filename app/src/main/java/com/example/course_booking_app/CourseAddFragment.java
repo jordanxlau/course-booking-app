@@ -47,7 +47,6 @@ public class CourseAddFragment extends Fragment{
 
     protected EditText editCourseName, editCourseInstructor, editCourseCode;
     protected Button addCourse;
-    private CourseModal modifiedCourse;
 
     public static CourseAddFragment newInstance(String param1, String param2) {
         CourseAddFragment fragment = new CourseAddFragment();
@@ -81,22 +80,18 @@ public class CourseAddFragment extends Fragment{
         addCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifiedCourse = new CourseModal("",
+                ((CoursesActivity)getActivity()).modifiedCourse = new CourseModal("",
                         editCourseCode.getText().toString(),
                         editCourseName.getText().toString(),
                         editCourseInstructor.getText().toString()
                 );
                 //this fragment will now remove itself
+                ((CoursesActivity)getActivity()).isReady = true;
                 getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
             }
         });
 
         return view;
     }
-
-    public CourseModal getModifiedCourse(){
-        return this.modifiedCourse;
-    }
-
 
 }

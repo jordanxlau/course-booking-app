@@ -25,6 +25,7 @@ public class CoursesActivity extends AppCompatActivity{
 
     //Declarations for toast
     public int duration = Toast.LENGTH_LONG;
+    public int shortDuration = Toast.LENGTH_SHORT;
     public static Toast toast;
     public Context context;
 
@@ -36,6 +37,7 @@ public class CoursesActivity extends AppCompatActivity{
 
     //declaration for modified course
     public static CourseModal modifiedCourse = new CourseModal("","","","");
+    public static boolean isReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,15 +113,42 @@ public class CoursesActivity extends AppCompatActivity{
             @Override
 
             public void onClick(View v){
+                isReady = false;
+
                 //create a fragment
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.courseFragment, new CourseAddFragment());
                 ft.commit();
+
+                while(isReady == false){
+
+                }
+
                 //add the user
-                dbHandler.addCourse(modifiedCourse.getCode(),modifiedCourse.getName(),modifiedCourse.getInstructor());
-                toast = Toast.makeText(context, "New course has been added!", duration);
+                String tempCode = modifiedCourse.getCode().trim();
+                String tempName = modifiedCourse.getName().trim();
+                String tempInstructor = modifiedCourse.getInstructor().trim();
+
+                String toastMessage = "";
+
+                if(tempCode.length() < 7){
+                    toastMessage = "Course code must be at least 7 characters in length!";
+                }
+                else if(tempName.length() < 5){
+                    toastMessage = "The course name field must not be empty!";
+                }
+                else if(tempInstructor.length() < 5){
+                    toastMessage = "The course instructor field must not be empty!";
+                }
+                else{
+                    toastMessage = "New course has been added!";
+                    dbHandler.addCourse(tempCode, tempName, tempInstructor);
+                    courseRVAdapter.notifyDataSetChanged();
+                }
+
+                toast = Toast.makeText(context, toastMessage, duration);
                 toast.show();
-                courseRVAdapter.notifyDataSetChanged();
+
             }
         });
     }

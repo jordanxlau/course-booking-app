@@ -207,7 +207,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.delete(COURSE_TABLE_NAME, COURSE_PRIMARY_KEY + "=?", new String[]{courseID});
             cursor.close();
         }
-
         return result;
     }
 
