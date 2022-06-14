@@ -84,6 +84,7 @@ public class CourseAddFragment extends Fragment{
                         editCourseName.getText().toString(),
                         editCourseInstructor.getText().toString()
                 );
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
