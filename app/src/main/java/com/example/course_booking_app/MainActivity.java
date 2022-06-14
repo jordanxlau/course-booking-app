@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity{
         //db.addUser("admin", "admin123", "administrator");
 
         //add preset courses
-        //db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
+        db.addCourse("SEG2105Z", "Introduction to Software Engineering", "Professor Omar Badreddin");
 
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);
