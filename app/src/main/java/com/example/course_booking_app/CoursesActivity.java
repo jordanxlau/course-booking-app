@@ -58,18 +58,17 @@ public class CoursesActivity extends AppCompatActivity{
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int pos;
                 String purgedCourse;
+                String courseCode;
 
                 pos = viewHolder.getAdapterPosition();
-                purgedCourse = courseModalArrayList.get(pos).getCode();
+                purgedCourse = courseModalArrayList.get(pos).getID();
+                courseCode = courseModalArrayList.get(pos).getCode();
 
-
-                toast = Toast.makeText(context, "Course '" + purgedCourse + "' deleted!", duration);
+                toast = Toast.makeText(context, "Course '" + courseCode + "' deleted!", duration);
                 toast.show();
-                MainActivity.db.removeUser(purgedCourse);
+                MainActivity.db.removeCourse(purgedCourse);
                 courseModalArrayList.remove(pos);
                 courseRVAdapter.notifyDataSetChanged();
-
-
             }
         };
 

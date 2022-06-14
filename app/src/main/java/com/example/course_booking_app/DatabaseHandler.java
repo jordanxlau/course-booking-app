@@ -194,17 +194,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Public method deleting a course from the database. Returns true if successfully deleted.
-    public boolean removeCourse(String courseName){
+    public boolean removeCourse(String courseID){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean result = false;
 
         //SELECT * FROM courses WHERE "courseName" = "courseName"
-        String query = "SELECT * FROM "+ COURSE_TABLE_NAME + " WHERE " + COURSE_COL_NAME + " = \"" + courseName + "\"";
+        String query = "SELECT * FROM "+ COURSE_TABLE_NAME + " WHERE " + COURSE_PRIMARY_KEY + " = \"" + courseID + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             result = true;
-            db.delete(COURSE_TABLE_NAME, COURSE_COL_NAME + "=?", new String[]{courseName});
+            db.delete(COURSE_TABLE_NAME, COURSE_PRIMARY_KEY + "=?", new String[]{courseID});
             cursor.close();
         }
 
