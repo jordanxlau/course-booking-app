@@ -25,8 +25,7 @@ public class CoursesActivity extends AppCompatActivity{
     protected Button refreshPage;
 
     //Declarations for toast
-    private int duration = Toast.LENGTH_LONG;
-    private int shortDuration = Toast.LENGTH_SHORT;
+    private int duration = Toast.LENGTH_SHORT;
     private static Toast toast;
     private Context context;
 
@@ -167,6 +166,8 @@ public class CoursesActivity extends AppCompatActivity{
             }
         });
     }
+
+    protected void
 
     protected void courseFragment(){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
