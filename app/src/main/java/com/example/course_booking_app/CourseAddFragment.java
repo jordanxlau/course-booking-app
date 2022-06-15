@@ -76,9 +76,9 @@ public class CourseAddFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 //add the user
-                String tempCode = editCourseCode.getText().toString();
-                String tempName = editCourseName.getText().toString();
-                String tempInstructor = editCourseInstructor.getText().toString();
+                String tempCode = editCourseCode.getText().toString().trim();
+                String tempName = editCourseName.getText().toString().trim();
+                String tempInstructor = editCourseInstructor.getText().toString().trim();
 
                 String toastMessage = "";
 

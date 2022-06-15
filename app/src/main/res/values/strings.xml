@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">uO Courses</string>
+    <string name="app_name">Student Course Booking</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -7,7 +7,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="full_name">Student Course Booking</string>
-    <string name="short_name">uO Courses</string>
+    <string name="short_name">Courses</string>
     <string name="manage_courses">Manage Courses</string>
     <string name="manage_users">Manage Users</string>
     <string name="add_course">Add Course</string>
