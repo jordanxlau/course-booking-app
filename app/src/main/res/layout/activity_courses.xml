@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/garnet"
-            android:text="back"
+            android:text="@string/back"
             android:textColor="@color/white" />
 
         <Button
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/cardview_light_background"
             android:outlineSpotShadowColor="@color/black"
-            android:text="Manage Users"
+            android:text="@string/manage_users"
             android:textColor="@color/garnet" />
 
     </LinearLayout>
@@ -67,7 +67,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/cardview_light_background"
             android:outlineSpotShadowColor="@color/black"
-            android:text="Refresh"
+            android:text="@string/refresh"
             android:textColor="@color/garnet" />
 
         <Button
@@ -77,7 +77,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/garnet"
-            android:text="Add Course"
+            android:text="@string/add_course"
             android:textColor="@color/white" />
 
     </LinearLayout>

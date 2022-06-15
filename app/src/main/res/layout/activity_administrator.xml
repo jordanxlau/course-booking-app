@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/garnet"
-            android:text="back"
+            android:text="@string/back"
             android:textColor="@color/white" />
 
         <Button
@@ -55,7 +55,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/cardview_light_background"
             android:outlineSpotShadowColor="@color/black"
-            android:text="Manage Courses"
+            android:text="@string/manage_courses"
             android:textColor="@color/garnet" />
     </LinearLayout>
 
