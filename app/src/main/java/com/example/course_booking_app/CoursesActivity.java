@@ -30,15 +30,20 @@ public class CoursesActivity extends AppCompatActivity{
     private Context context;
 
     //Other declarations
-    public ArrayList<CourseModal> courseModalArrayList;
-    public DatabaseHandler dbHandler;
-    public CourseRVAdapter courseRVAdapter;
-    public RecyclerView coursesRV;
+    private ArrayList<CourseModal> courseModalArrayList;
+    private DatabaseHandler dbHandler;
+    private CourseRVAdapter courseRVAdapter;
+    private RecyclerView coursesRV;
 
     //declaration for modified course
     public static CourseModal modifiedCourse = new CourseModal("","","","");
-    public static boolean isAdd;
-    public static String editEntry;
+    public static RefreshStatus refreshStatus = RefreshStatus.NOCHANGE;
+
+    @Override
+    public Void onBackPressed(){
+        //do nothing. we disable the back button.
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,6 @@ public class CoursesActivity extends AppCompatActivity{
                     int pos;
                     String purgedCourse;
                     String courseCode;
-
                     pos = viewHolder.getAdapterPosition();
                     purgedCourse = courseModalArrayList.get(pos).getID();
                     courseCode = courseModalArrayList.get(pos).getCode();
@@ -83,14 +87,9 @@ public class CoursesActivity extends AppCompatActivity{
                     int pos;
                     pos = viewHolder.getAdapterPosition();
                     modifiedCourse = courseModalArrayList.get(pos);
-                    isAdd = false;
-                    editEntry = modifiedCourse.getID();
+                    refreshStatus = RefreshStatus.EDITCOURSE;
 
-                    //create a fragment
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.courseFragment, new CourseAddFragment());
-                    ft.commit();
-
+                    courseFragment();
                 }
             }
         };
@@ -130,14 +129,18 @@ public class CoursesActivity extends AppCompatActivity{
             @Override
 
             public void onClick(View v) {
-                //create a fragment
-                isAdd = true;
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.courseFragment, new CourseAddFragment());
-                ft.commit();
+                modifiedCourse = new CourseModal("","","","");
+                refreshStatus = RefreshStatus.ADDCOURSE;
 
+                courseFragment();
             }
         });
+    }
+
+    protected void courseFragment(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.courseFragment, new CourseAddFragment());
+        ft.commit();
     }
 
     //Re-opens main page
