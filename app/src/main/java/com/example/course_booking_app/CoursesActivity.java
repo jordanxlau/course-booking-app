@@ -167,8 +167,6 @@ public class CoursesActivity extends AppCompatActivity{
         });
     }
 
-    protected void
-
     protected void courseFragment(){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.courseFragment, new CourseAddFragment());

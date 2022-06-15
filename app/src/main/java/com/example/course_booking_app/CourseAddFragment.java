@@ -176,5 +176,5 @@ public class CourseAddFragment extends Fragment{
         return new ValidationResults(isValid, message);
     }
 
-    private String format
+
 }
