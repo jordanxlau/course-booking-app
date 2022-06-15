@@ -32,7 +32,6 @@ public class CoursesActivity extends AppCompatActivity{
 
     //Other declarations
     private ArrayList<CourseModal> courseModalArrayList;
-    private DatabaseHandler dbHandler;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
 
@@ -41,7 +40,7 @@ public class CoursesActivity extends AppCompatActivity{
     public static RefreshStatus refreshStatus = RefreshStatus.NOCHANGE;
 
     @Override
-    public Void onBackPressed(){
+    public void onBackPressed(){
         //do nothing. we disable the back button.
     }
 
@@ -98,9 +97,8 @@ public class CoursesActivity extends AppCompatActivity{
 
         //Other setup
         courseModalArrayList = new ArrayList<>();
-        dbHandler = new DatabaseHandler(CoursesActivity.this);
 
-        courseModalArrayList = dbHandler.getCourses();
+        courseModalArrayList = MainActivity.db.getCourses();
 
         courseRVAdapter = new CourseRVAdapter(courseModalArrayList, CoursesActivity.this);
         coursesRV = findViewById(R.id.recyclerView);
@@ -141,18 +139,28 @@ public class CoursesActivity extends AppCompatActivity{
             @Override
 
             public void onClick(View v) {
+                String toastMessage = "Message";
+
                 if(refreshStatus == RefreshStatus.NOCHANGE){
+                    toastMessage = "There are no changes to be made. ";
 
                 }
                 else if(refreshStatus == RefreshStatus.ADDCOURSE){
-
+                    toastMessage = "The course has been added successfully. ";
                 }
                 else if(refreshStatus == RefreshStatus.EDITCOURSE){
-
+                    toastMessage = "The course has been edited successfully. ";
                 }
 
                 refreshStatus = RefreshStatus.NOCHANGE;
+                toast = Toast.makeText(context, toastMessage, duration);
+                toast.show();
 
+                if(refreshStatus != RefreshStatus.NOCHANGE) {
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
             }
         });
     }

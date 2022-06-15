@@ -34,7 +34,6 @@ public class AdministratorActivity extends AppCompatActivity{
 
     //Other declarations
     private ArrayList<UserModal> userModalArrayList;
-    private DatabaseHandler dbHandler;
     private UserRVAdapter userRVAdapter;
     private RecyclerView usersRV;
 
@@ -86,9 +85,8 @@ public class AdministratorActivity extends AppCompatActivity{
 
         //Other setup
         userModalArrayList = new ArrayList<>();
-        dbHandler = new DatabaseHandler(AdministratorActivity.this);
 
-        userModalArrayList = dbHandler.getUsers();
+        userModalArrayList = MainActivity.db.getUsers();
 
         userRVAdapter = new UserRVAdapter(userModalArrayList, AdministratorActivity.this);
         usersRV = findViewById(R.id.recyclerView);
