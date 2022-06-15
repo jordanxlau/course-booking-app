@@ -1,18 +1,18 @@
 package com.example.course_booking_app;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -69,17 +69,15 @@ public class AdministratorActivity extends AppCompatActivity{
 
                 if(purgedUser.equals("admin")){
                     toast = Toast.makeText(context, "Default admin account cannot be deleted!", duration);
-                    toast.show();
                     userRVAdapter.notifyDataSetChanged();
                 }
                 else{
                     toast = Toast.makeText(context, "Account '" + purgedUser + "' deleted!", duration);
-                    toast.show();
                     MainActivity.db.removeUser(purgedUser);
                     userModalArrayList.remove(pos);
                     userRVAdapter.notifyDataSetChanged();
                 }
-
+                toast.show();
             }
         };
 

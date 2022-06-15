@@ -35,6 +35,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:text="Course Code"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -56,6 +57,7 @@
             android:layout_weight="1"
             android:padding="3dp"
             android:text="Instructor"
+            android:textStyle="italic"
             android:textColor="@color/black" />
 
     </LinearLayout>

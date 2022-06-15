@@ -1,14 +1,6 @@
 package com.example.course_booking_app;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.Locale;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,7 +103,11 @@ public class CourseAddFragment extends Fragment{
                 }
                 else{
                     toastMessage = results.getMessage();
-                    Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
+                    String[] messageArray = toastMessage.split("\\.");
+
+                    for(int i = 0; i < messageArray.length; i ++){
+                        Toast.makeText(getActivity(), messageArray[i], Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -131,7 +125,7 @@ public class CourseAddFragment extends Fragment{
         //validate course code
         if(tempCode.length() != 8){
             isValid = false;
-            message = message + "Course code must be 8 characters in length. ";
+            message = message + "Course code must be 8 characters in length.";
         }
         else{
             //first three characters must be letters
@@ -149,35 +143,34 @@ public class CourseAddFragment extends Fragment{
                 }
             }
             //last character must be a letter
-            if(Character.isDigit(tempCode.charAt(7)) == false){
+            if(Character.isLetter(tempCode.charAt(7)) == false){
                 correctCourseCode = false;
             }
 
             if(correctCourseCode == false){
                 isValid = false;
-                message = message + "Course code must be in the format of 3 letters (faculty), 4 numbers (code), 1 letter (section). ";
-
+                message = message + "Course code must be in the format of 3 letters, 4 numbers, 1 letter.";
             }
         }
 
         //validate name field
         if(tempName.length() < 6){
             isValid = false;
-            message = message + "The course name field must be at least 6 characters in length. ";
+            message = message + "The course name field must be at least 6 characters.";
         }
         else if(tempName.length() > 75){
             isValid = false;
-            message = message + "The course name field must be at most 75 characters in length. ";
+            message = message + "The course name field must be at most 75 characters.";
         }
 
         //validate instructor field
         if(tempInstructor.length() < 6){
             isValid = false;
-            message = message + "The course instructor field must be at least 6 characters in length. ";
+            message = message + "The course instructor field must be at least 6 characters.";
         }
         else if(tempInstructor.length() > 50){
             isValid = false;
-            message = message + "The course instructor field must be at most 50 characters in length. ";
+            message = message + "The course instructor field must be at most 50 characters.";
         }
 
         return new ValidationResults(isValid, message);

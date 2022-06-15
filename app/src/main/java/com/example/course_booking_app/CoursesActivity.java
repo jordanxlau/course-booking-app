@@ -1,18 +1,18 @@
 package com.example.course_booking_app;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,8 +36,8 @@ public class CoursesActivity extends AppCompatActivity{
     private RecyclerView coursesRV;
 
     //declaration for modified course
-    public static CourseModal modifiedCourse = new CourseModal("","","","");
-    public static RefreshStatus refreshStatus = RefreshStatus.NOCHANGE;
+    public static CourseModal modifiedCourse;
+    public static RefreshStatus refreshStatus;
 
     @Override
     public void onBackPressed(){
@@ -95,9 +95,11 @@ public class CoursesActivity extends AppCompatActivity{
             }
         };
 
-        //Other setup
-        courseModalArrayList = new ArrayList<>();
+        //setup related to course information
+        modifiedCourse = new CourseModal("","","","");
+        refreshStatus = RefreshStatus.NOCHANGE;
 
+        courseModalArrayList = new ArrayList<>();
         courseModalArrayList = MainActivity.db.getCourses();
 
         courseRVAdapter = new CourseRVAdapter(courseModalArrayList, CoursesActivity.this);
@@ -143,20 +145,21 @@ public class CoursesActivity extends AppCompatActivity{
 
                 if(refreshStatus == RefreshStatus.NOCHANGE){
                     toastMessage = "There are no changes to be made. ";
-
                 }
                 else if(refreshStatus == RefreshStatus.ADDCOURSE){
+                    MainActivity.db.addCourse(modifiedCourse.getCode(), modifiedCourse.getName(), modifiedCourse.getInstructor());
                     toastMessage = "The course has been added successfully. ";
                 }
                 else if(refreshStatus == RefreshStatus.EDITCOURSE){
+                    MainActivity.db.modifyCourse(modifiedCourse);
                     toastMessage = "The course has been edited successfully. ";
                 }
 
-                refreshStatus = RefreshStatus.NOCHANGE;
                 toast = Toast.makeText(context, toastMessage, duration);
                 toast.show();
 
                 if(refreshStatus != RefreshStatus.NOCHANGE) {
+                    refreshStatus = RefreshStatus.NOCHANGE;
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);

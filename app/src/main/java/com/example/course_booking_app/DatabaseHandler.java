@@ -2,9 +2,9 @@ package com.example.course_booking_app;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
 
 import java.util.ArrayList;
 
@@ -141,15 +141,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //modify a course
-    public boolean modifyCourse(String identifier, String courseCode, String courseName, String courseInstructor) {
+    public boolean modifyCourse(CourseModal tempCourse) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        values.put(COURSE_COL_CODE, courseCode);
-        values.put(COURSE_COL_NAME, courseName);
-        values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
-        db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{identifier});
+        values.put(COURSE_COL_CODE, tempCourse.getCode());
+        values.put(COURSE_COL_NAME, tempCourse.getName());
+        values.put(COURSE_COL_INSTRUCTOR, tempCourse.getInstructor());
+        db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{tempCourse.getID()});
         result = true;
 
         return result;
