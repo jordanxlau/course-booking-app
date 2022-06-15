@@ -100,6 +100,7 @@ public class AdministratorActivity extends AppCompatActivity{
 
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
+        System.out.println("print");
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){
@@ -113,25 +114,10 @@ public class AdministratorActivity extends AppCompatActivity{
         viewCourses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                System.out.println("TRACE");
                 openCourses();
             }
         });
-//        delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (doublePressed == true) {
-//                    toast = Toast.makeText(context, "Account deleted.", duration);
-//                    toast.show();
-//                    System.out.println( (MainActivity.db).removeUser(MainActivity.currentUser) );
-//                    doublePressed = false;
-//                    openMain();
-//                } else {
-//                    toast = Toast.makeText(context, "Press again to confirm.", duration);
-//                    toast.show();
-//                    doublePressed = true;
-//                }
-//            }
-//        });
     }
 
     //Re-opens main page
