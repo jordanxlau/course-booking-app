@@ -22,6 +22,7 @@ public class CoursesActivity extends AppCompatActivity{
     protected Button back;
     protected Button viewUsers;
     protected Button addCourse;
+    protected Button refreshPage;
 
     //Declarations for toast
     private int duration = Toast.LENGTH_LONG;
@@ -54,6 +55,7 @@ public class CoursesActivity extends AppCompatActivity{
         back = findViewById(R.id.back);
         viewUsers = findViewById(R.id.viewUsers);
         addCourse = findViewById(R.id.addCourse);
+        refreshPage = findViewById(R.id.refreshPage);
 
         //Initialize context
         context = getApplicationContext();
@@ -127,12 +129,30 @@ public class CoursesActivity extends AppCompatActivity{
 
         addCourse.setOnClickListener(new View.OnClickListener(){
             @Override
-
             public void onClick(View v) {
                 modifiedCourse = new CourseModal("","","","");
                 refreshStatus = RefreshStatus.ADDCOURSE;
 
                 courseFragment();
+            }
+        });
+
+        refreshPage.setOnClickListener(new View.OnClickListener(){
+            @Override
+
+            public void onClick(View v) {
+                if(refreshStatus == RefreshStatus.NOCHANGE){
+
+                }
+                else if(refreshStatus == RefreshStatus.ADDCOURSE){
+
+                }
+                else if(refreshStatus == RefreshStatus.EDITCOURSE){
+
+                }
+
+                refreshStatus = RefreshStatus.NOCHANGE;
+
             }
         });
     }

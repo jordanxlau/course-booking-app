@@ -70,7 +70,6 @@ public class StudentActivity extends AppCompatActivity{
             }
         });
 
-
     }
 
     //Re-opens main page
