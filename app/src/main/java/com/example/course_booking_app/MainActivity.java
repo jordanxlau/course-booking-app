@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity{
         db = new DatabaseHandler(this);
 
         //Add preset users to the database
-        //db.addUser("admin", "admin123", "administrator");
+        db.addUser("admin", "admin123", "administrator");
 
         //add preset courses
         db.addCourse("SEG2105Z", "Introduction to Software Engineering (DEFAULT)", "Professor Omar Badreddin");
