@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("trace");
         //Preset code
         super.onCreate(savedInstanceState);
 

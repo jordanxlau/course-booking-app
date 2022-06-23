@@ -51,7 +51,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.execSQL(createUsers);
         db.execSQL(createCourses);
-
     }
 
     public void addDefaults(){
@@ -176,7 +175,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT "password" FROM users.db WHERE username = "user"
+        //SELECT "password" FROM "users" WHERE "username" = user
         String query = "SELECT " + USER_COL_PASS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -194,7 +193,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Determines if a certain course exists
     public boolean courseExists(String code){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT "courseName" FROM "users.db" WHERE "courseCode" = code
+        //SELECT "courseName" FROM "users" WHERE "courseCode" = code
         String query = "SELECT " + COURSE_COL_NAME + " FROM " + COURSE_TABLE_NAME + " WHERE " + COURSE_COL_CODE + " = \"" + code + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -212,11 +211,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
     }
 
-    //Finds the password of a certain user
+    //Finds the type of a certain user
     public String findUserType(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT "userType" FROM users.db WHERE username = "user"
+        //SELECT "userType" FROM "users" WHERE "username" = user
         String query = "SELECT " + USER_COL_TYPE + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
+
         Cursor cursor = db.rawQuery(query, null);
         String foundType = null;
 
@@ -225,6 +225,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursor.close();
+
         //If user doesn't match any in database, foundType will be null
         return foundType;
     }
@@ -236,7 +237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        //SELECT * FROM users WHERE "username" = "username"
+        //SELECT * FROM users WHERE "username" = username
         String query = "SELECT * FROM "+ USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
@@ -254,7 +255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        //SELECT * FROM courses WHERE "courseName" = "courseName"
+        //SELECT * FROM courses WHERE "courseName" = courseID
         String query = "SELECT * FROM "+ COURSE_TABLE_NAME + " WHERE " + COURSE_PRIMARY_KEY + " = \"" + courseID + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
