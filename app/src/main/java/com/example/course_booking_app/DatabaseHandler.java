@@ -81,10 +81,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursorUsers.moveToFirst()){
             do{
-                userModalArrayList.add(new UserModal(cursorUsers.getString(0),
+                userModalArrayList.add(new UserModal(
+                    cursorUsers.getString(0),
                     cursorUsers.getString(1),
                     cursorUsers.getString(2),
-                    cursorUsers.getString(3)));
+                    cursorUsers.getString(3)
+                ));
             } while(cursorUsers.moveToNext());
         }
 
@@ -102,10 +104,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursorCourses.moveToFirst()){
             do{
-                courseModalArrayList.add(new CourseModal(cursorCourses.getString(0),
-                        cursorCourses.getString(1),
-                        cursorCourses.getString(2),
-                        cursorCourses.getString(3)));
+                courseModalArrayList.add(new CourseModal(
+                    cursorCourses.getString(0),
+                    cursorCourses.getString(1),
+                    cursorCourses.getString(2),
+                    cursorCourses.getString(3)
+                ));
             } while(cursorCourses.moveToNext());
         }
 
@@ -141,11 +145,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        values.put(COURSE_COL_CODE, courseCode);
-        values.put(COURSE_COL_NAME, courseName);
-        values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
-        db.insert(COURSE_TABLE_NAME, null, values);
-        result = true;
+        if (! this.courseExists(courseCode) ){ //Course does not already exist
+            values.put(COURSE_COL_CODE, courseCode);
+            values.put(COURSE_COL_NAME, courseName);
+            values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            db.insert(COURSE_TABLE_NAME, null, values);
+            result = true;
+        } else {//Course already exists
+            MainActivity.toast.makeText(MainActivity.context, "Course already exists!", MainActivity.duration).show();
+        }
 
         return result;
     }
@@ -170,6 +178,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         //SELECT "password" FROM users.db WHERE username = "user"
         String query = "SELECT " + USER_COL_PASS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
+
         Cursor cursor = db.rawQuery(query, null);
         String foundPassword = null;
 
@@ -180,6 +189,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         //If user doesn't match any in database, foundPassword will be null
         return foundPassword;
+    }
+
+    //Determines if a certain course exists
+    public boolean courseExists(String code){
+        SQLiteDatabase db = this.getReadableDatabase();
+        //SELECT "courseName" FROM "users.db" WHERE "courseCode" = code
+        String query = "SELECT " + COURSE_COL_NAME + " FROM " + COURSE_TABLE_NAME + " WHERE " + COURSE_COL_CODE + " = \"" + code + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        String found = null;
+
+        if(cursor.moveToFirst())//If code matches a code in the database
+            found = cursor.getString(0);
+
+        cursor.close();
+
+        //If user doesn't match any in database, foundPassword will be null
+        if (found == null)
+            return false;
+        else
+            return true;
     }
 
     //Finds the password of a certain user
