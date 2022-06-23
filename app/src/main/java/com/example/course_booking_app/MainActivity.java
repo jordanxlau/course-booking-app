@@ -53,14 +53,9 @@ public class MainActivity extends AppCompatActivity{
         //Initialize userList
         userList = new ArrayList<>();
 
-        //Initialize database handler
+        //Initialize database/database handler
         db = new DatabaseHandler(this);
-
-        //Add preset users to the database
-        db.addUser("admin", "admin123", "administrator");
-
-        //add preset courses
-        db.addCourse("SEG2105Z", "Introduction to Software Engineering (DEFAULT)", "Professor Omar Badreddin");
+        db.addDefaults();
 
         //Objects to help with the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_account_type_array, android.R.layout.simple_spinner_item);

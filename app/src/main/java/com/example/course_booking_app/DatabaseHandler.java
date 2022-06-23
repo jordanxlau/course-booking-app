@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 1);
+        super(context, "users4.db", null, 2);
     }
 
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called
@@ -51,14 +51,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.execSQL(createUsers);
         db.execSQL(createCourses);
+
+    }
+
+    public void addDefaults(){
+        //Add preset users to the database
+        this.addUser("admin", "admin123", "administrator");
+
+        //add preset courses
+        this.addCourse("SEG2105Z", "Introduction to Software Engineering (DEFAULT)", "Professor Omar Badreddin");
     }
 
     @Override //"DROP" Removes both tables (never called?)
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String upgrade = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
         db.execSQL(upgrade);
-        upgrade = "DROP TABLE IF EXISTS " + COURSE_TABLE_NAME;
-        db.execSQL(upgrade);
+//        upgrade = "DROP TABLE IF EXISTS " + COURSE_TABLE_NAME;
+//        db.execSQL(upgrade);
+        onCreate(db);
     }
 
     //Gets users in the form of ArrayList
