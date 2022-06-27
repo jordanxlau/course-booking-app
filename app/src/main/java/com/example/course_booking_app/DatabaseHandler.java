@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 1);
+        super(context, "users4.db", null, 2);
     }
 
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called
@@ -53,12 +53,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(createCourses);
     }
 
+    public void addDefaults(){
+        //Add preset users to the database
+        this.addUser("admin", "admin123", "administrator");
+
+        //add preset courses
+        this.addCourse("SEG2105Z", "Introduction to Software Engineering (DEFAULT)", "Professor Omar Badreddin");
+    }
+
     @Override //"DROP" Removes both tables (never called?)
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String upgrade = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
         db.execSQL(upgrade);
         upgrade = "DROP TABLE IF EXISTS " + COURSE_TABLE_NAME;
         db.execSQL(upgrade);
+        onCreate(db);
     }
 
     //Gets users in the form of ArrayList
@@ -71,10 +80,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursorUsers.moveToFirst()){
             do{
-                userModalArrayList.add(new UserModal(cursorUsers.getString(0),
+                userModalArrayList.add(new UserModal(
+                    cursorUsers.getString(0),
                     cursorUsers.getString(1),
                     cursorUsers.getString(2),
-                    cursorUsers.getString(3)));
+                    cursorUsers.getString(3)
+                ));
             } while(cursorUsers.moveToNext());
         }
 
@@ -92,10 +103,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursorCourses.moveToFirst()){
             do{
-                courseModalArrayList.add(new CourseModal(cursorCourses.getString(0),
-                        cursorCourses.getString(1),
-                        cursorCourses.getString(2),
-                        cursorCourses.getString(3)));
+                courseModalArrayList.add(new CourseModal(
+                    cursorCourses.getString(0),
+                    cursorCourses.getString(1),
+                    cursorCourses.getString(2),
+                    cursorCourses.getString(3)
+                ));
             } while(cursorCourses.moveToNext());
         }
 
@@ -131,11 +144,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        values.put(COURSE_COL_CODE, courseCode);
-        values.put(COURSE_COL_NAME, courseName);
-        values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
-        db.insert(COURSE_TABLE_NAME, null, values);
-        result = true;
+        if (! this.courseExists(courseCode) ){ //Course does not already exist
+            values.put(COURSE_COL_CODE, courseCode);
+            values.put(COURSE_COL_NAME, courseName);
+            values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            db.insert(COURSE_TABLE_NAME, null, values);
+            result = true;
+        } else {//Course already exists
+            MainActivity.toast.makeText(MainActivity.context, "Course already exists!", MainActivity.duration).show();
+        }
 
         return result;
     }
@@ -158,8 +175,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Finds the password of a certain user
     public String findPassword(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT "password" FROM users.db WHERE username = "user"
+        //SELECT "password" FROM "users" WHERE "username" = user
         String query = "SELECT " + USER_COL_PASS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
+
         Cursor cursor = db.rawQuery(query, null);
         String foundPassword = null;
 
@@ -172,11 +190,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return foundPassword;
     }
 
-    //Finds the password of a certain user
+    //Determines if a certain course exists
+    public boolean courseExists(String code){
+        SQLiteDatabase db = this.getReadableDatabase();
+        //SELECT "courseName" FROM "users" WHERE "courseCode" = code
+        String query = "SELECT " + COURSE_COL_NAME + " FROM " + COURSE_TABLE_NAME + " WHERE " + COURSE_COL_CODE + " = \"" + code + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        String found = null;
+
+        if(cursor.moveToFirst())//If code matches a code in the database
+            found = cursor.getString(0);
+
+        cursor.close();
+
+        //If user doesn't match any in database, foundPassword will be null
+        if (found == null)
+            return false;
+        else
+            return true;
+    }
+
+    //Finds the type of a certain user
     public String findUserType(String user){
         SQLiteDatabase db = this.getReadableDatabase();
-        //SELECT "userType" FROM users.db WHERE username = "user"
+        //SELECT "userType" FROM "users" WHERE "username" = user
         String query = "SELECT " + USER_COL_TYPE + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
+
         Cursor cursor = db.rawQuery(query, null);
         String foundType = null;
 
@@ -185,6 +225,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursor.close();
+
         //If user doesn't match any in database, foundType will be null
         return foundType;
     }
@@ -196,7 +237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        //SELECT * FROM users WHERE "username" = "username"
+        //SELECT * FROM users WHERE "username" = username
         String query = "SELECT * FROM "+ USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
@@ -214,7 +255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         boolean result = false;
 
-        //SELECT * FROM courses WHERE "courseName" = "courseName"
+        //SELECT * FROM courses WHERE "courseName" = courseID
         String query = "SELECT * FROM "+ COURSE_TABLE_NAME + " WHERE " + COURSE_PRIMARY_KEY + " = \"" + courseID + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){

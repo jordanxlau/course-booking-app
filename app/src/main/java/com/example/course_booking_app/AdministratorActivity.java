@@ -19,13 +19,9 @@ import java.util.ArrayList;
 public class AdministratorActivity extends AppCompatActivity{
 
     //Widget Declarations
-    protected Button back;
-    protected Button viewCourses;
+    protected Button back, viewCourses;
 
     protected TextView usernameDisplay;
-//
-//    protected Button delete;
-//    protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
     //Declarations for toast
     public int duration = Toast.LENGTH_LONG;
@@ -44,7 +40,6 @@ public class AdministratorActivity extends AppCompatActivity{
 
         //Initialize widgets
         back = findViewById(R.id.back);
-//        delete = findViewById(R.id.delete);
         usernameDisplay = findViewById(R.id.usernameDisplay);
         viewCourses = findViewById(R.id.viewCourses);
 
@@ -96,7 +91,6 @@ public class AdministratorActivity extends AppCompatActivity{
 
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
-        System.out.println("print");
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){
@@ -110,7 +104,6 @@ public class AdministratorActivity extends AppCompatActivity{
         viewCourses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                System.out.println("TRACE");
                 openCourses();
             }
         });
