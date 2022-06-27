@@ -43,7 +43,6 @@ public class CoursesActivity extends AppCompatActivity{
         //do nothing. we disable the back button.
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +137,6 @@ public class CoursesActivity extends AppCompatActivity{
 
         refreshPage.setOnClickListener(new View.OnClickListener(){
             @Override
-
             public void onClick(View v) {
                 String toastMessage = "Message";
 
