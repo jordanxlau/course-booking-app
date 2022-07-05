@@ -24,7 +24,7 @@ public class StudentActivity extends CourseBookingAppActivity{
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
         //Initialize usernameDisplay
-        usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
+        usernameDisplay.setText("logged in as: " + currentUser);
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){
@@ -41,7 +41,7 @@ public class StudentActivity extends CourseBookingAppActivity{
                 if (doublePressed == true) {
                     toast = Toast.makeText(context, "Account deleted.", duration);
                     toast.show();
-                    (MainActivity.db).removeUser(MainActivity.currentUser);
+                    (MainActivity.db).removeUser(currentUser);
                     doublePressed = false;
                     openMain();
                 } else {

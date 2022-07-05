@@ -20,8 +20,6 @@ public class MainActivity extends CourseBookingAppActivity{
 
     //Other field declarations
     protected ArrayList<String> userList;
-    public static String currentUser = "";
-    public static String currentType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,6 +14,10 @@ public abstract class CourseBookingAppActivity extends AppCompatActivity {
     public static Toast toast;
     public static Context context;
 
+    //"Current" user info
+    public static String currentUser = "";
+    public static String currentType = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         //Preset code

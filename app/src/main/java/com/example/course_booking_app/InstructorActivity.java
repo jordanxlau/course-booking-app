@@ -22,7 +22,7 @@ public class InstructorActivity extends CourseBookingAppActivity{
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
         //Initialize usernameDisplay
-        usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
+        usernameDisplay.setText("logged in as: " + currentUser);
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){

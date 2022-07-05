@@ -49,7 +49,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
             //Deletes a course
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (MainActivity.currentType != "administrator"){
+                if (currentType != "administrator"){
                     toast = Toast.makeText(context, "Only admins can edit courses!", duration);
                 }
                 else if(direction == ItemTouchHelper.RIGHT){
@@ -96,7 +96,6 @@ public class CoursesActivity extends CourseBookingAppActivity{
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Goes back to MainActivity.java
                 openMain();
             }
         });
@@ -104,7 +103,6 @@ public class CoursesActivity extends CourseBookingAppActivity{
         viewUsers.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Goes back to MainActivity.java
                 openUsers();
             }
         });
