@@ -16,10 +16,7 @@ import java.util.ArrayList;
 public class CoursesActivity extends CourseBookingAppActivity{
 
     //Attribute Declarations
-    protected Button back;
-    protected Button viewUsers;
-    protected Button addCourse;
-    protected Button refreshPage;
+    protected Button back, viewUsers, addCourse, refreshPage;
 
     //Other declarations
     private ArrayList<CourseModal> courseModalArrayList;
