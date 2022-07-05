@@ -1,14 +1,10 @@
 package com.example.course_booking_app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class StudentActivity extends CourseBookingAppActivity{
 
@@ -16,11 +12,6 @@ public class StudentActivity extends CourseBookingAppActivity{
     protected Button back, delete;
     protected TextView usernameDisplay;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
-
-    //Declarations for toast
-    public int duration = Toast.LENGTH_LONG;
-    public static Toast toast;
-    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

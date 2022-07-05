@@ -129,9 +129,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.insert(USER_TABLE_NAME, null, values);
             result = true;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
-            MainActivity.toast.makeText(MainActivity.context, "Please select account type!", MainActivity.duration).show();
+            MainActivity.toast.makeText(CourseBookingAppActivity.context, "Please select account type!", CourseBookingAppActivity.duration).show();
         } else if (this.findPassword(username) != null){//User already exists
-            MainActivity.toast.makeText(MainActivity.context, "User already exists!", MainActivity.duration).show();
+            MainActivity.toast.makeText(CourseBookingAppActivity.context, "User already exists!", CourseBookingAppActivity.duration).show();
         }
 
         return result;

@@ -1,7 +1,5 @@
 package com.example.course_booking_app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,8 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -21,11 +17,6 @@ public class MainActivity extends CourseBookingAppActivity{
     protected EditText username, password;
     protected Spinner userType;
     public static DatabaseHandler db;
-
-    //Toast declarations
-    public static int duration = Toast.LENGTH_LONG;
-    public static Toast toast;//for error messages
-    public static Context context;
 
     //Other field declarations
     protected ArrayList<String> userList;
@@ -46,9 +37,6 @@ public class MainActivity extends CourseBookingAppActivity{
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
-
-        //Initialize context
-        context = getApplicationContext();
 
         //Initialize userList
         userList = new ArrayList<>();

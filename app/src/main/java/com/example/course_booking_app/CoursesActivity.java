@@ -1,6 +1,5 @@
 package com.example.course_booking_app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,11 +20,6 @@ public class CoursesActivity extends CourseBookingAppActivity{
     protected Button viewUsers;
     protected Button addCourse;
     protected Button refreshPage;
-
-    //Declarations for toast
-    private int duration = Toast.LENGTH_SHORT;
-    private static Toast toast;
-    private Context context;
 
     //Other declarations
     private ArrayList<CourseModal> courseModalArrayList;
