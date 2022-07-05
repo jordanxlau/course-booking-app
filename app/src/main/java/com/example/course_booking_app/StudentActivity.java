@@ -23,9 +23,6 @@ public class StudentActivity extends CourseBookingAppActivity{
         delete = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
-        //Initialize context
-        context = getApplicationContext();
-
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
 

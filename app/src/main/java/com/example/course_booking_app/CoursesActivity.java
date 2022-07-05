@@ -38,9 +38,6 @@ public class CoursesActivity extends CourseBookingAppActivity{
         addCourse = findViewById(R.id.addCourse);
         refreshPage = findViewById(R.id.refreshPage);
 
-        //Initialize context
-        context = getApplicationContext();
-
         //Item Touch Helper setup
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
 

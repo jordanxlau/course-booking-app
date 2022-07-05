@@ -21,9 +21,6 @@ public class InstructorActivity extends CourseBookingAppActivity{
         viewCourses = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
-        //Initialize context
-        context = getApplicationContext();
-
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
 

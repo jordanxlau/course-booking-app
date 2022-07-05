@@ -34,9 +34,6 @@ public class AdministratorActivity extends CourseBookingAppActivity{
         usernameDisplay = findViewById(R.id.usernameDisplay);
         viewCourses = findViewById(R.id.viewCourses);
 
-        //Initialize context
-        context = getApplicationContext();
-
         //Item Touch Helper setup
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
 
