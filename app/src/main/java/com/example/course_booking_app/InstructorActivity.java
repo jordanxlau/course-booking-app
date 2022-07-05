@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class InstructorActivity extends AppCompatActivity{
 
     //Widget Declarations
-    protected Button back, delete;
+    protected Button back, viewCourses;
     protected TextView usernameDisplay;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
@@ -29,7 +29,7 @@ public class InstructorActivity extends AppCompatActivity{
 
         //Initialize widgets
         back = findViewById(R.id.back);
-        delete = findViewById(R.id.delete);
+        viewCourses = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
         //Initialize context
@@ -47,20 +47,10 @@ public class InstructorActivity extends AppCompatActivity{
             }
         });
 
-        delete.setOnClickListener(new View.OnClickListener() {
+        viewCourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (doublePressed == true) {
-                    toast = Toast.makeText(context, "Account deleted.", duration);
-                    toast.show();
-                    (MainActivity.db).removeUser(MainActivity.currentUser);
-                    doublePressed = false;
-                    openMain();
-                } else {
-                    toast = Toast.makeText(context, "Press again to confirm.", duration);
-                    toast.show();
-                    doublePressed = true;
-                }
+                openCourses();
             }
         });
 
@@ -70,6 +60,11 @@ public class InstructorActivity extends AppCompatActivity{
     //Re-opens main page
     protected void openMain(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    //Opens courses page
+    protected void openCourses(){
+        Intent intent = new Intent(this, CoursesActivity.class);
         startActivity(intent);
     }
 
