@@ -15,4 +15,5 @@
     <string name="refresh">Refresh</string>
     <string name="delete_account">Delete Account</string>
     <string name="save_changes">Save Changes</string>
+    <string name="view_courses" />
 </resources>

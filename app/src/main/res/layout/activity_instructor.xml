@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InstructorActivity">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -46,13 +47,12 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/delete"
+            android:id="@+id/viewCourses"
             android:layout_width="137dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/cardview_light_background"
-            android:outlineSpotShadowColor="@color/black"
-            android:text="delete account"
+            android:backgroundTint="@color/white"
+            android:text="View Courses"
             android:textColor="@color/garnet" />
     </LinearLayout>
 

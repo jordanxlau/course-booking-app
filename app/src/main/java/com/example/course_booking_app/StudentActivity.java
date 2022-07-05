@@ -29,7 +29,7 @@ public class StudentActivity extends AppCompatActivity{
 
         //Initialize widgets
         back = findViewById(R.id.back);
-        delete = findViewById(R.id.delete);
+        delete = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
         //Initialize context

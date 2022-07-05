@@ -114,7 +114,7 @@ public class AdministratorActivity extends AppCompatActivity{
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
+    //Opens courses page
     protected void openCourses(){
         Intent intent = new Intent(this, CoursesActivity.class);
         startActivity(intent);
