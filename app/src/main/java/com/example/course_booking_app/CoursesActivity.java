@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class CoursesActivity extends CourseBookingAppActivity{
 
-    //Widget Declarations
+    //Attribute Declarations
     protected Button back;
     protected Button viewUsers;
     protected Button addCourse;
@@ -37,11 +37,6 @@ public class CoursesActivity extends CourseBookingAppActivity{
     //declaration for modified course
     public static CourseModal modifiedCourse;
     public static RefreshStatus refreshStatus;
-
-    @Override
-    public void onBackPressed(){
-        //do nothing. we disable the back button.
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

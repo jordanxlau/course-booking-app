@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends CourseBookingAppActivity{
 
-    //Widget/Attribute declarations
+    //Attribute declarations
     protected Button enter, create;
     protected EditText username, password;
     protected Spinner userType;

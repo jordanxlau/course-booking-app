@@ -18,9 +18,8 @@ import java.util.ArrayList;
 
 public class AdministratorActivity extends CourseBookingAppActivity{
 
-    //Widget Declarations
+    //Attribute Declarations
     protected Button back, viewCourses;
-
     protected TextView usernameDisplay;
 
     //Declarations for toast
@@ -107,17 +106,6 @@ public class AdministratorActivity extends CourseBookingAppActivity{
                 openCourses();
             }
         });
-    }
-
-    //Re-opens main page
-    protected void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-    //Opens courses page
-    protected void openCourses(){
-        Intent intent = new Intent(this, CoursesActivity.class);
-        startActivity(intent);
     }
 
 }

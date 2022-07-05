@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public abstract class CourseBookingAppActivity extends AppCompatActivity {
+
     //Opens admin welcome page
     protected void openAdministratorActivity(){
         Intent intent = new Intent(this, AdministratorActivity.class);
@@ -43,10 +44,15 @@ public abstract class CourseBookingAppActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Opens courses page
+    //Opens course view page
     protected void openCourses(){
         Intent intent = new Intent(this, CoursesActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed(){
+        //disable the default back button.
     }
 
 }

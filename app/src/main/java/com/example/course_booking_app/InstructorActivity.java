@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class InstructorActivity extends CourseBookingAppActivity{
 
-    //Widget Declarations
+    //Attribute Declarations
     protected Button back, viewCourses;
     protected TextView usernameDisplay;
 

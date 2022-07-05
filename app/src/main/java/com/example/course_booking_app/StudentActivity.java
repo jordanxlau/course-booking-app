@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class StudentActivity extends CourseBookingAppActivity{
 
-    //Widget Declarations
+    //Attribute Declarations
     protected Button back, delete;
     protected TextView usernameDisplay;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
