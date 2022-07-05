@@ -65,10 +65,13 @@ public class CoursesActivity extends AppCompatActivity{
                 return false;
             }
 
+            //Deletes a course
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-                if(direction == ItemTouchHelper.RIGHT){
+                if (MainActivity.currentType != "administrator"){
+                    toast = Toast.makeText(context, "Only admins can edit courses!", duration);
+                }
+                else if(direction == ItemTouchHelper.RIGHT){
                     int pos;
                     String purgedCourse;
                     String courseCode;
@@ -176,7 +179,7 @@ public class CoursesActivity extends AppCompatActivity{
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
+    //Opens user page
     protected void openUsers(){
         Intent intent = new Intent(this, AdministratorActivity.class);
         startActivity(intent);

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
     //Other field declarations
     protected ArrayList<String> userList;
     public static String currentUser = "";
+    public static String currentType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +80,9 @@ public class MainActivity extends AppCompatActivity{
                     toast.show();
                     //Update the public field currentUser
                     currentUser = userEntered;
-                    //Open the correct welcome page
+                    //Open the correct welcome page and update the public field currentType
                     String typeEntered = db.findUserType(userEntered);
+                    currentType = typeEntered;
                     if(typeEntered.equals("administrator")){
                         openAdministratorActivity();
                     } else if(typeEntered.equals("instructor")){
