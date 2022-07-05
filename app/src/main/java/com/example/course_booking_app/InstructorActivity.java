@@ -15,7 +15,6 @@ public class InstructorActivity extends AppCompatActivity{
     //Widget Declarations
     protected Button back, viewCourses;
     protected TextView usernameDisplay;
-    protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
     //Declarations for toast
     public int duration = Toast.LENGTH_LONG;
@@ -53,7 +52,6 @@ public class InstructorActivity extends AppCompatActivity{
                 openCourses();
             }
         });
-
 
     }
 
