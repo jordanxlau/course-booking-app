@@ -1,5 +1,7 @@
 package com.example.course_booking_app;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,14 +12,17 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class DatabaseHandlerTests {
-    //create a test database
+    DatabaseHandler testDB;
+    @Before
+    public void setUp(){
+        testDB = new DatabaseHandler(MainActivity.context, "testDB.db");
+    }
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
     @Test
     public void addUser_returns_correct_boolean() {
-        assertTrue(true);
-        //assertTrue(MainActivity.db.addUser("admin","admin123","administrator"));
+        assertTrue(testDB.addUser("testUser","password","instructor"));
     }
 }
