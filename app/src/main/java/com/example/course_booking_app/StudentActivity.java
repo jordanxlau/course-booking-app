@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class StudentActivity extends AppCompatActivity{
+public class StudentActivity extends CourseBookingAppActivity{
 
     //Widget Declarations
     protected Button back, delete;
@@ -64,12 +64,6 @@ public class StudentActivity extends AppCompatActivity{
             }
         });
 
-    }
-
-    //Re-opens main page
-    protected void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
 }

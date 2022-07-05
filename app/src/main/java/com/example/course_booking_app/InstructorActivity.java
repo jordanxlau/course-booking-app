@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class InstructorActivity extends AppCompatActivity{
+public class InstructorActivity extends CourseBookingAppActivity{
 
     //Widget Declarations
     protected Button back, viewCourses;
@@ -54,16 +54,4 @@ public class InstructorActivity extends AppCompatActivity{
         });
 
     }
-
-    //Re-opens main page
-    protected void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-    //Opens courses page
-    protected void openCourses(){
-        Intent intent = new Intent(this, CoursesActivity.class);
-        startActivity(intent);
-    }
-
 }

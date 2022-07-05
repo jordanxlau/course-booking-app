@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CoursesActivity extends AppCompatActivity{
+public class CoursesActivity extends CourseBookingAppActivity{
 
     //Widget Declarations
     protected Button back;
@@ -166,23 +166,6 @@ public class CoursesActivity extends AppCompatActivity{
                 }
             }
         });
-    }
-
-    protected void courseFragment(){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.courseFragment, new CourseAddFragment());
-        ft.commit();
-    }
-
-    //Re-opens main page
-    protected void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-    //Opens user page
-    protected void openUsers(){
-        Intent intent = new Intent(this, AdministratorActivity.class);
-        startActivity(intent);
     }
 
 }

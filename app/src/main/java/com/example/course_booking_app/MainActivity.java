@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends CourseBookingAppActivity{
 
     //Widget/Attribute declarations
     protected Button enter, create;
@@ -113,24 +113,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-    }
-
-    //Opens admin welcome page
-    protected void openAdministratorActivity(){
-        Intent intent = new Intent(this, AdministratorActivity.class);
-        startActivity(intent);
-    }
-
-    //Opens instructor welcome page
-    protected void openInstructorActivity(){
-        Intent intent = new Intent(this, InstructorActivity.class);
-        startActivity(intent);
-    }
-
-    //Opens student welcome page
-    protected void openStudentActivity(){
-        Intent intent = new Intent(this, StudentActivity.class);
-        startActivity(intent);
     }
 
 }

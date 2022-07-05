@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdministratorActivity extends AppCompatActivity{
+public class AdministratorActivity extends CourseBookingAppActivity{
 
     //Widget Declarations
     protected Button back, viewCourses;
