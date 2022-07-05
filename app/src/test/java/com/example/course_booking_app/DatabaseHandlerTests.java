@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -14,7 +15,11 @@ import android.content.Context;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class DatabaseHandlerTests {
-    DatabaseHandler testDB = new DatabaseHandler(MainActivity.context, "testDB.db", 22);
+    DatabaseHandler testDB;
+    @Before
+    public void setUp(){
+        testDB = new DatabaseHandler(MainActivity.context, "testDB.db", 22);
+    }
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
