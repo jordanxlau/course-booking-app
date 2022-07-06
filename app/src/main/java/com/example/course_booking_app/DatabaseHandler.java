@@ -80,11 +80,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursorUsers = db.rawQuery("SELECT * FROM " + USER_TABLE_NAME, null);
 
-        ArrayList<User> userModalArrayList = new ArrayList<>();
+        ArrayList<User> userArrayList = new ArrayList<>();
 
         if(cursorUsers.moveToFirst()){
             do{
-                userModalArrayList.add(new User(
+                userArrayList.add(new User(
                     cursorUsers.getString(0),
                     cursorUsers.getString(1),
                     cursorUsers.getString(2),
@@ -94,7 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursorUsers.close();
-        return userModalArrayList;
+        return userArrayList;
     }
 
     //Gets courses in the form of ArrayList
@@ -103,11 +103,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursorCourses = db.rawQuery("SELECT * FROM " + COURSE_TABLE_NAME, null);
 
-        ArrayList<Course> CourseArrayList = new ArrayList<>();
+        ArrayList<Course> courseArrayList = new ArrayList<>();
 
         if(cursorCourses.moveToFirst()){
             do{
-                CourseArrayList.add(new Course(
+                courseArrayList.add(new Course(
                     cursorCourses.getString(0),
                     cursorCourses.getString(1),
                     cursorCourses.getString(2),
@@ -117,7 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursorCourses.close();
-        return CourseArrayList;
+        return courseArrayList;
     }
 
     //Adds a user to the Users table

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CoursesActivity extends CustomActivity {
+public class CoursesActivity extends CustomActivity implements ItemClick{
 
     //Attribute Declarations
     protected Button back, viewUsers, addCourse, refreshPage;
@@ -84,7 +84,7 @@ public class CoursesActivity extends CustomActivity {
         courseList = new ArrayList<>();
         courseList = MainActivity.db.getCourses();
 
-        courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this);
+        courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this, CoursesActivity.this);
         linearLayoutManager = new LinearLayoutManager(CoursesActivity.this, RecyclerView.VERTICAL, false);
         coursesRV.setLayoutManager(linearLayoutManager);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
@@ -145,4 +145,8 @@ public class CoursesActivity extends CustomActivity {
 
     }
 
+    @Override
+    public void onItemClick(int position) {
+        //Does nothing
+    }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class InstructorActivity extends CustomActivity {
+public class InstructorActivity extends CustomActivity implements ItemClick{
 
     //Attribute Declarations
     protected Button back, myCourses, search;
@@ -24,9 +25,10 @@ public class InstructorActivity extends CustomActivity {
     protected EditText searchCode, searchName;
 
     //Other declarations
-    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList;
+    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList, myCourseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
+    private ItemClick onClick;
 
     //declaration for modified course
     public static Course modifiedCourse;
@@ -49,20 +51,6 @@ public class InstructorActivity extends CustomActivity {
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as instructor: " + currentUser);
 
-        //Item Touch Helper setup
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Does nothing
-            }
-        };
-
         //setup related to course information
         modifiedCourse = new Course("","","","");
         refreshStatus = RefreshStatus.NOCHANGE;
@@ -70,10 +58,10 @@ public class InstructorActivity extends CustomActivity {
         courseList = new ArrayList<>();
         courseList = MainActivity.db.getCourses();
 
-        courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
+        courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
         coursesRV.setLayoutManager(linearLayoutManager);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+        //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
         coursesRV.setAdapter(courseRVAdapter);
 
         //Create action listeners
@@ -84,48 +72,76 @@ public class InstructorActivity extends CustomActivity {
             }
         });
 
+        myCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creates a list of the courses that are instructed by the current user
+                myCourseList = new ArrayList<Course>();
+                for (Course course: courseList){
+                    if (course.getInstructor().equals(currentUser))
+                        myCourseList.add(course);
+                }
+
+                //Sets the RV to the newly created list
+                courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this, InstructorActivity.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                coursesRV.setLayoutManager(linearLayoutManager);
+                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                coursesRV.setAdapter(courseRVAdapter);
+            }
+        });
+
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String desiredCode = searchCode.getText().toString();
+                //Setup
+                String desiredCode = searchCode.getText().toString().toLowerCase();
+                if (desiredCode == null)
+                    desiredCode = "";
+                String desiredName = searchName.getText().toString().toLowerCase();
+                if (desiredName == null)
+                    desiredName = "";
 
-                /*//Reset to the view of all courses
-                if (desiredCode == null || desiredCode == ""){
-                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
+                //Reset to the view of all courses
+                if (desiredCode == "" && desiredName == ""){
+                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
-                    new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                    //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
                     return;
-                }*/
+                }
 
-                /*//Creates a list of the courses that match the searched course code
+                //Creates a list of the courses that contain the searched course code
                 sameCodeCourseList = new ArrayList<Course>();
-                for (Course course: sameCodeCourseList){
-                    if (course.getCode().equals(desiredCode)){
+                for (Course course: courseList){
+                    if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
                         sameCodeCourseList.add(course);
-                    }
-                }*/
-
-                ArrayList<Course> testList = new ArrayList<Course>();
-                testList.add(new Course("0101010","MAT1322H","Calculus", "Yves Fomatati"));
+                }
                 
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this);
+                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this, InstructorActivity.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
-                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
             }
         });
 
         //Create context menu
-        registerForContextMenu(coursesRV);
+        //registerForContextMenu(coursesRV);
     }
 
     @Override
+    public void onItemClick(int position) {
+        toast = Toast.makeText(this,"SUCCESSSSSSSSSS", duration);
+        toast.show();
+    }
+
+    /*@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Assign yourself to this course?");
         getMenuInflater().inflate(R.menu.select_course_menu, menu);
     }
 
@@ -143,6 +159,5 @@ public class InstructorActivity extends CustomActivity {
     @Override
     public void onContextMenuClosed(@NonNull Menu menu) {
         super.onContextMenuClosed(menu);
-    }
-
+    }*/
 }
