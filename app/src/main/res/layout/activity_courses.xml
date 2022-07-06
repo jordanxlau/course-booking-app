@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdministratorActivity">
@@ -18,109 +19,139 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/back"
-            style="?android:attr/buttonBarButtonStyle"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/garnet"
-            android:text="@string/back"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/viewUsers"
-            style="?android:attr/buttonBarButtonStyle"
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/back"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/garnet"
+                    android:text="@string/back"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/viewUsers"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/cardview_light_background"
+                    android:outlineSpotShadowColor="@color/black"
+                    android:text="@string/manage_users"
+                    android:textColor="@color/garnet" />
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/cardview_light_background"
-            android:outlineSpotShadowColor="@color/black"
-            android:text="@string/manage_users"
-            android:textColor="@color/garnet" />
+            android:layout_height="match_parent" >
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+                <Button
+                    android:id="@+id/refreshPage"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/cardview_light_background"
+                    android:outlineSpotShadowColor="@color/black"
+                    android:text="@string/refresh"
+                    android:textColor="@color/garnet" />
 
-        <Button
-            android:id="@+id/refreshPage"
-            style="?android:attr/buttonBarButtonStyle"
+                <Button
+                    android:id="@+id/addCourse"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:text="@string/add_course"
+                    android:textColor="@color/garnet" />
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/cardview_light_background"
-            android:outlineSpotShadowColor="@color/black"
-            android:text="@string/refresh"
-            android:textColor="@color/garnet" />
+            android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/addCourse"
-            style="?android:attr/buttonBarButtonStyle"
+            <EditText
+                android:id="@+id/searchCode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Course Code"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:text="@string/add_course"
-            android:textColor="@color/garnet" />
+            android:layout_height="match_parent" >
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/searchName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autofillHints=""
+                android:hint="@string/course_name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="233dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        </TableRow>
 
-        <EditText
-            android:id="@+id/searchCode"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:hint="@string/course_code"
-            android:autofillHints="" />
+            android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/searchName"
+            <Button
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white"
+                android:text="search"
+                android:textColor="@color/garnet"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:inputType="textPersonName"
-            android:hint="@string/course_name"
-            android:autofillHints="" />
+            android:layout_height="match_parent" >
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="401dp"
+                android:layout_height="600dp"
+                android:layout_marginTop="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="401dp"
-        android:layout_height="632dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            </androidx.recyclerview.widget.RecyclerView>
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

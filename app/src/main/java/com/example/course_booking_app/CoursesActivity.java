@@ -2,6 +2,8 @@ package com.example.course_booking_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,13 +19,11 @@ import java.util.ArrayList;
 public class CoursesActivity extends CourseBookingAppActivity{
 
     //Attribute Declarations
-    protected Button back, viewUsers, addCourse, refreshPage;
+    protected Button back, viewUsers, addCourse, refreshPage, search;
     protected EditText searchCode, searchName;
 
     //Other declarations
-    private ArrayList<CourseModal> sameCodeCourseList;
-    private ArrayList<CourseModal> sameNameCourseList;
-    private ArrayList<CourseModal> courseList;
+    private ArrayList<CourseModal> sameCodeCourseList, sameNameCourseList, courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
 
@@ -43,6 +43,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
         refreshPage = findViewById(R.id.refreshPage);
         searchCode = findViewById(R.id.searchCode);
         searchName = findViewById(R.id.searchName);
+        search = findViewById(R.id.search);
         coursesRV = findViewById(R.id.recyclerView);
 
         //Item Touch Helper setup
@@ -152,7 +153,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
             }
         });
 
-        searchCode.setOnClickListener(new View.OnClickListener(){
+        search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String desiredCode = searchCode.getText().toString();
@@ -176,7 +177,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
             }
         });
 
-        searchName.setOnClickListener(new View.OnClickListener(){
+        searchName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String desiredName = searchName.getText().toString();
@@ -199,6 +200,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
                 courseRVAdapter = new CourseRVAdapter(sameNameCourseList, CoursesActivity.this);
             }
         });
+
     }
 
 }
