@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHolder> {
 
-    // variable for our array list and context
+    // field declarations
     private ArrayList<Course> CourseArrayList;
     private Context context;
 
@@ -60,7 +60,10 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     @Override
     public int getItemCount() {
         // returning the size of our array list
-        return CourseArrayList.size();
+        if (CourseArrayList != null)
+            return CourseArrayList.size();
+        else
+            return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -126,6 +126,7 @@ public class InstructorActivity extends CustomActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Assign yourself to this course?");
         getMenuInflater().inflate(R.menu.select_course_menu, menu);
     }
 
