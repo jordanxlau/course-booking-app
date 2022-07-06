@@ -92,8 +92,15 @@ public class MainActivity extends CustomActivity {
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
-                if ( db.addUser(name, pass, type) ) {
+                int returnCode = db.addUser(name, pass, type);
+                if (returnCode == 0) {
                     toast = Toast.makeText(context, "Account created.", duration);
+                    toast.show();
+                } else if (returnCode == 2){
+                    toast = Toast.makeText(context, "Please select account type!", duration);
+                    toast.show();
+                } else if (returnCode == 4){
+                    toast = Toast.makeText(context, "User already exists!", duration);
                     toast.show();
                 }
             }

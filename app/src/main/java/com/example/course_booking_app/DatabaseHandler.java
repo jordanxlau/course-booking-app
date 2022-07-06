@@ -62,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         this.addUser("admin", "admin123", "administrator");
 
         //add preset courses
-        this.addCourse("SEG2105Z", "Introduction to Software Engineering (DEFAULT)", "Professor Omar Badreddin");
+        this.addCourse("SEG2105Z", "Intro to Software Engineering", "Omar Badreddin");
     }
 
     @Override //"DROP" Removes both tables (never called?)
@@ -121,44 +121,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Adds a user to the Users table
-    public boolean addUser(String username, String password, String type) {
+    //Returns 0 if the user is successfully added, returns 2 if the account type has not been selected, returns 4 if the user already exists, returns 6 if another error occurs
+    public int addUser(String username, String password, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        boolean result = false;
 
         if (this.findPassword(username) == null && !type.equals("--Select account type for creation--")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
             db.insert(USER_TABLE_NAME, null, values);
-            result = true;
+            return 0;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
-            CustomActivity.toast.makeText(CustomActivity.context, "Please select account type!", CustomActivity.duration).show();
+            return 2;
         } else if (this.findPassword(username) != null){//User already exists
-            CustomActivity.toast.makeText(CustomActivity.context, "User already exists!", CustomActivity.duration).show();
+            return 4;
+        } else {
+            return 6;
         }
 
-        return result;
     }
 
 
     //Adds a course to the courses table
-    public boolean addCourse(String courseCode, String courseName, String courseInstructor) {
+    //Returns 0 if course was successfully added, returns 4 if course already exists
+    public int addCourse(String courseCode, String courseName, String courseInstructor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        boolean result = false;
 
         if (! this.courseExists(courseCode) ){ //Course does not already exist
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
             db.insert(COURSE_TABLE_NAME, null, values);
-            result = true;
+            return 0;
         } else {//Course already exists
-            CustomActivity.toast.makeText(CustomActivity.context, "Course already exists!", CustomActivity.duration).show();
+            return 4;
         }
 
-        return result;
     }
 
     //modify a course

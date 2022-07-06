@@ -10,9 +10,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * JUnit tests for {@Link DatabaseHandler}
  */
 public class DatabaseHandlerTests {
     DatabaseHandler testDB;
@@ -26,6 +24,6 @@ public class DatabaseHandlerTests {
     }
     @Test
     public void addUser_returns_correct_boolean() {
-        assertTrue(testDB.addUser("testUser","password","instructor"));
+        assertEquals(0, testDB.addUser("testUser","password","instructor"));
     }
 }
