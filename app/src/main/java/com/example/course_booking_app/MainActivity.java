@@ -1,7 +1,5 @@
 package com.example.course_booking_app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,26 +8,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends CustomActivity {
 
-    //Widget/Attribute declarations
+    //Attribute declarations
     protected Button enter, create;
     protected EditText username, password;
     protected Spinner userType;
     public static DatabaseHandler db;
 
-    //Toast declarations
-    public static int duration = Toast.LENGTH_LONG;
-    public static Toast toast;//for error messages
-    public static Context context;
-
     //Other field declarations
     protected ArrayList<String> userList;
-    public static String currentUser = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +29,12 @@ public class MainActivity extends AppCompatActivity{
         //Set content view
         setContentView(R.layout.activity_main);
 
-        //Initialize widgets
+        //Initialize attributes
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         enter = findViewById(R.id.enter);
         create = findViewById(R.id.create);
         userType = findViewById(R.id.userType);
-
-        //Initialize context
-        context = getApplicationContext();
 
         //Initialize userList
         userList = new ArrayList<>();
@@ -79,8 +66,9 @@ public class MainActivity extends AppCompatActivity{
                     toast.show();
                     //Update the public field currentUser
                     currentUser = userEntered;
-                    //Open the correct welcome page
+                    //Open the correct welcome page and update the public field currentType
                     String typeEntered = db.findUserType(userEntered);
+                    currentType = typeEntered;
                     if(typeEntered.equals("administrator")){
                         openAdministratorActivity();
                     } else if(typeEntered.equals("instructor")){
@@ -112,24 +100,5 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }
-
-    //Opens admin welcome page
-    protected void openAdministratorActivity(){
-        Intent intent = new Intent(this, AdministratorActivity.class);
-        startActivity(intent);
-    }
-
-    //Opens instructor welcome page
-    protected void openInstructorActivity(){
-        Intent intent = new Intent(this, InstructorActivity.class);
-        startActivity(intent);
-    }
-
-    //Opens student welcome page
-    protected void openStudentActivity(){
-        Intent intent = new Intent(this, StudentActivity.class);
-        startActivity(intent);
-    }
-    
 
 }

@@ -1,12 +1,12 @@
 package com.example.course_booking_app;
 
-public class CourseModal {
+public class Course {
     private String ID;
     private String code;
     private String name;
     private String instructor;
 
-    public CourseModal(String ID, String code, String name, String instructor) {
+    public Course(String ID, String code, String name, String instructor) {
         this.ID = ID;
         this.code = code;
         this.name = name;

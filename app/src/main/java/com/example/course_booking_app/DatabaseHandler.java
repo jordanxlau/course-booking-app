@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 2);
+        super(context, "users4.db", null, 5);
     }
 
     public DatabaseHandler(Context context, String name, int version){
@@ -75,16 +75,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Gets users in the form of ArrayList
-    public ArrayList<UserModal> getUsers(){
+    public ArrayList<User> getUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursorUsers = db.rawQuery("SELECT * FROM " + USER_TABLE_NAME, null);
 
-        ArrayList<UserModal> userModalArrayList = new ArrayList<>();
+        ArrayList<User> userModalArrayList = new ArrayList<>();
 
         if(cursorUsers.moveToFirst()){
             do{
-                userModalArrayList.add(new UserModal(
+                userModalArrayList.add(new User(
                     cursorUsers.getString(0),
                     cursorUsers.getString(1),
                     cursorUsers.getString(2),
@@ -98,16 +98,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Gets courses in the form of ArrayList
-    public ArrayList<CourseModal> getCourses(){
+    public ArrayList<Course> getCourses(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursorCourses = db.rawQuery("SELECT * FROM " + COURSE_TABLE_NAME, null);
 
-        ArrayList<CourseModal> courseModalArrayList = new ArrayList<>();
+        ArrayList<Course> CourseArrayList = new ArrayList<>();
 
         if(cursorCourses.moveToFirst()){
             do{
-                courseModalArrayList.add(new CourseModal(
+                CourseArrayList.add(new Course(
                     cursorCourses.getString(0),
                     cursorCourses.getString(1),
                     cursorCourses.getString(2),
@@ -117,7 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursorCourses.close();
-        return courseModalArrayList;
+        return CourseArrayList;
     }
 
     //Adds a user to the Users table
@@ -133,9 +133,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.insert(USER_TABLE_NAME, null, values);
             result = true;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
-            MainActivity.toast.makeText(MainActivity.context, "Please select account type!", MainActivity.duration).show();
+            CustomActivity.toast.makeText(CustomActivity.context, "Please select account type!", CustomActivity.duration).show();
         } else if (this.findPassword(username) != null){//User already exists
-            MainActivity.toast.makeText(MainActivity.context, "User already exists!", MainActivity.duration).show();
+            CustomActivity.toast.makeText(CustomActivity.context, "User already exists!", CustomActivity.duration).show();
         }
 
         return result;
@@ -155,14 +155,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.insert(COURSE_TABLE_NAME, null, values);
             result = true;
         } else {//Course already exists
-            MainActivity.toast.makeText(MainActivity.context, "Course already exists!", MainActivity.duration).show();
+            CustomActivity.toast.makeText(CustomActivity.context, "Course already exists!", CustomActivity.duration).show();
         }
 
         return result;
     }
 
     //modify a course
-    public boolean modifyCourse(CourseModal tempCourse) {
+    public boolean modifyCourse(Course tempCourse) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean result = false;
