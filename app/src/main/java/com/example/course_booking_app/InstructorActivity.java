@@ -49,20 +49,6 @@ public class InstructorActivity extends CustomActivity {
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as instructor: " + currentUser);
 
-        //Item Touch Helper setup
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Does nothing
-            }
-        };
-
         //setup related to course information
         modifiedCourse = new Course("","","","");
         refreshStatus = RefreshStatus.NOCHANGE;
@@ -73,7 +59,7 @@ public class InstructorActivity extends CustomActivity {
         courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
         coursesRV.setLayoutManager(linearLayoutManager);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+        //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
         coursesRV.setAdapter(courseRVAdapter);
 
         //Create action listeners
@@ -98,7 +84,7 @@ public class InstructorActivity extends CustomActivity {
                 courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
-                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
             }
         });
@@ -121,7 +107,7 @@ public class InstructorActivity extends CustomActivity {
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
-                    new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                    //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
                     //Clear the other list
                     //sameCodeCourseList.clear();
@@ -139,7 +125,7 @@ public class InstructorActivity extends CustomActivity {
                 courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
-                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
             }
         });
