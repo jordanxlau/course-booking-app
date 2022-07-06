@@ -1,69 +1,148 @@
 package com.example.course_booking_app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class InstructorActivity extends AppCompatActivity{
+import java.util.ArrayList;
 
-    //Widget Declarations
-    protected Button back, viewCourses;
+public class InstructorActivity extends CustomActivity {
+
+    //Attribute Declarations
+    protected Button back, myCourses, search;
     protected TextView usernameDisplay;
+    protected EditText searchCode, searchName;
 
-    //Declarations for toast
-    public int duration = Toast.LENGTH_LONG;
-    public static Toast toast;
-    public Context context;
+    //Other declarations
+    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList;
+    private CourseRVAdapter courseRVAdapter;
+    private RecyclerView coursesRV;
+
+    //declaration for modified course
+    public static Course modifiedCourse;
+    public static RefreshStatus refreshStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
 
-        //Initialize widgets
+        //Initialize attributes
         back = findViewById(R.id.back);
-        viewCourses = findViewById(R.id.viewCourses);
+        myCourses = findViewById(R.id.myCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
-
-        //Initialize context
-        context = getApplicationContext();
+        search = findViewById(R.id.search);
+        searchCode = findViewById(R.id.searchCode);
+        searchName = findViewById(R.id.searchName);
+        coursesRV = findViewById(R.id.recyclerView);
 
         //Initialize usernameDisplay
-        usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
+        usernameDisplay.setText("logged in as instructor: " + currentUser);
+
+        //Item Touch Helper setup
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                //Does nothing
+            }
+        };
+
+        //setup related to course information
+        modifiedCourse = new Course("","","","");
+        refreshStatus = RefreshStatus.NOCHANGE;
+
+        courseList = new ArrayList<>();
+        courseList = MainActivity.db.getCourses();
+
+        courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+        coursesRV.setLayoutManager(linearLayoutManager);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+        coursesRV.setAdapter(courseRVAdapter);
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Goes back to MainActivity.java
                 openMain();
             }
         });
 
-        viewCourses.setOnClickListener(new View.OnClickListener() {
+        search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openCourses();
+                String desiredCode = searchCode.getText().toString();
+
+                /*//Reset to the view of all courses
+                if (desiredCode == null || desiredCode == ""){
+                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                    coursesRV.setLayoutManager(linearLayoutManager);
+                    new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                    coursesRV.setAdapter(courseRVAdapter);
+                    return;
+                }*/
+
+                /*//Creates a list of the courses that match the searched course code
+                sameCodeCourseList = new ArrayList<Course>();
+                for (Course course: sameCodeCourseList){
+                    if (course.getCode().equals(desiredCode)){
+                        sameCodeCourseList.add(course);
+                    }
+                }*/
+
+                ArrayList<Course> testList = new ArrayList<Course>();
+                testList.add(new Course("0101010","MAT1322H","Calculus", "Yves Fomatati"));
+                
+                //Sets the RV to the newly created list
+                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                coursesRV.setLayoutManager(linearLayoutManager);
+                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                coursesRV.setAdapter(courseRVAdapter);
             }
         });
 
+        //Create context menu
+        registerForContextMenu(coursesRV);
     }
 
-    //Re-opens main page
-    protected void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.select_course_menu, menu);
     }
-    //Opens courses page
-    protected void openCourses(){
-        Intent intent = new Intent(this, CoursesActivity.class);
-        startActivity(intent);
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.enroll:
+                System.out.println("ASSIGN INSTRUCTOR TO COURSE");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onContextMenuClosed(@NonNull Menu menu) {
+        super.onContextMenuClosed(menu);
     }
 
 }

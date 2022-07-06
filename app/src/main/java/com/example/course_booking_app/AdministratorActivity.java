@@ -1,7 +1,5 @@
 package com.example.course_booking_app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,27 +7,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdministratorActivity extends AppCompatActivity{
+public class AdministratorActivity extends CustomActivity {
 
-    //Widget Declarations
+    //Attribute Declarations
     protected Button back, viewCourses;
-
     protected TextView usernameDisplay;
 
-    //Declarations for toast
-    public int duration = Toast.LENGTH_LONG;
-    public static Toast toast;
-    public Context context;
-
     //Other declarations
-    private ArrayList<UserModal> userModalArrayList;
+    private ArrayList<User> userModalArrayList;
     private UserRVAdapter userRVAdapter;
     private RecyclerView usersRV;
 
@@ -42,9 +33,6 @@ public class AdministratorActivity extends AppCompatActivity{
         back = findViewById(R.id.back);
         usernameDisplay = findViewById(R.id.usernameDisplay);
         viewCourses = findViewById(R.id.viewCourses);
-
-        //Initialize context
-        context = getApplicationContext();
 
         //Item Touch Helper setup
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
@@ -90,7 +78,7 @@ public class AdministratorActivity extends AppCompatActivity{
         usersRV.setAdapter(userRVAdapter);
 
         //Initialize usernameDisplay
-        usernameDisplay.setText("logged in as: " + MainActivity.currentUser);
+        usernameDisplay.setText("logged in as: " + currentUser);
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){
@@ -107,17 +95,6 @@ public class AdministratorActivity extends AppCompatActivity{
                 openCourses();
             }
         });
-    }
-
-    //Re-opens main page
-    protected void openMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-    //Opens courses page
-    protected void openCourses(){
-        Intent intent = new Intent(this, CoursesActivity.class);
-        startActivity(intent);
     }
 
 }

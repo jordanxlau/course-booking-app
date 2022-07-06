@@ -1,12 +1,12 @@
 package com.example.course_booking_app;
 
-public class UserModal {
+public class User {
     private String ID;
     private String username;
     private String password;
     private String usertype;
 
-    public UserModal(String ID, String username, String password, String usertype) {
+    public User(String ID, String username, String password, String usertype) {
         this.ID = ID;
         this.username = username;
         this.password = password;
