@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class InstructorActivity extends CustomActivity {
+public class InstructorActivity extends CustomActivity implements ItemClick{
 
     //Attribute Declarations
     protected Button back, myCourses, search;
@@ -27,6 +28,7 @@ public class InstructorActivity extends CustomActivity {
     private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList, myCourseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
+    private ItemClick onClick;
 
     //declaration for modified course
     public static Course modifiedCourse;
@@ -56,7 +58,7 @@ public class InstructorActivity extends CustomActivity {
         courseList = new ArrayList<>();
         courseList = MainActivity.db.getCourses();
 
-        courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
+        courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
         coursesRV.setLayoutManager(linearLayoutManager);
         //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
@@ -81,7 +83,7 @@ public class InstructorActivity extends CustomActivity {
                 }
 
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this);
+                courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this, InstructorActivity.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
                 //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
@@ -99,18 +101,14 @@ public class InstructorActivity extends CustomActivity {
                 String desiredName = searchName.getText().toString().toLowerCase();
                 if (desiredName == null)
                     desiredName = "";
-                //Clear the newly created list in preparation
-                //sameCodeCourseList.clear();
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){
-                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
+                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
                     //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
-                    //Clear the other list
-                    //sameCodeCourseList.clear();
                     return;
                 }
 
@@ -122,7 +120,7 @@ public class InstructorActivity extends CustomActivity {
                 }
                 
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this);
+                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this, InstructorActivity.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
                 //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
@@ -131,10 +129,15 @@ public class InstructorActivity extends CustomActivity {
         });
 
         //Create context menu
-        registerForContextMenu(coursesRV);
+        //registerForContextMenu(coursesRV);
     }
 
     @Override
+    public void onItemClick(int position) {
+        Toast.makeText(this,"SUCCESSSSSSSSSS", duration);
+    }
+
+    /*@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Assign yourself to this course?");
@@ -155,6 +158,5 @@ public class InstructorActivity extends CustomActivity {
     @Override
     public void onContextMenuClosed(@NonNull Menu menu) {
         super.onContextMenuClosed(menu);
-    }
-
+    }*/
 }

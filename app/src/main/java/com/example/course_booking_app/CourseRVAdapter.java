@@ -17,6 +17,9 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     // field declarations
     private ArrayList<Course> courseArrayList;
     private Context context;
+    
+    //for the onClick handler
+    private final ItemClick itemClick;
 
     //for the context menu
     private int position;
@@ -32,9 +35,16 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     }
 
     // constructor
-    public CourseRVAdapter(ArrayList<Course> CourseArrayList, Context context) {
-        this.courseArrayList = CourseArrayList;
+    //public CourseRVAdapter(ArrayList<Course> courseArrayList, Context context) {
+    //    this.courseArrayList = courseArrayList;
+    //    this.context = context;
+    //}
+    
+    //second constructor (overloading)
+    public CourseRVAdapter(ArrayList<Course> courseArrayList, Context context, ItemClick itemClick) {
+        this.courseArrayList = courseArrayList;
         this.context = context;
+        this.itemClick = itemClick;
     }
 
     @NonNull
@@ -43,7 +53,7 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
         // on below line we are inflating our layout
         // file for our recycler view items.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_list_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, itemClick);
     }
 
     @Override
@@ -66,24 +76,35 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
             return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         // creating variables for our text views.
         private TextView courseIDTV, courseCodeTV, courseNameTV, courseInstructorTV;
+        private ItemClick itemClick;
 
-        public ViewHolder(@NonNull View itemView) {
+        //Constructor
+        public ViewHolder(@NonNull View itemView, ItemClick itemCLick) {
             super(itemView);
+            this.itemClick = itemCLick;
+
             // initializing our text views
             courseIDTV = itemView.findViewById(R.id.idTVcourseID);
             courseCodeTV = itemView.findViewById(R.id.idTVcourseCode);
             courseNameTV = itemView.findViewById(R.id.idTVcourseName);
             courseInstructorTV = itemView.findViewById(R.id.idTVcourseInstructor);
 
+            //attach onClick listener
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClick != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            itemCLick.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
-
-    public interface OnCourseListener{
-        void onCourseClick(int position);
-    }
-
 }
