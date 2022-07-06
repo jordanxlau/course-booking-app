@@ -161,26 +161,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    //Determines if a username and password match
+    //Returns 0 if password and username match, returns 2 if user doesn't exist, returns 4 if user exists but pass is incorrect
+    public int match(String username, String password){
+        String foundPass = this.findPassword(username);//the password associated in the DB with username entered
+
+        if (foundPass.equals(password)) //Password matches username
+            return 0;
+        else if (foundPass == null)//No password associated with this user, i.e. user doesn't exist
+            return 2;
+        else //User exists but password is incorrect
+            return 4;
+
+    }
+
+
     //modify a course
-    public boolean modifyCourse(Course tempCourse) {
+    //returns true if successful
+    public boolean modifyCourse(Course course) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        boolean result = false;
 
-        values.put(COURSE_COL_CODE, tempCourse.getCode());
-        values.put(COURSE_COL_NAME, tempCourse.getName());
-        values.put(COURSE_COL_INSTRUCTOR, tempCourse.getInstructor());
-        db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{tempCourse.getID()});
-        result = true;
+        try {
+            values.put(COURSE_COL_CODE, course.getCode());
+            values.put(COURSE_COL_NAME, course.getName());
+            values.put(COURSE_COL_INSTRUCTOR, course.getInstructor());
+            db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
+            return true;
+        } catch (NullPointerException n){
+            return false;
+        }
 
-        return result;
     }
 
     //Finds the password of a certain user
-    public String findPassword(String user){
+    private String findPassword(String username){
         SQLiteDatabase db = this.getReadableDatabase();
         //SELECT "password" FROM "users" WHERE "username" = user
-        String query = "SELECT " + USER_COL_PASS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + user + "\"";
+        String query = "SELECT " + USER_COL_PASS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
         String foundPassword = null;
