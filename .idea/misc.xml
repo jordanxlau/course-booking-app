@@ -26,9 +26,10 @@
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_administrator.xml" value="0.2875" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_courses.xml" value="0.261297798377752" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_courses_enrollment.xml" value="0.2390625" />
-        <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_instructor.xml" value="0.2875" />
+        <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_instructor.xml" value="0.264" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.1578125" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_student.xml" value="0.2875" />
+        <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/course_list_item.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/menu/select_course_menu.xml" value="0.1" />
       </map>
     </option>

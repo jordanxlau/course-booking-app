@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 2);
+        super(context, "users4.db", null, 5);
     }
 
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called
