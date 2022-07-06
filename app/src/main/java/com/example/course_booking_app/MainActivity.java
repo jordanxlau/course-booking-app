@@ -52,36 +52,34 @@ public class MainActivity extends CustomActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userEntered = username.getText().toString();
-                String actualPass = password.getText().toString();
-                String foundPass = db.findPassword(userEntered);//the password of the username entered
 
-                if (foundPass == null) {//No password associated with this user, i.e. user doesn't exist
-                    //Display error message (can't find user)
-                    toast = Toast.makeText(context, "User not found.", duration);
-                    toast.show();
-                } else if (foundPass.equals(actualPass)) {//Password matches username
-                    //Move to next screen
-                    toast = Toast.makeText(context, "Logging in...", Toast.LENGTH_SHORT);
-                    toast.show();
-                    //Update the public field currentUser
-                    currentUser = userEntered;
-                    //Open the correct welcome page and update the public field currentType
-                    String typeEntered = db.findUserType(userEntered);
-                    currentType = typeEntered;
-                    if(typeEntered.equals("administrator")){
-                        openAdministratorActivity();
-                    } else if(typeEntered.equals("instructor")){
-                        openInstructorActivity();
-                    } else {
-                        openStudentActivity();
-                    }
+                switch ( db.match(username.getText().toString(), password.getText().toString()) ) {
+                    case 0:
+                        toast = Toast.makeText(context, "Logging in...", Toast.LENGTH_SHORT);
+                        toast.show();
 
-                } else {//User exists but password is incorrect
-                    //Display error message (password incorrect)
-                    toast = Toast.makeText(context, "Wrong password!", duration);
-                    toast.show();
+                        //Update the public fields currentUser, currentType
+                        currentUser = username.getText().toString();
+                        currentType = db.findUserType(currentUser);
+
+                        //Open the correct welcome page
+                        if (currentType.equals("administrator"))
+                            openAdministratorActivity();
+                        else if (currentType.equals("instructor"))
+                            openInstructorActivity();
+                        else
+                            openStudentActivity();
+                        break;
+                    case 2:
+                        toast = Toast.makeText(context, "User not found", duration);
+                        toast.show();
+                        break;
+                    case 4:
+                        toast = Toast.makeText(context, "Wrong password", duration);
+                        toast.show();
+                        break;
                 }
+
             }
         });
 
@@ -92,10 +90,21 @@ public class MainActivity extends CustomActivity {
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
                 String type = userType.getSelectedItem().toString();
-                if ( db.addUser(name, pass, type) ) {
-                    toast = Toast.makeText(context, "Account created.", duration);
-                    toast.show();
+                switch ( db.addUser(name, pass, type) ) {
+                    case 0:
+                        toast = Toast.makeText(context, "Account created", duration);
+                        toast.show();
+                        break;
+                    case 2:
+                        toast = Toast.makeText(context, "Please select account type", duration);
+                        toast.show();
+                        break;
+                    case 4:
+                        toast = Toast.makeText(context, "User already exists", duration);
+                        toast.show();
+                        break;
                 }
+
             }
         });
 

@@ -123,8 +123,10 @@ public class CoursesActivity extends CustomActivity implements ItemClick{
                     toastMessage = "There are no changes to be made. ";
                 }
                 else if(refreshStatus == RefreshStatus.ADDCOURSE){
-                    MainActivity.db.addCourse(modifiedCourse.getCode(), modifiedCourse.getName(), modifiedCourse.getInstructor());
-                    toastMessage = "The course has been added successfully. ";
+                    if ( MainActivity.db.addCourse(modifiedCourse.getCode(), modifiedCourse.getName(), modifiedCourse.getInstructor()) == 0)
+                        toastMessage = "The course has been added successfully. ";
+                    else
+                        toastMessage = "course already exists!";
                 }
                 else if(refreshStatus == RefreshStatus.EDITCOURSE){
                     MainActivity.db.modifyCourse(modifiedCourse);
