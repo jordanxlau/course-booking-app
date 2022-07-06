@@ -36,7 +36,7 @@ public class InstructorActivity extends CourseBookingAppActivity{
         viewCourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCourses();
+                openEnroll();
             }
         });
 

@@ -18,6 +18,19 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     private ArrayList<CourseModal> courseModalArrayList;
     private Context context;
 
+    //for the context menu
+    private int position;
+
+    //getter
+    public int getPosition() {
+        return position;
+    }
+
+    //setter
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     // constructor
     public CourseRVAdapter(ArrayList<CourseModal> courseModalArrayList, Context context) {
         this.courseModalArrayList = courseModalArrayList;

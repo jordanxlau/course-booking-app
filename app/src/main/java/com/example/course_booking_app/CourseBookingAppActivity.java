@@ -69,6 +69,12 @@ public abstract class CourseBookingAppActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Opens enroll courses view page
+    protected void openEnroll(){
+        Intent intent = new Intent(this, CourseEnrollmentActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed(){
         //disable the default back button.

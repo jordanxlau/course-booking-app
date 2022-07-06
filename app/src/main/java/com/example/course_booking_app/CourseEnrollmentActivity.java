@@ -2,7 +2,9 @@ package com.example.course_booking_app;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -131,13 +133,30 @@ public class CourseEnrollmentActivity extends CourseBookingAppActivity {
                 courseRVAdapter = new CourseRVAdapter(sameNameCourseList, CoursesActivity.this);
             }
         });*/
+
+        //Create context menu
+        registerForContextMenu(coursesRV);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
+        getMenuInflater().inflate(R.menu.select_course_menu, menu);
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.enroll:
+                System.out.println("ASSIGN INSTRUCTOR TO COURSE");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onContextMenuClosed(@NonNull Menu menu) {
+        super.onContextMenuClosed(menu);
+    }
 }
