@@ -88,6 +88,8 @@ public class InstructorActivity extends CustomActivity {
             @Override
             public void onClick(View v) {
                 String desiredCode = searchCode.getText().toString().toLowerCase();
+                //Clear the newly created list in preparation
+                //sameCodeCourseList.clear();
 
                 //Reset to the view of all courses
                 if (desiredCode == null || desiredCode == ""){
@@ -97,7 +99,7 @@ public class InstructorActivity extends CustomActivity {
                     new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
                     //Clear the other list
-                    sameCodeCourseList.clear();
+                    //sameCodeCourseList.clear();
                     return;
                 }
 
@@ -114,9 +116,6 @@ public class InstructorActivity extends CustomActivity {
                 coursesRV.setLayoutManager(linearLayoutManager);
                 new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
-
-                //Clear the newly created list for next time
-                sameCodeCourseList.clear();
             }
         });
 
