@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends CourseBookingAppActivity{
+public class MainActivity extends CustomActivity {
 
     //Attribute declarations
     protected Button enter, create;

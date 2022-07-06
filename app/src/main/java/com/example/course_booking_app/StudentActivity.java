@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StudentActivity extends CourseBookingAppActivity{
+public class StudentActivity extends CustomActivity {
 
     //Attribute Declarations
     protected Button back, delete;

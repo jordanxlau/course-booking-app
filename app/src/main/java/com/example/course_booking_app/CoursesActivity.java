@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CoursesActivity extends CourseBookingAppActivity{
+public class CoursesActivity extends CustomActivity {
 
     //Attribute Declarations
     protected Button back, viewUsers, addCourse, refreshPage;

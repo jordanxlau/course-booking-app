@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class InstructorActivity extends CourseBookingAppActivity{
+public class InstructorActivity extends CustomActivity {
 
     //Attribute Declarations
     protected Button back, myCourses, search;

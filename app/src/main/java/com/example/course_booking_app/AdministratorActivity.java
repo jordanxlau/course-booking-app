@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdministratorActivity extends CourseBookingAppActivity{
+public class AdministratorActivity extends CustomActivity {
 
     //Attribute Declarations
     protected Button back, viewCourses;

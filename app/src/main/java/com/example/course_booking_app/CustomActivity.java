@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-public abstract class CourseBookingAppActivity extends AppCompatActivity {
+public abstract class CustomActivity extends AppCompatActivity {
     //Toast fields
     public static int duration = Toast.LENGTH_SHORT;
     public static Toast toast;

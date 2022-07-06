@@ -129,9 +129,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.insert(USER_TABLE_NAME, null, values);
             result = true;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
-            CourseBookingAppActivity.toast.makeText(CourseBookingAppActivity.context, "Please select account type!", CourseBookingAppActivity.duration).show();
+            CustomActivity.toast.makeText(CustomActivity.context, "Please select account type!", CustomActivity.duration).show();
         } else if (this.findPassword(username) != null){//User already exists
-            CourseBookingAppActivity.toast.makeText(CourseBookingAppActivity.context, "User already exists!", CourseBookingAppActivity.duration).show();
+            CustomActivity.toast.makeText(CustomActivity.context, "User already exists!", CustomActivity.duration).show();
         }
 
         return result;
@@ -151,7 +151,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.insert(COURSE_TABLE_NAME, null, values);
             result = true;
         } else {//Course already exists
-            CourseBookingAppActivity.toast.makeText(CourseBookingAppActivity.context, "Course already exists!", CourseBookingAppActivity.duration).show();
+            CustomActivity.toast.makeText(CustomActivity.context, "Course already exists!", CustomActivity.duration).show();
         }
 
         return result;
