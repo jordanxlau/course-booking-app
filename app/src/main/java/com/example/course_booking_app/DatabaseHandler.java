@@ -29,6 +29,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, "users4.db", null, 5);
     }
 
+    public DatabaseHandler(Context context, String name, int version){
+        super(context, name, null, version);
+    }
+
     @Override //"CREATE TABLE" Creates a table automagically when constructor is called
     public void onCreate(SQLiteDatabase db) {
         //Users table
