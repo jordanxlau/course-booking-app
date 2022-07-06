@@ -24,7 +24,7 @@ public class InstructorActivity extends CustomActivity {
     protected EditText searchCode, searchName;
 
     //Other declarations
-    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList;
+    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList, myCourseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
 
@@ -84,15 +84,40 @@ public class InstructorActivity extends CustomActivity {
             }
         });
 
+        myCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creates a list of the courses that are instructed by the current user
+                myCourseList = new ArrayList<Course>();
+                for (Course course: courseList){
+                    if (course.getInstructor().equals(currentUser))
+                        myCourseList.add(course);
+                }
+
+                //Sets the RV to the newly created list
+                courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                coursesRV.setLayoutManager(linearLayoutManager);
+                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                coursesRV.setAdapter(courseRVAdapter);
+            }
+        });
+
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //Setup
                 String desiredCode = searchCode.getText().toString().toLowerCase();
+                if (desiredCode == null)
+                    desiredCode = "";
+                String desiredName = searchName.getText().toString().toLowerCase();
+                if (desiredName == null)
+                    desiredName = "";
                 //Clear the newly created list in preparation
                 //sameCodeCourseList.clear();
 
                 //Reset to the view of all courses
-                if (desiredCode == null || desiredCode == ""){
+                if (desiredCode == "" && desiredName == ""){
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
@@ -106,7 +131,7 @@ public class InstructorActivity extends CustomActivity {
                 //Creates a list of the courses that contain the searched course code
                 sameCodeCourseList = new ArrayList<Course>();
                 for (Course course: courseList){
-                    if (course.getCode().toLowerCase().contains(desiredCode))
+                    if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
                         sameCodeCourseList.add(course);
                 }
                 
