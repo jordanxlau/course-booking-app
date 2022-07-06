@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoursesActivity">
+    tools:context=".CourseEnrollmentActivity">
 
     <FrameLayout
         android:id="@+id/courseFragment"
@@ -51,7 +51,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/cardview_light_background"
                     android:outlineSpotShadowColor="@color/black"
-                    android:text="@string/manage_users"
+                    android:text="My Courses"
                     android:textColor="@color/garnet" />
 
             </LinearLayout>
@@ -61,34 +61,48 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
+            <EditText
+                android:id="@+id/searchCode"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal">
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Course Code"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </TableRow>
 
-                <Button
-                    android:id="@+id/refreshPage"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/cardview_light_background"
-                    android:outlineSpotShadowColor="@color/black"
-                    android:text="@string/refresh"
-                    android:textColor="@color/garnet" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-                <Button
-                    android:id="@+id/addCourse"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    android:text="@string/add_course"
-                    android:textColor="@color/garnet" />
+            <EditText
+                android:id="@+id/searchName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autofillHints=""
+                android:hint="@string/course_name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
-            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white"
+                android:text="search"
+                android:textColor="@color/garnet"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
         </TableRow>
 
         <TableRow
