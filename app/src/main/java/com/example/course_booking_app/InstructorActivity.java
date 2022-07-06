@@ -134,7 +134,8 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(this,"SUCCESSSSSSSSSS", duration);
+        toast = Toast.makeText(this,"SUCCESSSSSSSSSS", duration);
+        toast.show();
     }
 
     /*@Override
