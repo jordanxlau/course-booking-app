@@ -9,7 +9,11 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -17,8 +21,9 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -41,8 +46,8 @@
                     android:outlineSpotShadowColor="@color/black"
                     android:text="My Courses"
                     android:textColor="@color/garnet" />
-
             </LinearLayout>
+
         </TableRow>
 
         <TableRow
@@ -54,17 +59,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:text="logged in as instructor: " />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/searchCode"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Course Code"
                 android:inputType="textPersonName"
@@ -75,12 +82,13 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/searchName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_weight="1"
                 android:autofillHints=""
                 android:hint="@string/course_name"
                 android:inputType="textPersonName"
@@ -92,12 +100,13 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:text="search"
                 android:textColor="@color/garnet"
@@ -106,14 +115,15 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="316dp"
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="401dp"
                 android:layout_height="600dp"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:layout_weight="1">
 
             </androidx.recyclerview.widget.RecyclerView>
 
