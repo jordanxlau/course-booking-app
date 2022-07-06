@@ -71,16 +71,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Gets users in the form of ArrayList
-    public ArrayList<UserModal> getUsers(){
+    public ArrayList<User> getUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursorUsers = db.rawQuery("SELECT * FROM " + USER_TABLE_NAME, null);
 
-        ArrayList<UserModal> userModalArrayList = new ArrayList<>();
+        ArrayList<User> userModalArrayList = new ArrayList<>();
 
         if(cursorUsers.moveToFirst()){
             do{
-                userModalArrayList.add(new UserModal(
+                userModalArrayList.add(new User(
                     cursorUsers.getString(0),
                     cursorUsers.getString(1),
                     cursorUsers.getString(2),
@@ -94,16 +94,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Gets courses in the form of ArrayList
-    public ArrayList<CourseModal> getCourses(){
+    public ArrayList<Course> getCourses(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursorCourses = db.rawQuery("SELECT * FROM " + COURSE_TABLE_NAME, null);
 
-        ArrayList<CourseModal> courseModalArrayList = new ArrayList<>();
+        ArrayList<Course> CourseArrayList = new ArrayList<>();
 
         if(cursorCourses.moveToFirst()){
             do{
-                courseModalArrayList.add(new CourseModal(
+                CourseArrayList.add(new Course(
                     cursorCourses.getString(0),
                     cursorCourses.getString(1),
                     cursorCourses.getString(2),
@@ -113,7 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         cursorCourses.close();
-        return courseModalArrayList;
+        return CourseArrayList;
     }
 
     //Adds a user to the Users table
@@ -158,7 +158,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //modify a course
-    public boolean modifyCourse(CourseModal tempCourse) {
+    public boolean modifyCourse(Course tempCourse) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean result = false;

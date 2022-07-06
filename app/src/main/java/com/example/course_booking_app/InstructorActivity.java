@@ -24,12 +24,12 @@ public class InstructorActivity extends CourseBookingAppActivity{
     protected EditText searchCode, searchName;
 
     //Other declarations
-    private ArrayList<CourseModal> sameCodeCourseList, sameNameCourseList, courseList;
+    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
 
     //declaration for modified course
-    public static CourseModal modifiedCourse;
+    public static Course modifiedCourse;
     public static RefreshStatus refreshStatus;
 
     @Override
@@ -63,13 +63,8 @@ public class InstructorActivity extends CourseBookingAppActivity{
             }
         };
 
-        /*if (currentType != "administrator"){//disable swiping if not an admin
-            toast = Toast.makeText(context, "Only admins can edit courses!", duration);
-            return;
-        }*/
-
         //setup related to course information
-        modifiedCourse = new CourseModal("","","","");
+        modifiedCourse = new Course("","","","");
         refreshStatus = RefreshStatus.NOCHANGE;
 
         courseList = new ArrayList<>();
@@ -89,61 +84,40 @@ public class InstructorActivity extends CourseBookingAppActivity{
             }
         });
 
-        /*search.setOnClickListener(new View.OnClickListener(){
+        search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String desiredCode = searchCode.getText().toString();
 
-                //Reset to the view of all courses
+                /*//Reset to the view of all courses
                 if (desiredCode == null || desiredCode == ""){
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
-                    linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
                     new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
                     return;
-                }
+                }*/
 
-                //Creates a list of the courses that match the searched course code
-                sameCodeCourseList = new ArrayList<CourseModal>();
-                for (CourseModal course: sameCodeCourseList){
+                /*//Creates a list of the courses that match the searched course code
+                sameCodeCourseList = new ArrayList<Course>();
+                for (Course course: sameCodeCourseList){
                     if (course.getCode().equals(desiredCode)){
                         sameCodeCourseList.add(course);
                     }
-                }
+                }*/
 
+                ArrayList<Course> testList = new ArrayList<Course>();
+                testList.add(new Course("0101010","MAT1322H","Calculus", "Yves Fomatati"));
+                
                 //Sets the RV to the newly created list
                 courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this);
-                    linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
                 new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
             }
-        });*/
-
-        /*search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String desiredName = searchName.getText().toString();
-
-                //Reset to the view of all courses
-                if (desiredName == null || desiredName == ""){
-                    courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this);
-                    return;
-                }
-
-                //Creates a list of the courses that match the searched course code
-                sameNameCourseList = new ArrayList<CourseModal>();
-                for (CourseModal course: sameNameCourseList){
-                    if (course.getCode().equals(desiredName)){
-                        sameNameCourseList.add(course);
-                    }
-                }
-
-                //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(sameNameCourseList, CoursesActivity.this);
-            }
-        });*/
+        });
 
         //Create context menu
         registerForContextMenu(coursesRV);

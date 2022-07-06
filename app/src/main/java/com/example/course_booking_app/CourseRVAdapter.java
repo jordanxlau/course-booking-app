@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHolder> {
 
     // variable for our array list and context
-    private ArrayList<CourseModal> courseModalArrayList;
+    private ArrayList<Course> CourseArrayList;
     private Context context;
 
     //for the context menu
@@ -32,8 +32,8 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     }
 
     // constructor
-    public CourseRVAdapter(ArrayList<CourseModal> courseModalArrayList, Context context) {
-        this.courseModalArrayList = courseModalArrayList;
+    public CourseRVAdapter(ArrayList<Course> CourseArrayList, Context context) {
+        this.CourseArrayList = CourseArrayList;
         this.context = context;
     }
 
@@ -50,7 +50,7 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // on below line we are setting data
         // to our views of recycler view item.
-        CourseModal modal = courseModalArrayList.get(position);
+        Course modal = CourseArrayList.get(position);
         holder.courseIDTV.setText(modal.getID());
         holder.courseCodeTV.setText(modal.getCode());
         holder.courseNameTV.setText(modal.getName());
@@ -60,7 +60,7 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     @Override
     public int getItemCount() {
         // returning the size of our array list
-        return courseModalArrayList.size();
+        return CourseArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -20,7 +20,7 @@ public class AdministratorActivity extends CourseBookingAppActivity{
     protected TextView usernameDisplay;
 
     //Other declarations
-    private ArrayList<UserModal> userModalArrayList;
+    private ArrayList<User> userModalArrayList;
     private UserRVAdapter userRVAdapter;
     private RecyclerView usersRV;
 

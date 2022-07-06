@@ -20,13 +20,13 @@ public class CoursesActivity extends CourseBookingAppActivity{
     protected Button back, viewUsers, addCourse, refreshPage;
 
     //Other declarations
-    private ArrayList<CourseModal> sameCodeCourseList, sameNameCourseList, courseList;
+    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
     private LinearLayoutManager linearLayoutManager;
 
     //declaration for modified course
-    public static CourseModal modifiedCourse;
+    public static Course modifiedCourse;
     public static RefreshStatus refreshStatus;
 
     @Override
@@ -79,7 +79,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
         };
 
         //setup related to course information
-        modifiedCourse = new CourseModal("","","","");
+        modifiedCourse = new Course("","","","");
         refreshStatus = RefreshStatus.NOCHANGE;
 
         courseList = new ArrayList<>();
@@ -109,7 +109,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
         addCourse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                modifiedCourse = new CourseModal("","","","");
+                modifiedCourse = new Course("","","","");
                 refreshStatus = RefreshStatus.ADDCOURSE;
                 courseFragment();
             }
