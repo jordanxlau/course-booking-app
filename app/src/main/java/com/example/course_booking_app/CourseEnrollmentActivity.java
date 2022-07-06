@@ -1,9 +1,14 @@
 package com.example.course_booking_app;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,13 +17,65 @@ import java.util.ArrayList;
 
 public class CourseEnrollmentActivity extends CourseBookingAppActivity {
 
-    protected Button search;
+    //Attribute declarations
+    protected Button search, back, myCourses;
+    protected EditText searchCode, searchName;
+
+    //Other declarations
+    private ArrayList<CourseModal> sameCodeCourseList, sameNameCourseList, courseList;
+    private CourseRVAdapter courseRVAdapter;
+    private RecyclerView coursesRV;
+    private LinearLayoutManager linearLayoutManager;
+
+    //declaration for modified course
+    public static CourseModal modifiedCourse;
+    public static RefreshStatus refreshStatus;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses_enrollment);
 
+        //Attribute intializations
+        search = findViewById(R.id.search);
+        back = findViewById(R.id.back);
+        myCourses = findViewById(R.id.myCourses);
+        searchCode = findViewById(R.id.searchCode);
+        searchName = findViewById(R.id.searchName);
+
+        //Item Touch Helper setup
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                //Does nothing
+            }
+        };
+
+        /*if (currentType != "administrator"){//disable swiping if not an admin
+            toast = Toast.makeText(context, "Only admins can edit courses!", duration);
+            return;
+        }*/
+
+        //setup related to course information
+        modifiedCourse = new CourseModal("","","","");
+        refreshStatus = RefreshStatus.NOCHANGE;
+
+        courseList = new ArrayList<>();
+        courseList = MainActivity.db.getCourses();
+
+        courseRVAdapter = new CourseRVAdapter(courseList, CourseEnrollmentActivity.this);
+        linearLayoutManager = new LinearLayoutManager(CourseEnrollmentActivity.this, RecyclerView.VERTICAL, false);
+        coursesRV.setLayoutManager(linearLayoutManager);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+        coursesRV.setAdapter(courseRVAdapter);
+
+        //Set action listeners
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -26,8 +83,8 @@ public class CourseEnrollmentActivity extends CourseBookingAppActivity {
 
                 //Reset to the view of all courses
                 if (desiredCode == null || desiredCode == ""){
-                    courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this);
-                    linearLayoutManager = new LinearLayoutManager(CoursesActivity.this, RecyclerView.VERTICAL, false);
+                    courseRVAdapter = new CourseRVAdapter(courseList, CourseEnrollmentActivity.this);
+                    linearLayoutManager = new LinearLayoutManager(CourseEnrollmentActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
                     new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
@@ -43,13 +100,14 @@ public class CourseEnrollmentActivity extends CourseBookingAppActivity {
                 }
 
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, CoursesActivity.this);
-                linearLayoutManager = new LinearLayoutManager(CoursesActivity.this, RecyclerView.VERTICAL, false);
+                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, CourseEnrollmentActivity.this);
+                linearLayoutManager = new LinearLayoutManager(CourseEnrollmentActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
                 new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
             }
         });
+
         /*search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +131,13 @@ public class CourseEnrollmentActivity extends CourseBookingAppActivity {
                 courseRVAdapter = new CourseRVAdapter(sameNameCourseList, CoursesActivity.this);
             }
         });*/
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
     }
 
 }

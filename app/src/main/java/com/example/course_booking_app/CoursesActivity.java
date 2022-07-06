@@ -52,11 +52,7 @@ public class CoursesActivity extends CourseBookingAppActivity{
             //Deletes a course
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (currentType != "administrator"){//disable swiping if not an admin
-                    toast = Toast.makeText(context, "Only admins can edit courses!", duration);
-                    return;
-                }
-                else if(direction == ItemTouchHelper.RIGHT){
+                if(direction == ItemTouchHelper.RIGHT){
                     int pos;
                     String purgedCourse;
                     String courseCode;
