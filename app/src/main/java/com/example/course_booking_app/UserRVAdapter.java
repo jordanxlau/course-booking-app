@@ -15,12 +15,12 @@ import java.util.ArrayList;
 public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder> {
 
     // variable for our array list and context
-    private ArrayList<User> userModalArrayList;
+    private ArrayList<User> userArrayList;
     private Context context;
 
     // constructor
-    public UserRVAdapter(ArrayList<User> userModalArrayList, Context context) {
-        this.userModalArrayList = userModalArrayList;
+    public UserRVAdapter(ArrayList<User> userArrayList, Context context) {
+        this.userArrayList = userArrayList;
         this.context = context;
     }
 
@@ -37,7 +37,7 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // on below line we are setting data
         // to our views of recycler view item.
-        User modal = userModalArrayList.get(position);
+        User modal = userArrayList.get(position);
         holder.userIDTV.setText(modal.getID());
         holder.userNameTV.setText(modal.getUsername());
         holder.userPasswordTV.setText("account type:");
@@ -47,7 +47,7 @@ public class UserRVAdapter extends RecyclerView.Adapter<UserRVAdapter.ViewHolder
     @Override
     public int getItemCount() {
         // returning the size of our array list
-        return userModalArrayList.size();
+        return userArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

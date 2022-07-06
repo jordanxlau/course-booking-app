@@ -87,28 +87,26 @@ public class InstructorActivity extends CustomActivity {
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String desiredCode = searchCode.getText().toString();
+                String desiredCode = searchCode.getText().toString().toLowerCase();
 
-                /*//Reset to the view of all courses
+                //Reset to the view of all courses
                 if (desiredCode == null || desiredCode == ""){
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
                     new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                     coursesRV.setAdapter(courseRVAdapter);
+                    //Clear the other list
+                    sameCodeCourseList.clear();
                     return;
-                }*/
+                }
 
-                /*//Creates a list of the courses that match the searched course code
+                //Creates a list of the courses that contain the searched course code
                 sameCodeCourseList = new ArrayList<Course>();
-                for (Course course: sameCodeCourseList){
-                    if (course.getCode().equals(desiredCode)){
+                for (Course course: courseList){
+                    if (course.getCode().toLowerCase().contains(desiredCode))
                         sameCodeCourseList.add(course);
-                    }
-                }*/
-
-                ArrayList<Course> testList = new ArrayList<Course>();
-                testList.add(new Course("0101010","MAT1322H","Calculus", "Yves Fomatati"));
+                }
                 
                 //Sets the RV to the newly created list
                 courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this);
@@ -116,6 +114,9 @@ public class InstructorActivity extends CustomActivity {
                 coursesRV.setLayoutManager(linearLayoutManager);
                 new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
+
+                //Clear the newly created list for next time
+                sameCodeCourseList.clear();
             }
         });
 
