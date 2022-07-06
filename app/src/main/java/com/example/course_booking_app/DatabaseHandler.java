@@ -166,10 +166,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public int match(String username, String password){
         String foundPass = this.findPassword(username);//the password associated in the DB with username entered
 
-        if (foundPass.equals(password)) //Password matches username
-            return 0;
-        else if (foundPass == null)//No password associated with this user, i.e. user doesn't exist
+        if (foundPass == null)//No password associated with this user, i.e. user doesn't exist
             return 2;
+        else if (foundPass.equals(password)) //Password matches username
+            return 0;
         else //User exists but password is incorrect
             return 4;
 
