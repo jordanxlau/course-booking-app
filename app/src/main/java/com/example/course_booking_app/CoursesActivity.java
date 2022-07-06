@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,9 +18,12 @@ public class CoursesActivity extends CourseBookingAppActivity{
 
     //Attribute Declarations
     protected Button back, viewUsers, addCourse, refreshPage;
+    protected EditText searchCode, searchName;
 
     //Other declarations
-    private ArrayList<CourseModal> courseModalArrayList;
+    private ArrayList<CourseModal> sameCodeCourseList;
+    private ArrayList<CourseModal> sameNameCourseList;
+    private ArrayList<CourseModal> courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
 
@@ -32,11 +36,14 @@ public class CoursesActivity extends CourseBookingAppActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        //Initialize widgets
+        //Initialize attributes
         back = findViewById(R.id.back);
         viewUsers = findViewById(R.id.viewUsers);
         addCourse = findViewById(R.id.addCourse);
         refreshPage = findViewById(R.id.refreshPage);
+        searchCode = findViewById(R.id.searchCode);
+        searchName = findViewById(R.id.searchName);
+        coursesRV = findViewById(R.id.recyclerView);
 
         //Item Touch Helper setup
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
@@ -49,27 +56,29 @@ public class CoursesActivity extends CourseBookingAppActivity{
             //Deletes a course
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (currentType != "administrator"){
+                if (currentType != "administrator"){//disable swiping if not an admin
                     toast = Toast.makeText(context, "Only admins can edit courses!", duration);
+                    return;
                 }
                 else if(direction == ItemTouchHelper.RIGHT){
                     int pos;
                     String purgedCourse;
                     String courseCode;
                     pos = viewHolder.getAdapterPosition();
-                    purgedCourse = courseModalArrayList.get(pos).getID();
-                    courseCode = courseModalArrayList.get(pos).getCode();
+                    purgedCourse = courseList.get(pos).getID();
+                    courseCode = courseList.get(pos).getCode();
 
                     toast = Toast.makeText(context, "Course '" + courseCode + "' deleted!", duration);
                     toast.show();
+
                     MainActivity.db.removeCourse(purgedCourse);
-                    courseModalArrayList.remove(pos);
+                    courseList.remove(pos);
                     courseRVAdapter.notifyDataSetChanged();
                 }
                 else if(direction == ItemTouchHelper.LEFT){
                     int pos;
                     pos = viewHolder.getAdapterPosition();
-                    modifiedCourse = courseModalArrayList.get(pos);
+                    modifiedCourse = courseList.get(pos);
                     refreshStatus = RefreshStatus.EDITCOURSE;
 
                     courseFragment();
@@ -81,11 +90,9 @@ public class CoursesActivity extends CourseBookingAppActivity{
         modifiedCourse = new CourseModal("","","","");
         refreshStatus = RefreshStatus.NOCHANGE;
 
-        courseModalArrayList = new ArrayList<>();
-        courseModalArrayList = MainActivity.db.getCourses();
-
-        courseRVAdapter = new CourseRVAdapter(courseModalArrayList, CoursesActivity.this);
-        coursesRV = findViewById(R.id.recyclerView);
+        courseList = new ArrayList<>();
+        courseList = MainActivity.db.getCourses();
+        courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CoursesActivity.this, RecyclerView.VERTICAL, false);
         coursesRV.setLayoutManager(linearLayoutManager);
@@ -112,7 +119,6 @@ public class CoursesActivity extends CourseBookingAppActivity{
             public void onClick(View v) {
                 modifiedCourse = new CourseModal("","","","");
                 refreshStatus = RefreshStatus.ADDCOURSE;
-
                 courseFragment();
             }
         });
@@ -143,6 +149,54 @@ public class CoursesActivity extends CourseBookingAppActivity{
                     finish();
                     startActivity(intent);
                 }
+            }
+        });
+
+        searchCode.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String desiredCode = searchCode.getText().toString();
+
+                //Reset to the view of all courses
+                if (desiredCode == null || desiredCode == ""){
+                    courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this);
+                    return;
+                }
+
+                //Creates a list of the courses that match the searched course code
+                sameCodeCourseList = new ArrayList<CourseModal>();
+                for (CourseModal course: sameCodeCourseList){
+                    if (course.getCode().equals(desiredCode)){
+                        sameCodeCourseList.add(course);
+                    }
+                }
+
+                //Sets the RV to the newly created list
+                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, CoursesActivity.this);
+            }
+        });
+
+        searchName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String desiredName = searchName.getText().toString();
+
+                //Reset to the view of all courses
+                if (desiredName == null || desiredName == ""){
+                    courseRVAdapter = new CourseRVAdapter(courseList, CoursesActivity.this);
+                    return;
+                }
+
+                //Creates a list of the courses that match the searched course code
+                sameNameCourseList = new ArrayList<CourseModal>();
+                for (CourseModal course: sameNameCourseList){
+                    if (course.getCode().equals(desiredName)){
+                        sameNameCourseList.add(course);
+                    }
+                }
+
+                //Sets the RV to the newly created list
+                courseRVAdapter = new CourseRVAdapter(sameNameCourseList, CoursesActivity.this);
             }
         });
     }

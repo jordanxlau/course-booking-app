@@ -16,7 +16,7 @@ public class InstructorActivity extends CourseBookingAppActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
 
-        //Initialize widgets
+        //Initialize attributes
         back = findViewById(R.id.back);
         viewCourses = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);

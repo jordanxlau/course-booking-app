@@ -29,7 +29,7 @@ public class MainActivity extends CourseBookingAppActivity{
         //Set content view
         setContentView(R.layout.activity_main);
 
-        //Initialize widgets
+        //Initialize attributes
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         enter = findViewById(R.id.enter);

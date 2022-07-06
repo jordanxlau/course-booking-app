@@ -16,4 +16,6 @@
     <string name="delete_account">Delete Account</string>
     <string name="save_changes">Save Changes</string>
     <string name="view_courses" />
+    <string name="course_code">Course Code</string>
+    <string name="course_name">Course Name</string>
 </resources>
