@@ -13,6 +13,8 @@ public class StudentActivity extends CustomActivity {
     protected TextView usernameDisplay;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
+    public static Course courseToJoin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

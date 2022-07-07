@@ -44,10 +44,17 @@ public abstract class CustomActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Opens course fragment
+    //Opens course add fragment
     protected void courseFragment(){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.courseFragment, new CourseAddFragment());
+        ft.commit();
+    }
+
+    //Opens course instruct fragment
+    protected void courseInstructFragment(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.courseFragment, new CourseInstructFragment());
         ft.commit();
     }
 

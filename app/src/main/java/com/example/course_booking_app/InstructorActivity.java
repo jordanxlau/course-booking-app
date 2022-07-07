@@ -25,10 +25,14 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     protected EditText searchCode, searchName;
 
     //Other declarations
-    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList, myCourseList;
+    private ArrayList<Course> searchedCourseList, myCourseList;
+    public static ArrayList<Course> courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
     private ItemClick onClick;
+
+    //For joining a course
+    public static Course courseToJoin;
 
     //declaration for modified course
     public static Course modifiedCourse;
@@ -113,14 +117,14 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                 }
 
                 //Creates a list of the courses that contain the searched course code
-                sameCodeCourseList = new ArrayList<Course>();
+                searchedCourseList = new ArrayList<Course>();
                 for (Course course: courseList){
                     if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
-                        sameCodeCourseList.add(course);
+                        searchedCourseList.add(course);
                 }
                 
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(sameCodeCourseList, InstructorActivity.this, InstructorActivity.this);
+                courseRVAdapter = new CourseRVAdapter(searchedCourseList, InstructorActivity.this, InstructorActivity.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                 coursesRV.setLayoutManager(linearLayoutManager);
                 //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
@@ -128,36 +132,12 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
             }
         });
 
-        //Create context menu
-        //registerForContextMenu(coursesRV);
     }
 
     @Override
     public void onItemClick(int position) {
-        toast = Toast.makeText(this,"SUCCESSSSSSSSSS", duration);
-        toast.show();
+        courseToJoin = courseList.get(position);
+        courseInstructFragment();
     }
 
-    /*@Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Assign yourself to this course?");
-        getMenuInflater().inflate(R.menu.select_course_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.enroll:
-                System.out.println("ASSIGN INSTRUCTOR TO COURSE");
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onContextMenuClosed(@NonNull Menu menu) {
-        super.onContextMenuClosed(menu);
-    }*/
 }
