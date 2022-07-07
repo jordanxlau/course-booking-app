@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="courseInstructFragment" type="id" />
+    <item name="fragment_course_instruct" type="id" />
+    <item name="fragment_course_instruct2" type="id" />
+</resources>

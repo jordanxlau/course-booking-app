@@ -53,9 +53,7 @@ public abstract class CustomActivity extends AppCompatActivity {
 
     //Opens course instruct fragment
     protected void courseInstructFragment(){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.courseFragment, new CourseInstructFragment());
-        ft.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_course_instruct, new fragment_course_instruct()).commit();
     }
 
     //Opens main page
