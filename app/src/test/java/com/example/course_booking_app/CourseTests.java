@@ -13,17 +13,16 @@ public class CourseTests  {
 
     @Before
     public void setUp(){
-        testCourse = new Course("1234", "ITI1121B", "","");
+        testCourse = new Course("1234", "ITI1121B", "Software Eng","Eric");
     }
     @Test
     public void test_getCode() {
-        assertEquals("", testCourse.getCode());
+        assertEquals("ITI1121B", testCourse.getCode());
     }
-
     @Test
-    public void test_getInstructor(){
-
-        assertEquals("","");
-    }
-
+    public void test_getName(){assertEquals("Software Eng",testCourse.getName());}
+    @Test
+    public void test_getInstructor(){assertEquals("Eric",testCourse.getInstructor());}
+    @Test
+    public void test_getID(){assertEquals("1234",testCourse.getID());}
 }

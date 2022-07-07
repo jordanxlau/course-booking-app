@@ -21,16 +21,19 @@ public class UserTests  {
     public void test_getUsertype() {
         assertEquals("instructor", testUser.getUsertype());
     }
-
+    @Test
+    public void test_getId() {
+        assertEquals("1234", testUser.getID());
+    }
     @Test
     public void test_getUsername(){
         assertEquals("Jordan Lau",testUser.getUsername());
     }
     @Test
-    public void test_admin_added(){
-        ArrayList testUsers = MainActivity.db.getUsers();
-        User testAdmin = new User("", "admin", "admin123","administrator");
-        assertTrue(testUsers.contains(testAdmin));
+    public void test_getPassword(){
+        assertEquals("password123",testUser.getPassword());
     }
+
+
 
 }
