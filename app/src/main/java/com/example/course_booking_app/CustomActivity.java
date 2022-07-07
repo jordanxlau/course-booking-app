@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public abstract class CustomActivity extends AppCompatActivity {
@@ -53,7 +54,8 @@ public abstract class CustomActivity extends AppCompatActivity {
 
     //Opens course instruct fragment
     protected void courseInstructFragment(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_course_instruct, new fragment_course_instruct()).commit();
+        fragment_course_instruct fragment = new fragment_course_instruct();
+        getSupportFragmentManager().beginTransaction().add(R.id.coordinatorLayout, fragment).commit();
     }
 
     //Opens main page
