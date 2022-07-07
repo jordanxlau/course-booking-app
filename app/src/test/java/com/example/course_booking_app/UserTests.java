@@ -5,28 +5,32 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 /**
- * JUnit tests for {@Link Course}
+ * JUnit tests for {@Link User}
  */
 public class UserTests  {
     private User testUser;
 
     @Before
     public void setUp(){
-        testUser = new User("1234", "Jordan Lau", "password123","");
+        testUser = new User("1234", "Jordan Lau", "password123","instructor");
     }
     @Test
-    public void test_getCode() {
-        assertEquals("", .getCode());
+    public void test_getUsertype() {
+        assertEquals("instructor", testUser.getUsertype());
     }
 
     @Test
-    public void test_getInstructor(){
-        assertEquals("","");
+    public void test_getUsername(){
+        assertEquals("Jordan Lau",testUser.getUsername());
     }
     @Test
     public void test_admin_added(){
-        assertEquals("","");
+        ArrayList testUsers = MainActivity.db.getUsers();
+        User testAdmin = new User("", "admin", "admin123","administrator");
+        assertTrue(testUsers.contains(testAdmin));
     }
 
 }

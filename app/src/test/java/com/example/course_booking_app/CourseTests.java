@@ -17,11 +17,12 @@ public class CourseTests  {
     }
     @Test
     public void test_getCode() {
-        assertEquals("", .getCode());
+        assertEquals("", testCourse.getCode());
     }
 
     @Test
     public void test_getInstructor(){
+
         assertEquals("","");
     }
 
