@@ -128,8 +128,6 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
             }
         });
 
-        //Create context menu
-        //registerForContextMenu(coursesRV);
     }
 
     @Override
@@ -138,26 +136,4 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
         toast.show();
     }
 
-    /*@Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Assign yourself to this course?");
-        getMenuInflater().inflate(R.menu.select_course_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.enroll:
-                System.out.println("ASSIGN INSTRUCTOR TO COURSE");
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onContextMenuClosed(@NonNull Menu menu) {
-        super.onContextMenuClosed(menu);
-    }*/
 }

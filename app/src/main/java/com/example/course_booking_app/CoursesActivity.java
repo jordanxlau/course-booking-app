@@ -19,7 +19,7 @@ public class CoursesActivity extends CustomActivity implements ItemClick{
     protected Button back, viewUsers, addCourse, refreshPage;
 
     //Other declarations
-    private ArrayList<Course> sameCodeCourseList, sameNameCourseList, courseList;
+    private ArrayList<Course> courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
     private LinearLayoutManager linearLayoutManager;
