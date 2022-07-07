@@ -16,15 +16,24 @@ public class DatabaseHandlerTests {
     private DatabaseHandler testDB;
     @Before
     public void setUp(){
-        testDB = new DatabaseHandler(MainActivity.context, "testDB.db", 22);
-    }
-    @Test
-    public void testDB_is_working(){
-        assertNotEquals(null, testDB);
+        testDB = new DatabaseHandler(CustomActivity.context, "testDB1.db", 1);
     }
     @Test
     public void addUser_returns_correct_message() {
         int returnMessage = testDB.addUser("testUser","password","instructor");
         assertEquals(0, returnMessage);
     }
+    @Test
+    public void test_addtion(){
+        assertEquals(2+2, 4);
+    }
+    @Test
+    public void testDB_is_working(){
+        assertEquals(null, testDB.getReadableDatabase());
+    }
+    @After
+    public void tearDown(){
+        testDB.close();
+    }
+
 }
