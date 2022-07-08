@@ -101,7 +101,7 @@ public class CourseAddFragment extends Fragment{
 
                     Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
                     //this fragment will now remove itself
-                    getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(CourseAddFragment.this).commit();
                 }
                 else{
                     toastMessage = results.getMessage();

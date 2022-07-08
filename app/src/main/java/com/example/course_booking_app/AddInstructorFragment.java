@@ -85,7 +85,7 @@ public class AddInstructorFragment extends Fragment {
                 InstructorActivity.courseList.add(newCourse);
 
                 //this fragment will now remove itself
-                getActivity().getSupportFragmentManager().beginTransaction().remove(AddInstructorFragment.this).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(AddInstructorFragment.this).commit();
             }
         });
 
@@ -94,7 +94,7 @@ public class AddInstructorFragment extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
                 //this fragment will now remove itself
-                getActivity().getSupportFragmentManager().beginTransaction().remove(AddInstructorFragment.this).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(AddInstructorFragment.this).commit();
             }
         });
 
