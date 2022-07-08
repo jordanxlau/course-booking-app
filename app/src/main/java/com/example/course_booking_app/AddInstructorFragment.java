@@ -11,11 +11,11 @@ import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_course_instruct#newInstance} factory method to
+ * Use the {@link AddInstructorFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
-public class fragment_course_instruct extends Fragment {
+public class AddInstructorFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,8 +38,8 @@ public class fragment_course_instruct extends Fragment {
      * @return A new instance of fragment fragment_course_instruct.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_course_instruct newInstance(String param1, String param2) {
-        fragment_course_instruct fragment = new fragment_course_instruct();
+    public static AddInstructorFragment newInstance(String param1, String param2) {
+        AddInstructorFragment fragment = new AddInstructorFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -47,7 +47,7 @@ public class fragment_course_instruct extends Fragment {
         return fragment;
     }
 
-    public fragment_course_instruct() {
+    public AddInstructorFragment() {
         // Required empty public constructor
     }
 
@@ -83,14 +83,20 @@ public class fragment_course_instruct extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Course newCourse;
                 InstructorActivity.courseList.remove(course);
                 MainActivity.db.removeCourse(course.getID());
-                Course newCourse = new Course(course.getID(), course.getCode(), course.getName(), CustomActivity.currentUser);
+                if (! course.getInstructor().equals(CustomActivity.currentUser)) {//the current user is not the current instructor
+                    newCourse = new Course(course.getID(), course.getCode(), course.getName(), CustomActivity.currentUser);
+                    Toast.makeText(getActivity(), "You now teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
+                } else {//the current user IS the current instructor
+                    newCourse = new Course(course.getID(), course.getCode(), course.getName(), "");
+                    Toast.makeText(getActivity(), "You no longer teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
+                }
                 InstructorActivity.courseList.add(newCourse);
 
-                Toast.makeText(getActivity(), "You now teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
                 //this fragment will now remove itself
-                getActivity().getSupportFragmentManager().beginTransaction().remove(fragment_course_instruct.this).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().remove(AddInstructorFragment.this).commit();
             }
         });
 
@@ -99,7 +105,7 @@ public class fragment_course_instruct extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
                 //this fragment will now remove itself
-                getActivity().getSupportFragmentManager().beginTransaction().remove(fragment_course_instruct.this).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().remove(AddInstructorFragment.this).commit();
             }
         });
 

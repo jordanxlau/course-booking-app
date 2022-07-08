@@ -54,7 +54,7 @@ public abstract class CustomActivity extends AppCompatActivity {
 
     //Opens course instruct fragment
     protected void courseInstructFragment(){
-        fragment_course_instruct fragment = new fragment_course_instruct();
+        AddInstructorFragment fragment = new AddInstructorFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.coordinatorLayout, fragment).commit();
     }
 
