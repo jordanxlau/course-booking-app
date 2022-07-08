@@ -47,7 +47,7 @@ public abstract class CustomActivity extends AppCompatActivity {
 
     //Opens course add fragment
     protected void courseFragment(){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left);
         ft.replace(R.id.courseFragment, new CourseAddFragment());
         ft.commit();
     }
@@ -55,7 +55,7 @@ public abstract class CustomActivity extends AppCompatActivity {
     //Opens course instruct fragment
     protected void courseInstructFragment(){
         AddInstructorFragment fragment = new AddInstructorFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.coordinatorLayout, fragment).commit();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).add(R.id.coordinatorLayout, fragment).commit();
     }
 
     //Opens main page
