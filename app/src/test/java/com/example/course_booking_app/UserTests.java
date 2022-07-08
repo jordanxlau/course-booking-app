@@ -17,6 +17,8 @@ public class UserTests  {
     public void setUp(){
         testUser = new User("1234", "Jordan Lau", "password123","instructor");
     }
+
+
     @Test
     public void test_getUsertype() {
         assertEquals("instructor", testUser.getUsertype());
@@ -33,7 +35,23 @@ public class UserTests  {
     public void test_getPassword(){
         assertEquals("password123",testUser.getPassword());
     }
-
+    @Test
+    public void test_setUsername() {
+        testUser.setUsername("Eric Van de Lande");
+        assertEquals("Eric Van de Lande", testUser.getUsername());
+    }
+    @Test
+    public void test_setUserType(){
+        testUser.setUsertype("student");
+        assertEquals("student",testUser.getUsertype());}
+    @Test
+    public void test_setInstructor(){
+        testUser.setPassword("password567");
+        assertEquals("password567",testUser.getPassword());}
+    @Test
+    public void test_setID(){
+        testUser.setID("5678");
+        assertEquals("5678",testUser.getID());}
 
 
 }
