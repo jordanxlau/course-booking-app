@@ -108,7 +108,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
-                android:text="search"
+                android:text="search / refresh"
                 android:textColor="@color/garnet"
                 android:textSize="15dp"
                 tools:ignore="TouchTargetSizeCheck" />
