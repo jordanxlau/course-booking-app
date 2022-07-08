@@ -71,6 +71,7 @@ public class AddInstructorFragment extends Fragment {
                     newCourse = new Course(course.getID(), course.getCode(), course.getName(), CustomActivity.currentUser);
                     Toast.makeText(getActivity(), "You now teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS the current instructor
+                    //DELETE THE NEW COURSE'S DESCRIPTION AND STUDENT CAPACITY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     newCourse = new Course(course.getID(), course.getCode(), course.getName(), "");
                     Toast.makeText(getActivity(), "You no longer teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
                 }
