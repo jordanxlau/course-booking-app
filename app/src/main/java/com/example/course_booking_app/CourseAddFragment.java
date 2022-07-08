@@ -1,5 +1,7 @@
 package com.example.course_booking_app;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,7 +101,7 @@ public class CourseAddFragment extends Fragment{
 
                     Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
                     //this fragment will now remove itself
-                    getActivity().getSupportFragmentManager().beginTransaction().remove(CourseAddFragment.this).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(CourseAddFragment.this).commit();
                 }
                 else{
                     toastMessage = results.getMessage();
@@ -164,11 +166,12 @@ public class CourseAddFragment extends Fragment{
         }
 
         //validate instructor field
-        if(tempInstructor.length() < 6){
+        /*if(tempInstructor.length() < 6){
             isValid = false;
             message = message + "The course instructor field must be at least 6 characters.";
         }
-        else if(tempInstructor.length() > 50){
+        else*/
+        if(tempInstructor.length() > 50){
             isValid = false;
             message = message + "The course instructor field must be at most 50 characters.";
         }

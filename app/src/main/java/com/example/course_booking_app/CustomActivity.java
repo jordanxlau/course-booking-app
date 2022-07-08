@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public abstract class CustomActivity extends AppCompatActivity {
@@ -44,11 +45,17 @@ public abstract class CustomActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Opens course fragment
+    //Opens course add fragment
     protected void courseFragment(){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left);
         ft.replace(R.id.courseFragment, new CourseAddFragment());
         ft.commit();
+    }
+
+    //Opens course instruct fragment
+    protected void courseInstructFragment(){
+        AddInstructorFragment fragment = new AddInstructorFragment();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).add(R.id.coordinatorLayout, fragment).commit();
     }
 
     //Opens main page
