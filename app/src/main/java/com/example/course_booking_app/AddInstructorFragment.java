@@ -64,15 +64,22 @@ public class AddInstructorFragment extends Fragment {
                     //Checks if course already has an instructor
                     if (! course.getInstructor().equals("")){
                         Toast.makeText(getActivity(), "Course Already Has Instructor", Toast.LENGTH_SHORT).show();
+                        //Error message
                         InstructorActivity.courseList.add(course);
                         return;
                     }
                     //Else, proceed with adding the newCourse with the new instructor
                     newCourse = new Course(course.getID(), course.getCode(), course.getName(), CustomActivity.currentUser);
+                    MainActivity.db.addCourse(course.getCode(), course.getName(), CustomActivity.currentUser);
+
+                    //Success message
                     Toast.makeText(getActivity(), "You now teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS the current instructor
                     //DELETE THE NEW COURSE'S DESCRIPTION AND STUDENT CAPACITY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     newCourse = new Course(course.getID(), course.getCode(), course.getName(), "");
+                    MainActivity.db.addCourse(course.getCode(), course.getName(), "");
+
+                    //Success message
                     Toast.makeText(getActivity(), "You no longer teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
                 }
                 InstructorActivity.courseList.add(newCourse);
