@@ -6,69 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".AdministratorActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="24dp"
-        android:text="Welcome to the administrator control panel"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameDisplay" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="406dp"
-        android:layout_height="571dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="395dp"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/back"
-            style="?android:attr/buttonBarButtonStyle"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/garnet"
-            android:text="@string/back"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/viewCourses"
-            style="?android:attr/buttonBarButtonStyle"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="395dp"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/back"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/garnet"
+                    android:text="log out"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/viewCourses"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/cardview_light_background"
+                    android:outlineSpotShadowColor="@color/black"
+                    android:text="@string/manage_courses"
+                    android:textColor="@color/garnet" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/cardview_light_background"
-            android:outlineSpotShadowColor="@color/black"
-            android:text="@string/manage_courses"
-            android:textColor="@color/garnet" />
-    </LinearLayout>
+            android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/usernameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="177dp"
-        android:text="logged in as: "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            <TextView
+                android:id="@+id/usernameDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="logged in as admin: " />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="406dp"
+                android:layout_height="571dp"
+                android:layout_marginTop="16dp" />
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

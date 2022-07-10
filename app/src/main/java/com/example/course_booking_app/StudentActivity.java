@@ -22,11 +22,11 @@ public class StudentActivity extends CustomActivity {
 
         //Initialize widgets
         back = findViewById(R.id.back);
-        delete = findViewById(R.id.viewCourses);
+        //delete = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
         //Initialize usernameDisplay
-        usernameDisplay.setText("logged in as: " + currentUser);
+        usernameDisplay.setText("logged in as student: " + currentUser);
 
         //Create action listeners
         back.setOnClickListener(new View.OnClickListener(){
@@ -37,7 +37,7 @@ public class StudentActivity extends CustomActivity {
             }
         });
 
-        delete.setOnClickListener(new View.OnClickListener() {
+        /*delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (doublePressed == true) {
@@ -52,7 +52,7 @@ public class StudentActivity extends CustomActivity {
                     doublePressed = true;
                 }
             }
-        });
+        });*/
 
     }
 
