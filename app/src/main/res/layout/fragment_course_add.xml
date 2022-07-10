@@ -8,60 +8,116 @@
     android:background="@color/white"
     tools:context=".CourseAddFragment">
 
-    <EditText
-        android:id="@+id/editCourseCode"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:elevation="2dp"
-        android:ems="10"
-        android:hint="Course Code"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints">
 
-    <EditText
-        android:id="@+id/editCourseName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:hint="Course Name"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCourseCode" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginRight="10dp"
+            android:text="Course Code:"
+            android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/editInstructor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:hint="Instructor"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCourseName" />
+        <EditText
+            android:id="@+id/editCourseCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="2dp"
+            android:ems="10"
+            android:hint="ABC1234Z"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addCourse"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/garnet"
-        android:text="@string/save_changes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editInstructor" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Course Name:"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/editCourseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="2dp"
+            android:ems="10"
+            android:hint="Introduction to ABCs 1"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editCourseCode" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Instructor:"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/editInstructor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="2dp"
+            android:ems="10"
+            android:hint="Firstname Lastname"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editCourseName" />
+
+        <Button
+            android:id="@+id/addCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/garnet"
+            android:text="ADD COURSE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editInstructor" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="60dp"
+            android:backgroundTint="@color/white"
+            android:text="CANCEL"
+            android:textColor="@color/garnet" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

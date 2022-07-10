@@ -144,17 +144,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //Adds a course to the courses table
-    //Returns 0 if course was successfully added, returns 4 if course already exists
+    //Returns 0 if course was successfully added, returns 4 if course already exists, returns 8 if code or name is blank
     public int addCourse(String courseCode, String courseName, String courseInstructor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        if (! this.courseExists(courseCode) ){ //Course does not already exist
+        if (!this.courseExists(courseCode)) { //Course does not already exist
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
+        } else if (courseCode.equals("") || courseName.equals("")){
+            return 8;
         } else {//Course already exists
             return 4;
         }
