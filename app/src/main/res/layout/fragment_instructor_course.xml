@@ -20,7 +20,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textCourseCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -29,10 +29,10 @@
             android:minHeight="24dp"
             android:text="Course Code"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textCourseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -41,10 +41,10 @@
             android:minHeight="24dp"
             android:text="Course Name"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textCourseInstructor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -53,7 +53,7 @@
             android:minHeight="24dp"
             android:text="Course Instructor"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -151,14 +151,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/saveChanges"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
@@ -170,7 +170,7 @@
             <Button
                 android:id="@+id/close"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
@@ -190,7 +190,7 @@
             <Button
                 android:id="@+id/assign"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"

@@ -36,7 +36,6 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
     //declaration for modified course
     public static Course modifiedCourse;
-    public static RefreshStatus refreshStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,6 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
         //setup related to course information
         modifiedCourse = new Course("","","","");
-        refreshStatus = RefreshStatus.NOCHANGE;
 
         courseList = new ArrayList<>();
         courseList = MainActivity.db.getCourses();
@@ -75,6 +73,26 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                 openMain();
             }
         });
+
+        //Item Touch Helper setup
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            //Deletes a course
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                if(direction == ItemTouchHelper.LEFT){
+                    int pos;
+                    pos = viewHolder.getAdapterPosition();
+                    modifiedCourse = courseList.get(pos);
+                    InstructorCourseFragment();
+                }
+            }
+        };
 
         myCourses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,10 +152,10 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
     }
 
-    @Override
-    public void onItemClick(int position) {
-        courseToJoin = courseList.get(position);
-        courseInstructFragment();
-    }
+//    @Override
+//    public void onItemClick(int position) {
+//        courseToJoin = courseList.get(position);
+//        courseInstructFragment();
+//    }
 
 }
