@@ -152,10 +152,10 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
     }
 
-//    @Override
-//    public void onItemClick(int position) {
-//        courseToJoin = courseList.get(position);
-//        courseInstructFragment();
-//    }
+    @Override
+    public void onItemClick(int position) {
+        courseToJoin = courseList.get(position);
+        InstructorCourseFragment();
+    }
 
 }

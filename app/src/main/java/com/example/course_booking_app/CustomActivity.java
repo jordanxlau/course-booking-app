@@ -54,7 +54,7 @@ public abstract class CustomActivity extends AppCompatActivity {
     //Opens InstructorCourseFragment
     protected void InstructorCourseFragment(){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left);
-        ft.replace(R.id.courseFragment, new InstructorCourseFragment());
+        ft.replace(R.id.instructorFragment, new InstructorCourseFragment());
         ft.commit();
     }
 
