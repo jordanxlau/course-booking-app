@@ -15,10 +15,10 @@ public class Course {
         this.code = code;
         this.name = name;
         this.instructor = instructor;
-        this.description = "No course description set!";
+        this.description = "";
         this.capacity = 0;
-        this.days = "No days set!";
-        this.hours = "No hours set!";
+        this.days = "";
+        this.hours = "";
 
 
     }
@@ -29,6 +29,22 @@ public class Course {
 
     public String getHours() {return hours;}
 
+    public String getDescription() {return description;}
+
+    public Integer getCapacity() {return capacity;}
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
     public void setDays(String days) {
         this.days = days;
     }
@@ -37,13 +53,17 @@ public class Course {
         this.hours = hours;
     }
 
-    public void setDaysToDefault() {this.days = "No days set!";}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-    public void setHoursToDefault() {this.hours = "No hours set!";}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getDescription() {return description;}
-
-    public Integer getCapacity() {return capacity;}
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
 
     public void setID(String ID) {
         this.ID = ID;
@@ -53,40 +73,27 @@ public class Course {
         this.description = description;
     }
 
-    public void setDescriptionToDefault() {
-        this.description = "No course description set!";
-    }
-
-    public void setCapacityToZero() {
-        this.capacity = 0;
-    }
-
-    public void increaseCapacityByOne() {
+    public void incrementCapacity() {
         this.capacity++;
     }
 
-    public String getCode() {
-        return code;
+    public void resetCourse(){
+        this.resetDescription();
+        this.resetCapacity();
+        this.resetDays();
+        this.resetHours();
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void resetDescription() {
+        this.description = "";
     }
 
-    public String getName() {
-        return name;
+    public void resetCapacity() {
+        this.capacity = 0;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void resetDays() {this.days = "";}
 
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
-    }
+    public void resetHours() {this.hours = "";}
 
 }

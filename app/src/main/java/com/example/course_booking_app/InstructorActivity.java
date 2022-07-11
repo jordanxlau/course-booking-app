@@ -155,6 +155,7 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     @Override
     public void onItemClick(int position) {
         modifiedCourse = courseList.get(position);
+
         if(modifiedCourse.getInstructor().equals(currentUser)){
             assignStatus = AssignStatus.UNASSIGNABLE;
         }
