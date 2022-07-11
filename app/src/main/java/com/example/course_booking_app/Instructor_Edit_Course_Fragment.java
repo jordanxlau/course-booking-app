@@ -19,7 +19,7 @@ import android.widget.Toast;
  */
 public class Instructor_Edit_Course_Fragment extends Fragment {
 
-    protected Button set;
+    protected Button setCourseInfo;
     protected EditText courseHours, courseDays, courseDescription;
 
 
@@ -48,12 +48,12 @@ public class Instructor_Edit_Course_Fragment extends Fragment {
         EditText courseDescription = view.findViewById(R.id.descriptionBox);
         Course course = InstructorActivity.courseToJoin;
 
-        set.setOnClickListener(new View.OnClickListener() {
+        setCourseInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                course.setHours(courseHours.getText().toString());
-                course.setDescription(courseDescription.getText().toString());
-                course.setDays(courseDays.getText().toString());
+                course.setHours(courseHours.getText().toString().trim());
+                course.setDescription(courseDescription.getText().toString().trim());
+                course.setDays(courseDays.getText().toString().trim());
 
                 Toast.makeText(getActivity(), "Course Info updated", Toast.LENGTH_SHORT).show();
                 //this fragment will now remove itself

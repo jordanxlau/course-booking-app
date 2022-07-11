@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 /**
@@ -109,8 +111,11 @@ public class AddInstructorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if ( course.getInstructor().equals(CustomActivity.currentUser)){
-                    //Instructor_Edit_Course_Fragment nextFrag = new Instructor_Edit_Course_Fragment();
-                    //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.courseInstructFragment, nextFrag, "findThisFragment").addToBackStack(null).commit();
+                    Instructor_Edit_Course_Fragment newGamefragment = new Instructor_Edit_Course_Fragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.courseInstructFragment, newGamefragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 } else {
                     Toast.makeText(getActivity(), "You do not teach this course! ", Toast.LENGTH_SHORT).show();
                 }
