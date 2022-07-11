@@ -1,5 +1,5 @@
 # course-booking-app
-Android application coded from scratch in Android Studio by @achawathe, @EricVan14, @noobstang, @michaeltsoon, and @jordanxlau. (Contributors are listed alphabetically.)
+Android application coded from scratch in Android Studio by @achawathe, @EricVan14, @michaeltsoon, and @jordanxlau. (Contributors are listed alphabetically.)
 
 This app implements a basic course selection service for students and instructors. Students are able to search for a course; instructors are able to edit details about courses; and administrators are able to manage users and courses.
 
