@@ -44,7 +44,7 @@ public class CourseAddFragment extends Fragment{
     }
 
     protected EditText editCourseName, editCourseInstructor, editCourseCode;
-    protected Button addCourse, cancel;
+    protected Button addCourse;
 
     public static CourseAddFragment newInstance() {
         CourseAddFragment fragment = new CourseAddFragment();
@@ -67,7 +67,6 @@ public class CourseAddFragment extends Fragment{
         editCourseCode = view.findViewById(R.id.editCourseCode);
         editCourseInstructor = view.findViewById(R.id.editInstructor);
         addCourse = view.findViewById(R.id.addCourse);
-        cancel = view.findViewById(R.id.cancel);
 
         if(((CoursesActivity)getActivity()).refreshStatus == RefreshStatus.EDITCOURSE){
             editCourseName.setText(((CoursesActivity)getActivity()).modifiedCourse.getName());
@@ -113,15 +112,6 @@ public class CourseAddFragment extends Fragment{
                     }
                 }
 
-            }
-        });
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
-                ////this fragment will now remove itself
-                //getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(CourseAddFragment.this).commit();
             }
         });
 

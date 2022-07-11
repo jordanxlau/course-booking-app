@@ -18,6 +18,8 @@
     <string name="view_courses" />
     <string name="course_code">Course Code</string>
     <string name="course_name">Course Name</string>
+    <string name="close">Close</string>
+    <string name="assign">Assign/unassign</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
