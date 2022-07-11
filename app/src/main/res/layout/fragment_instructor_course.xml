@@ -139,11 +139,11 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Times"
+                android:text="Hours"
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/editTimes"
+                android:id="@+id/editHours"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

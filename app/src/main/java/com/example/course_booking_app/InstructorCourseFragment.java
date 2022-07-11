@@ -25,7 +25,7 @@ public class InstructorCourseFragment extends Fragment {
     }
 
     protected TextView textCourseCode, textCourseName, textCourseInstructor;
-    protected EditText editDescription, editCapacity, editDays, editTimes;
+    protected EditText editDescription, editCapacity, editDays, editHours;
     protected Button saveChanges, close, assign;
 
     public static InstructorCourseFragment newInstance(String param1, String param2) {
@@ -53,13 +53,33 @@ public class InstructorCourseFragment extends Fragment {
         editDescription = view.findViewById(R.id.editDescription);
         editCapacity = view.findViewById(R.id.editCapacity);
         editDays = view.findViewById(R.id.editDays);
-        editTimes = view.findViewById(R.id.editTimes);
+        editHours = view.findViewById(R.id.editHours);
 
         saveChanges = view.findViewById(R.id.saveChanges);
         close = view.findViewById(R.id.close);
         assign = view.findViewById(R.id.assign);
 
         //initialize the text for our widgets
+        textCourseCode.setText(((InstructorActivity)getActivity()).modifiedCourse.getCode());
+        textCourseName.setText(((InstructorActivity)getActivity()).modifiedCourse.getName());
+        textCourseInstructor.setText(((InstructorActivity)getActivity()).modifiedCourse.getInstructor());
+
+        editDescription.setText(((InstructorActivity)getActivity()).modifiedCourse.getDescription();
+        editCapacity.setText(((InstructorActivity)getActivity()).modifiedCourse.getCapacity();
+        editDays.setText(((InstructorActivity)getActivity()).modifiedCourse.getDays());
+        editHours.setText(((InstructorActivity)getActivity()).modifiedCourse.getHours();
+
+        if((((InstructorActivity)getActivity()).assignStatus == AssignStatus.ASSIGNABLE){
+            assign.setText("Assign");
+            assign.setVisibility(View.VISIBLE);
+        }
+        else if((((InstructorActivity)getActivity()).assignStatus == AssignStatus.UNASSIGNABLE){
+            assign.setText("Unassign");
+            assign.setVisibility(View.VISIBLE);
+        }
+        else{
+            assign.setVisibility(View.GONE);
+        }
 
 
 

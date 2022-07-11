@@ -31,11 +31,11 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     private RecyclerView coursesRV;
     private ItemClick onClick;
 
-    //For joining a course
-    public static Course courseToJoin;
-
     //declaration for modified course
     public static Course modifiedCourse;
+
+    //status for assigning/unassigning oneself to/from a course.
+    public static AssignStatus assignStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +154,16 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
     @Override
     public void onItemClick(int position) {
-        courseToJoin = courseList.get(position);
+        modifiedCourse = courseList.get(position);
+        if(modifiedCourse.getInstructor().equals(currentUser)){
+            assignStatus = AssignStatus.UNASSIGNABLE;
+        }
+        else if(modifiedCourse.getInstructor().isEmpty()){
+            assignStatus = AssignStatus.ASSIGNABLE;
+        }
+        else{
+            assignStatus = AssignStatus.NOTALLOWED;
+        }
         InstructorCourseFragment();
     }
 
