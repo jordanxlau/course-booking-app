@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +18,7 @@ public class AddInstructorFragment extends Fragment {
 
     //Attribute declarations
     TextView textView, courseName, courseDescription;
-    Button confirm, cancel;
+    Button confirm, cancel, editCourse;
 
     public AddInstructorFragment() {
         // Required empty public constructor
@@ -41,6 +42,7 @@ public class AddInstructorFragment extends Fragment {
         textView = view.findViewById(R.id.textView);
         courseName = view.findViewById(R.id.courseName);
         courseDescription = view.findViewById(R.id.courseDescription);
+        editCourse = view.findViewById(R.id.editCourse);
 
         //Declare course currently in question
         Course course = InstructorActivity.courseToJoin;
@@ -76,6 +78,11 @@ public class AddInstructorFragment extends Fragment {
                     Toast.makeText(getActivity(), "You now teach " + newCourse.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS the current instructor
                     //DELETE THE NEW COURSE'S DESCRIPTION AND STUDENT CAPACITY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    course.setInstructor("");
+                    course.setCapacityToZero();
+                    course.setDescriptionToDefault();
+                    course.setDaysToDefault();
+                    course.setHoursToDefault();
                     newCourse = new Course(course.getID(), course.getCode(), course.getName(), "");
                     MainActivity.db.addCourse(course.getCode(), course.getName(), "");
 
@@ -95,6 +102,19 @@ public class AddInstructorFragment extends Fragment {
                 Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
                 //this fragment will now remove itself
                 getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(AddInstructorFragment.this).commit();
+            }
+        });
+
+        editCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( course.getInstructor().equals(CustomActivity.currentUser)){
+                    //Instructor_Edit_Course_Fragment nextFrag = new Instructor_Edit_Course_Fragment();
+                    //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.courseInstructFragment, nextFrag, "findThisFragment").addToBackStack(null).commit();
+                } else {
+                    Toast.makeText(getActivity(), "You do not teach this course! ", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
