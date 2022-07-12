@@ -41,6 +41,9 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     //status for editing course
     public static RefreshStatus refreshStatus;
 
+    //status for filter
+    private FilterStatus filterStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
         //initialize statuses
         refreshStatus = RefreshStatus.NOCHANGE;
         assignStatus = AssignStatus.NOTALLOWED;
+        filterStatus = FilterStatus.NOFILTER;
 
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as instructor: " + currentUser);
@@ -111,13 +115,9 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                     if (course.getInstructor().equals(currentUser))
                         myCourseList.add(course);
                 }
-
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this, InstructorActivity.this);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                coursesRV.setLayoutManager(linearLayoutManager);
-                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                coursesRV.setAdapter(courseRVAdapter);
+                filterStatus = FilterStatus.MYFILTER;
+                courseRVAdapter.updateList(myCourseList);
             }
         });
 
@@ -142,12 +142,8 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){
-                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                    coursesRV.setLayoutManager(linearLayoutManager);
-                    //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                    coursesRV.setAdapter(courseRVAdapter);
-                    return;
+                    filterStatus = FilterStatus.NOFILTER;
+                    courseRVAdapter.updateList(courseList);
                 }
                 else{
                     //Creates a list of the courses that contain the searched course code
@@ -156,24 +152,25 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                         if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
                             searchedCourseList.add(course);
                     }
-
                     //Sets the RV to the newly created list
-                    courseRVAdapter = new CourseRVAdapter(searchedCourseList, InstructorActivity.this, InstructorActivity.this);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                    coursesRV.setLayoutManager(linearLayoutManager);
-                    //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                    coursesRV.setAdapter(courseRVAdapter);
+                    filterStatus = FilterStatus.SEARCHFILTER;
+                    courseRVAdapter.updateList(searchedCourseList);
                 }
-
-
             }
         });
-
     }
 
     @Override
     public void onItemClick(int position) {
-        modifiedCourse = courseList.get(position);
+        if(filterStatus == FilterStatus.NOFILTER){
+            modifiedCourse = courseList.get(position);
+        }
+        else if(filterStatus == FilterStatus.SEARCHFILTER){
+            modifiedCourse = searchedCourseList.get(position);
+        }
+        else if(filterStatus == FilterStatus.MYFILTER){
+            modifiedCourse = myCourseList.get(position);
+        }
 
         if(modifiedCourse.getInstructor().equals(currentUser)){
             assignStatus = AssignStatus.UNASSIGNABLE;

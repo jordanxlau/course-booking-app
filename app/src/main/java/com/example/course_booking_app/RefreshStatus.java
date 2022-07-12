@@ -4,5 +4,4 @@ public enum RefreshStatus {
     NOCHANGE,
     ADDCOURSE,
     EDITCOURSE,
-    FILTERCOURSE
 }
