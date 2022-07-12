@@ -79,14 +79,14 @@ public class Course {
         this.description = description;
     }
 
-    public void setCapacity(int capacity){
+    public void setCapacity(String capacity){
         this.capacity = capacity;
     }
 
 
     public void resetCourse(){
         this.setDescription("");
-        this.setCapacity(0);
+        this.setCapacity("0");
         this.setDays("");
         this.setHours("");
         this.setInstructor("");

@@ -67,7 +67,7 @@ public class InstructorCourseFragment extends Fragment {
         textCourseInstructor.setText(((InstructorActivity)getActivity()).modifiedCourse.getInstructor());
 
         editDescription.setText(((InstructorActivity)getActivity()).modifiedCourse.getDescription());
-        editCapacity.setText(String.valueOf(((InstructorActivity)getActivity()).modifiedCourse.getCapacity()));
+        editCapacity.setText(((InstructorActivity)getActivity()).modifiedCourse.getCapacity());
         editDays.setText(((InstructorActivity)getActivity()).modifiedCourse.getDays());
         editHours.setText(((InstructorActivity)getActivity()).modifiedCourse.getHours());
 
