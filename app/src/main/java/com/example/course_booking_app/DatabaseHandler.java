@@ -195,20 +195,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean modifyCourse(Course course) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        boolean result = false;
 
-        try {
-            values.put(COURSE_COL_CODE, course.getCode());
-            values.put(COURSE_COL_NAME, course.getName());
+        values.put(COURSE_COL_CODE, course.getCode());
+        values.put(COURSE_COL_NAME, course.getName());
+
+        if(course.getInstructor().length() > 0){
             values.put(COURSE_COL_INSTRUCTOR, course.getInstructor());
-            values.put(COURSE_COL_DESCRIPTION, course.getDescription());
-            values.put(COURSE_COL_CAPACITY, course.getCapacity());
-            values.put(COURSE_COL_DAYS, course.getDays());
-            values.put(COURSE_COL_HOURS, course.getHours());
-            db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
-            return true;
-        } catch (NullPointerException n){
-            return false;
         }
+
+        if(course.getDescription().length() > 0){
+            values.put(COURSE_COL_DESCRIPTION, course.getDescription());
+        }
+
+        if(course.getCapacity().length() > 0){
+            values.put(COURSE_COL_CAPACITY, course.getCapacity());
+        }
+
+        if(course.getDays().length() > 0){
+            values.put(COURSE_COL_DAYS, course.getDays());
+        }
+
+        if(course.getHours().length() > 0){
+            values.put(COURSE_COL_HOURS, course.getHours());
+        }
+
+        db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
+        result = true;
+
+        return result;
 
     }
 
