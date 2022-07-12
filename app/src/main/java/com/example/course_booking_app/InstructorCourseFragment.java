@@ -96,8 +96,33 @@ public class InstructorCourseFragment extends Fragment {
         saveChanges.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                    
-                Toast.makeText(getActivity(), "Changes saved", Toast.LENGTH_SHORT).show();
+                //temporary fields
+                String tempDescription = editDescription.getText().toString().trim();
+                String tempCapacity = editCapacity.getText().toString().trim();
+                String tempDays = editDays.getText().toString().trim();
+                String tempHours = editHours.getText().toString().trim();
+
+                ValidationResults validationResults = new ValidationResults(tempDescription, tempCapacity, tempDays, tempHours);
+
+                if(validationResults.getValidity() == true){
+                    ((CoursesActivity)getActivity()).modifiedCourse.setDescription(tempDescription);
+                    ((CoursesActivity)getActivity()).modifiedCourse.setCapacity(tempCapacity);
+                    ((CoursesActivity)getActivity()).modifiedCourse.setDays(tempDays);
+                    ((CoursesActivity)getActivity()).modifiedCourse.setHours(tempHours);
+                    Toast.makeText(getActivity(), "Changes saved", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    alertDialog.setTitle("Alert");
+                    alertDialog.setMessage(validationResults.getMessage());
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
             }
         });
 

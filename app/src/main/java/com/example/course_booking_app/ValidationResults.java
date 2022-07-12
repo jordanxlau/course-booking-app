@@ -10,6 +10,7 @@ public class ValidationResults{
     private boolean validCap;
     private boolean validDays;
     private boolean validTimePeriod;
+    private boolean validEquality;
 
     //verification attributes
     /*
@@ -41,7 +42,6 @@ public class ValidationResults{
     public ValidationResults(String desc, String cap, String days, String timePeriod) {
         validateFields(desc, cap, days, timePeriod);
         updateErrorMessage();
-
     }
 
     /*
@@ -95,7 +95,6 @@ public class ValidationResults{
 
     public void validateFields(String desc, String cap, String days, String timePeriod) {
 
-
         //validate description
         validDesc = validateDesc(desc);
         //validate capacity
@@ -104,8 +103,10 @@ public class ValidationResults{
         validDays = validateDays(days);
         //validate timePeriod
         validTimePeriod = validateTimePeriod(timePeriod);
+        //validate equality
+        validEquality = validateEquality(days, timePeriod);
 
-        if(validDesc && validCap && validDays && validTimePeriod) {
+        if(validDesc && validCap && validDays && validTimePeriod && validEquality) {
             validity = true;
         }
 
@@ -128,6 +129,10 @@ public class ValidationResults{
         }
         if(!validTimePeriod) {
             stronk.append(getTimePeriodError());
+            stronk.append(" ");
+        }
+        if(!validEquality){
+            stronk.append(getEqualityError());
             stronk.append("");
         }
 
@@ -207,9 +212,7 @@ public class ValidationResults{
             if(!checkTimeFormat(eachField)) {
                 return false;
             }
-
         }
-
         return true;
     }
 
@@ -239,6 +242,16 @@ public class ValidationResults{
         }
 
         return s2;
+    }
+
+    //check that the number of days = number of hours
+    private boolean validateEquality(String days, String hours){
+        String[] s1 = parseComma(days);
+        String[] s2 = parseSemicolon(hours);
+        if(s1.length == s2.length){
+            return true;
+        }
+        return false;
     }
 
     //check if String represents a Day of a week
@@ -291,8 +304,6 @@ public class ValidationResults{
         //hyphen at index 5
         if(!hyphen.equals('-')) return false;
 
-
-
         String hours1 = s.substring(0, 2);
         String hours2 = s.substring(6, 8);
         String minutes1 = s.substring(3, 5);
@@ -323,7 +334,6 @@ public class ValidationResults{
             return false;
         }
 
-
         //got here only if format is correct
         return true;
     }
@@ -351,17 +361,22 @@ public class ValidationResults{
     }
 
     private static String getCapError() {
-        String s = "Capacity must be an integer between 1 and " + MAX_COURSE_CAPACITY;
+        String s = "Capacity must be an integer between 1 and " + MAX_COURSE_CAPACITY + ".";
         return s;
     }
 
     private static String getDaysError() {
-        String s = "Days must be valid days of a week , separated by commas (e.g. \"Monday, Wednesday\").";
+        String s = "Days must be valid days of the week, separated by commas (e.g. \"Monday, Wednesday\").";
         return s;
     }
 
     private static String getTimePeriodError() {
         String s = "Time period format: \"HH:MM-HH:MM; HH:MM-HH:MM\". Multiple periods must be separated by a semi-colon (i.e. ';').";
+        return s;
+    }
+
+    private static String getEqualityError(){
+        String s = "The number of days must equal the number of time periods.";
         return s;
     }
 
