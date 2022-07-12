@@ -105,11 +105,12 @@ public class InstructorCourseFragment extends Fragment {
                 ValidationResults validationResults = new ValidationResults(tempDescription, tempCapacity, tempDays, tempHours);
 
                 if(validationResults.getValidity() == true){
-                    ((CoursesActivity)getActivity()).modifiedCourse.setDescription(tempDescription);
-                    ((CoursesActivity)getActivity()).modifiedCourse.setCapacity(tempCapacity);
-                    ((CoursesActivity)getActivity()).modifiedCourse.setDays(tempDays);
-                    ((CoursesActivity)getActivity()).modifiedCourse.setHours(tempHours);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setDescription(tempDescription);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setCapacity(tempCapacity);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setDays(tempDays);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setHours(tempHours);
                     Toast.makeText(getActivity(), "Changes saved", Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
                 }
                 else{
                     AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
