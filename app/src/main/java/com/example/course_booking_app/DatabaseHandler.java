@@ -24,8 +24,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_CODE = "courseCode"; //First column name (course codes)
     public static final String COURSE_COL_NAME = "courseName"; //Second column name (course names)
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
-    public static final String COURSE_COL_DESCRIPTION = "courseDescription";
-    public static final String COURSE_COL_CAPACITY = "courseCapacity";
+
+    //TO BE IMPLEMENTED
+    public static final String COURSE_COL_DESCRIPTION = "courseDescription";  //Fourth column name (course description)
+    public static final String COURSE_COL_CAPACITY = "courseCapacity";  //Fifth column name (course max student capacity)
 
     public DatabaseHandler(Context context){
         super(context, "users4.db", null, 5);
