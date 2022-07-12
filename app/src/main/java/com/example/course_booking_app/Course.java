@@ -83,6 +83,8 @@ public class Course {
         this.capacity = capacity;
     }
 
+    public void setID(String id){this.ID = id;}
+
 
     public void resetCourse(){
         this.setDescription("");
