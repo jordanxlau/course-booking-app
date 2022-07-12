@@ -69,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Add preset users to the database
         this.addUser("admin", "admin123", "administrator");
 
-        //add preset courses
+        //add preset course
         this.addCourse("SEG2105Z", "Intro to Software Engineering", "Omar Badreddin");
     }
 
