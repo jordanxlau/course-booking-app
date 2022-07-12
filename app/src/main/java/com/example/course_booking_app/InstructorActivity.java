@@ -31,12 +31,11 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     private RecyclerView coursesRV;
     private ItemClick onClick;
 
-    //For joining a course
-    public static Course courseToJoin;
-
     //declaration for modified course
     public static Course modifiedCourse;
-    public static RefreshStatus refreshStatus;
+
+    //status for assigning/unassigning oneself to/from a course.
+    public static AssignStatus assignStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,6 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
         //setup related to course information
         modifiedCourse = new Course("","","","");
-        refreshStatus = RefreshStatus.NOCHANGE;
 
         courseList = new ArrayList<>();
         courseList = MainActivity.db.getCourses();
@@ -75,6 +73,26 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                 openMain();
             }
         });
+
+        //Item Touch Helper setup
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            //Deletes a course
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                if(direction == ItemTouchHelper.LEFT){
+                    int pos;
+                    pos = viewHolder.getAdapterPosition();
+                    modifiedCourse = courseList.get(pos);
+                    InstructorCourseFragment();
+                }
+            }
+        };
 
         myCourses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +126,7 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){
+                    MainActivity.db.modifyCourse(modifiedCourse);
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
@@ -136,8 +155,18 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
     @Override
     public void onItemClick(int position) {
-        courseToJoin = courseList.get(position);
-        courseInstructFragment();
+        modifiedCourse = courseList.get(position);
+
+        if(modifiedCourse.getInstructor().equals(currentUser)){
+            assignStatus = AssignStatus.UNASSIGNABLE;
+        }
+        else if(modifiedCourse.getInstructor().isEmpty()){
+            assignStatus = AssignStatus.ASSIGNABLE;
+        }
+        else{
+            assignStatus = AssignStatus.NOTALLOWED;
+        }
+        InstructorCourseFragment();
     }
 
 }
