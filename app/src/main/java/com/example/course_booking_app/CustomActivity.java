@@ -57,7 +57,6 @@ public abstract class CustomActivity extends AppCompatActivity {
         ft.replace(R.id.instructorFragment, new InstructorCourseFragment());
         ft.commit();
     }
-
     //Opens main page
     protected void openMain(){
         Intent intent = new Intent(this, MainActivity.class);

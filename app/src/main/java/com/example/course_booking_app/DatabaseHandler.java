@@ -165,10 +165,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
-            values.put(COURSE_COL_DESCRIPTION, "");
-            values.put(COURSE_COL_CAPACITY, "");
-            values.put(COURSE_COL_DAYS, "");
-            values.put(COURSE_COL_HOURS, "");
+            values.put(COURSE_COL_CAPACITY, "0");
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
         } else if (courseCode.equals("") || courseName.equals("")){
@@ -176,7 +173,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } else {//Course already exists
             return 4;
         }
-
     }
 
     //Determines if a username and password match

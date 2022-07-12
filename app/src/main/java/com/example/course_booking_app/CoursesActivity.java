@@ -126,7 +126,7 @@ public class CoursesActivity extends CustomActivity implements ItemClick{
                     if ( MainActivity.db.addCourse(modifiedCourse.getCode(), modifiedCourse.getName(), modifiedCourse.getInstructor()) == 0)
                         toastMessage = "The course has been added successfully. ";
                     else
-                        toastMessage = "course already exists!";
+                        toastMessage = "Course already exists!";
                 }
                 else if(refreshStatus == RefreshStatus.EDITCOURSE){
                     MainActivity.db.modifyCourse(modifiedCourse);
