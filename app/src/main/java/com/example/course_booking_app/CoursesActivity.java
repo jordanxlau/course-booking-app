@@ -138,7 +138,6 @@ public class CoursesActivity extends CustomActivity implements ItemClick{
 
                 if(refreshStatus != RefreshStatus.NOCHANGE) {
                     refreshStatus = RefreshStatus.NOCHANGE;
-                    courseRVAdapter.notifyDataSetChanged();
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);

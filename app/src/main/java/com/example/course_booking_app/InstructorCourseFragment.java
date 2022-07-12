@@ -110,6 +110,8 @@ public class InstructorCourseFragment extends Fragment {
                     ((InstructorActivity)getActivity()).modifiedCourse.setDays(tempDays);
                     ((InstructorActivity)getActivity()).modifiedCourse.setHours(tempHours);
                     Toast.makeText(getActivity(), "Changes saved", Toast.LENGTH_SHORT).show();
+
+                    ((InstructorActivity)getActivity()).refreshStatus = RefreshStatus.EDITCOURSE;
                     getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
                 }
                 else{
@@ -143,6 +145,7 @@ public class InstructorCourseFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int which){
                                         Toast.makeText(getActivity(), "You have successfully assigned yourself.", Toast.LENGTH_SHORT).show();
                                         ((InstructorActivity)getActivity()).modifiedCourse.setInstructor(((InstructorActivity)getActivity()).currentUser);
+                                        ((InstructorActivity)getActivity()).refreshStatus = RefreshStatus.EDITCOURSE;
                                         getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
                                     }
                                 });
@@ -167,6 +170,7 @@ public class InstructorCourseFragment extends Fragment {
                                 public void onClick(DialogInterface dialog2, int which){
                                     Toast.makeText(getActivity(), "You have successfully unassigned yourself.", Toast.LENGTH_SHORT).show();
                                     ((InstructorActivity)getActivity()).modifiedCourse.resetCourse();
+                                    ((InstructorActivity)getActivity()).refreshStatus = RefreshStatus.EDITCOURSE;
                                     getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
                                 }
                             });

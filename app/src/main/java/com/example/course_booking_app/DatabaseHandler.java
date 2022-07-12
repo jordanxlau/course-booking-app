@@ -57,8 +57,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COURSE_COL_INSTRUCTOR + " STRING, "
                 + COURSE_COL_DESCRIPTION + " STRING, "
                 + COURSE_COL_CAPACITY + " STRING, "
-                + COURSE_COL_DAYS + "STRING, "
-                + COURSE_COL_HOURS + "STRING"
+                + COURSE_COL_DAYS + " STRING, "
+                + COURSE_COL_HOURS + " STRING"
                 + ")";
 
         db.execSQL(createUsers);
@@ -200,24 +200,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COURSE_COL_CODE, course.getCode());
         values.put(COURSE_COL_NAME, course.getName());
 
-        if(course.getInstructor().length() > 0){
+        if(course.getInstructor() != null){
             values.put(COURSE_COL_INSTRUCTOR, course.getInstructor());
         }
 
-        if(course.getDescription().length() > 0){
-            values.put(COURSE_COL_DESCRIPTION, course.getDescription());
+        if(course.getDescription() != null){
+            if(course.getDescription().length() > 0){
+                values.put(COURSE_COL_DESCRIPTION, course.getDescription());
+            }
         }
 
         if(course.getCapacity().length() > 0){
             values.put(COURSE_COL_CAPACITY, course.getCapacity());
         }
 
-        if(course.getDays().length() > 0){
-            values.put(COURSE_COL_DAYS, course.getDays());
+        if(course.getDays() != null){
+            if(course.getDays().length() > 0){
+                values.put(COURSE_COL_DAYS, course.getDays());
+            }
         }
 
-        if(course.getHours().length() > 0){
-            values.put(COURSE_COL_HOURS, course.getHours());
+        if(course.getHours() != null){
+            if(course.getHours().length() > 0){
+                values.put(COURSE_COL_HOURS, course.getHours());
+            }
         }
 
         db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});

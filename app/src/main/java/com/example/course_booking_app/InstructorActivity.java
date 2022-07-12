@@ -1,5 +1,6 @@
 package com.example.course_booking_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -37,6 +38,9 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     //status for assigning/unassigning oneself to/from a course.
     public static AssignStatus assignStatus;
 
+    //status for editing course
+    public static RefreshStatus refreshStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,10 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
         searchCode = findViewById(R.id.searchCode);
         searchName = findViewById(R.id.searchName);
         coursesRV = findViewById(R.id.recyclerView);
+
+        //initialize statuses
+        refreshStatus = RefreshStatus.NOCHANGE;
+        assignStatus = AssignStatus.NOTALLOWED;
 
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as instructor: " + currentUser);
@@ -116,6 +124,14 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(refreshStatus == RefreshStatus.EDITCOURSE){
+                    refreshStatus = RefreshStatus.NOCHANGE;
+                    MainActivity.db.modifyCourse(modifiedCourse);
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+
                 //Setup
                 String desiredCode = searchCode.getText().toString().toLowerCase();
                 if (desiredCode == null)
@@ -126,7 +142,6 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){
-                    MainActivity.db.modifyCourse(modifiedCourse);
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
@@ -148,6 +163,9 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                 coursesRV.setLayoutManager(linearLayoutManager);
                 //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
                 coursesRV.setAdapter(courseRVAdapter);
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
             }
         });
 
