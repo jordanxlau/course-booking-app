@@ -74,13 +74,16 @@ public class InstructorCourseFragment extends Fragment {
         if(((InstructorActivity)getActivity()).assignStatus == AssignStatus.ASSIGNABLE){
             assign.setText("Assign");
             assign.setVisibility(View.VISIBLE);
+            saveChanges.setVisibility(View.GONE);
         }
         else if(((InstructorActivity)getActivity()).assignStatus == AssignStatus.UNASSIGNABLE){
             assign.setText("Unassign");
             assign.setVisibility(View.VISIBLE);
+            saveChanges.setVisibility(View.VISIBLE);
         }
         else{
             assign.setVisibility(View.GONE);
+            saveChanges.setVisibility(View.GONE);
         }
 
         close.setOnClickListener(new View.OnClickListener(){
@@ -135,8 +138,7 @@ public class InstructorCourseFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog2, int which){
                                     Toast.makeText(getActivity(), "You have successfully unassigned yourself.", Toast.LENGTH_SHORT).show();
-                                    (((InstructorActivity)getActivity()).modifiedCourse.resetCourse());
-
+                                    ((InstructorActivity)getActivity()).modifiedCourse.resetCourse();
                                 }
                             });
                     builder2.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){

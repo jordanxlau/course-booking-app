@@ -126,6 +126,7 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){
+                    MainActivity.db.modifyCourse(modifiedCourse);
                     courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
