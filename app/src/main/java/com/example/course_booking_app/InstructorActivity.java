@@ -149,23 +149,23 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                     coursesRV.setAdapter(courseRVAdapter);
                     return;
                 }
+                else{
+                    //Creates a list of the courses that contain the searched course code
+                    searchedCourseList = new ArrayList<Course>();
+                    for (Course course: courseList){
+                        if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
+                            searchedCourseList.add(course);
+                    }
 
-                //Creates a list of the courses that contain the searched course code
-                searchedCourseList = new ArrayList<Course>();
-                for (Course course: courseList){
-                    if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
-                        searchedCourseList.add(course);
+                    //Sets the RV to the newly created list
+                    courseRVAdapter = new CourseRVAdapter(searchedCourseList, InstructorActivity.this, InstructorActivity.this);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
+                    coursesRV.setLayoutManager(linearLayoutManager);
+                    //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
+                    coursesRV.setAdapter(courseRVAdapter);
                 }
-                
-                //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(searchedCourseList, InstructorActivity.this, InstructorActivity.this);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                coursesRV.setLayoutManager(linearLayoutManager);
-                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                coursesRV.setAdapter(courseRVAdapter);
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
+
+
             }
         });
 
