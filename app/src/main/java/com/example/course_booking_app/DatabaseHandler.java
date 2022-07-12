@@ -24,6 +24,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_CODE = "courseCode"; //First column name (course codes)
     public static final String COURSE_COL_NAME = "courseName"; //Second column name (course names)
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
+    public static final String COURSE_COL_DESCRIPTION = "courseDescription";
+    public static final String COURSE_COL_CAPACITY = "courseCapacity";
+    public static final String COURSE_COL_DAYS = "courseDays";
+    public static final String COURSE_COL_HOURS = "courseHours";
 
     public DatabaseHandler(Context context){
         super(context, "users4.db", null, 5);
@@ -50,7 +54,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COURSE_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
                 + COURSE_COL_CODE + " STRING, "
                 + COURSE_COL_NAME + " STRING, "
-                + COURSE_COL_INSTRUCTOR + " STRING"
+                + COURSE_COL_INSTRUCTOR + " STRING, "
+                + COURSE_COL_DESCRIPTION + " STRING, "
+                + COURSE_COL_CAPACITY + " STRING, "
+                + COURSE_COL_DAYS + "STRING, "
+                + COURSE_COL_HOURS + "STRING"
                 + ")";
 
         db.execSQL(createUsers);
@@ -111,7 +119,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursorCourses.getString(0),
                     cursorCourses.getString(1),
                     cursorCourses.getString(2),
-                    cursorCourses.getString(3)
+                    cursorCourses.getString(3),
+                    cursorCourses.getString(4),
+                    cursorCourses.getString(5),
+                    cursorCourses.getString(6),
+                    cursorCourses.getString(7)
                 ));
             } while(cursorCourses.moveToNext());
         }
@@ -153,6 +165,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            values.put(COURSE_COL_DESCRIPTION, "");
+            values.put(COURSE_COL_CAPACITY, "");
+            values.put(COURSE_COL_DAYS, "");
+            values.put(COURSE_COL_HOURS, "");
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
         } else if (courseCode.equals("") || courseName.equals("")){
@@ -188,6 +204,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, course.getCode());
             values.put(COURSE_COL_NAME, course.getName());
             values.put(COURSE_COL_INSTRUCTOR, course.getInstructor());
+            values.put(COURSE_COL_DESCRIPTION, course.getDescription());
+            values.put(COURSE_COL_CAPACITY, course.getCapacity());
+            values.put(COURSE_COL_DAYS, course.getDays());
+            values.put(COURSE_COL_HOURS, course.getHours());
             db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
             return true;
         } catch (NullPointerException n){
