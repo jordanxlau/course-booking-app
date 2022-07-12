@@ -1,23 +1,46 @@
 package com.example.course_booking_app;
 
-import java.util.IllegalFormatException;
 
 public class ValidationResults{
+    //main attributes
     private boolean validity;
-    //private String message;
+    private String message;
+
     private boolean validDesc;
     private boolean validCap;
     private boolean validDays;
     private boolean validTimePeriod;
 
+    //verification attributes
+    /*
+    private String description;
+    private String capacity;
+    private String classDays;
+    private String classTimePeriod;
+    */
+
     private static final int MAX_DESC_LENGTH = 500;
     private static final int MAX_COURSE_CAPACITY = 1000;
 
-    private static ValidationResults instance;
+    //private static ValidationResults instance;
 
+
+    //Empty constructor
+    /*
+    public ValidationResults() {
+    	validity = false;
+    	message = "";
+
+    	validDesc = false;
+    	validCap = false;
+    	validDays = false;
+    	validTimePeriod = false;
+    }*/
+
+    //Constructor with params. Validates automatically
     public ValidationResults(String desc, String cap, String days, String timePeriod) {
         validateFields(desc, cap, days, timePeriod);
-
+        updateErrorMessage();
 
     }
 
@@ -44,14 +67,31 @@ public class ValidationResults{
         return validity;
     }
 
-    /*
+
     public String getMessage() {
         return message;
-    }*/
+    }
 
+    public boolean getValidDesc() {
+        return validDesc;
+    }
+
+    public boolean getValidCap() {
+        return validCap;
+    }
+
+    public boolean getValidDays() {
+        return validDays;
+    }
+
+    public boolean getValidTimePeriod() {
+        return validTimePeriod;
+    }
+
+    /*
     public ValidationResults getInstance() {
         return this.instance;
-    }
+    }*/
 
     public void validateFields(String desc, String cap, String days, String timePeriod) {
 
@@ -69,10 +109,29 @@ public class ValidationResults{
             validity = true;
         }
 
-
-
-
         //instance params automatically modified.
+    }
+
+    public void updateErrorMessage() {
+        StringBuilder stronk = new StringBuilder();
+        if(!validDesc) {
+            stronk.append(getDescError());
+            stronk.append(" ");
+        }
+        if(!validCap) {
+            stronk.append(getCapError());
+            stronk.append(" ");
+        }
+        if(!validDays) {
+            stronk.append(getDaysError());
+            stronk.append(" ");
+        }
+        if(!validTimePeriod) {
+            stronk.append(getTimePeriodError());
+            stronk.append("");
+        }
+
+        message = stronk.toString();
 
     }
 
@@ -145,7 +204,7 @@ public class ValidationResults{
         String[] parsed = parseSemicolon(s);
         //then for each field, validate format
         for(String eachField : parsed) {
-            if(!checkDayOfWeek(eachField)) {
+            if(!checkTimeFormat(eachField)) {
                 return false;
             }
 
@@ -212,26 +271,69 @@ public class ValidationResults{
         return isValid;
     }
 
-    //check if String is in "XX:XX" format
+    //check if String is in "HH:MM-HH:MM" format
+    //hours must be between 00 and 24
+    //minutes must be between 00 and 60
     private boolean checkTimeFormat(String s) {
-        if(s == null) return false;
-        if(s.length() != 5) return false;
-        //char a = s.charAt(2);
 
-        if(s.indexOf(':') != 2) return false;
-        //strip the colon, the 4 remainin characters must be integers
-        if( !isInteger( s.replaceAll(":", "") ) ) return false;
+        //s = s.strip();
+
+        if(s == null) return false;
+        if(s.length() != 11) return false;
+        //char a = s.charAt(2);
+        Character colon1 = s.charAt(2);
+        Character colon2 = s.charAt(8);
+        Character hyphen = s.charAt(5);
+
+        //there must be colons at indices 2 and 8 in the String
+        if(!colon1.equals(':')) return false;
+        if(!colon2.equals(':')) return false;
+        //hyphen at index 5
+        if(!hyphen.equals('-')) return false;
+
+
+
+        String hours1 = s.substring(0, 2);
+        String hours2 = s.substring(6, 8);
+        String minutes1 = s.substring(3, 5);
+        String minutes2 = s.substring(9, 11);
+
+        if(!isInteger(hours1)) return false;
+        if(!isInteger(hours2)) return false;
+        if(!isInteger(minutes1)) return false;
+        if(!isInteger(minutes2)) return false;
+
+        //check that 1st and 3rd number are between 00 and 24
+        int h1 = Integer.parseInt(hours1);
+        int h2 = Integer.parseInt(hours2);
+        if(h1 < 0 || h1 > 24) {
+            return false;
+        }
+        if(h2 < 0 || h2 > 24) {
+            return false;
+        }
+
+        //check that 2nd and 4th are between 00 and 60
+        int m1 = Integer.parseInt(minutes1);
+        int m2 = Integer.parseInt(minutes2);
+        if(m1 < 0 || m1 > 60) {
+            return false;
+        }
+        if(m2 < 0 || m2 > 60) {
+            return false;
+        }
+
 
         //got here only if format is correct
         return true;
     }
 
     //check if String is integer
-    public static boolean isInteger(String s) {
+    private static boolean isInteger(String s) {
         return isInteger(s,10);
     }
 
-    public static boolean isInteger(String s, int radix) {
+    private static boolean isInteger(String s, int radix) {
         if(s.isEmpty()) return false;
         for(int i = 0; i < s.length(); i++) {
             if(i == 0 && s.charAt(i) == '-') {
@@ -243,8 +345,24 @@ public class ValidationResults{
         return true;
     }
 
+    //Error messages
+    private static String getDescError() {
+        return "Description must be between 1 and 500 characters.";
+    }
 
+    private static String getCapError() {
+        String s = "Capacity must be an integer between 1 and " + MAX_COURSE_CAPACITY;
+        return s;
+    }
 
+    private static String getDaysError() {
+        String s = "Days must be valid days of a week , separated by commas (e.g. \"Monday, Wednesday\").";
+        return s;
+    }
 
+    private static String getTimePeriodError() {
+        String s = "Time period format: \"HH:MM-HH:MM; HH:MM-HH:MM\". Multiple periods must be separated by a semi-colon (i.e. ';').";
+        return s;
+    }
 
 }
