@@ -21,6 +21,11 @@
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/user_list_item.xml" value="0.33" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2585" />
+        <entry key="..\:/Users/ericv/OneDrive/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.18115942028985507" />
+        <entry key="..\:/Users/ericv/OneDrive/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_student.xml" value="0.11503623188405797" />
+        <entry key="..\:/Users/ericv/OneDrive/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_course_add.xml" value="0.18115942028985507" />
+        <entry key="..\:/Users/ericv/OneDrive/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_course_instruct.xml" value="0.18115942028985507" />
+        <entry key="..\:/Users/ericv/OneDrive/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_join_course.xml" value="0.13601823708206687" />
         <entry key="..\:/Users/evand008/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_administrator.xml" value="0.14994934143870314" />
         <entry key="..\:/Users/evand008/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_instructor.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/evand008/Documents/GitHub/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.2694746376811594" />

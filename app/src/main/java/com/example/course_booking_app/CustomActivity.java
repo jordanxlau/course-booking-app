@@ -54,8 +54,15 @@ public abstract class CustomActivity extends AppCompatActivity {
 
     //Opens course instruct fragment
     protected void courseInstructFragment(){
-        AddInstructorFragment fragment = new AddInstructorFragment();
+        AddInstructorFragment frag = new AddInstructorFragment();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).add(R.id.coordinatorLayout, frag).commit();
+    }
+
+    //Opens join course fragment
+    protected void joinCourseFragment(){
+        JoinCourseFragment fragment = new JoinCourseFragment();
         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).add(R.id.coordinatorLayout, fragment).commit();
+
     }
 
     //Opens main page

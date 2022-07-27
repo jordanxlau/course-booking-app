@@ -151,16 +151,8 @@ public class StudentActivity extends CustomActivity implements ItemClick {
     @Override
     public void onItemClick(int position) {
         courseToJoin = courseList.get(position);
-        courseInstructFragment();
+        joinCourseFragment();
     }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
-
-
-
 
 }
 
