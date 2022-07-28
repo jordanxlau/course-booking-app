@@ -9,7 +9,8 @@ public class Course {
     private String instructor;
     private Integer timeBlock;
     public static ArrayList<String> studentList;
-
+    public String stuff;
+    public Integer i;
 
     public Course(String ID, String code, String name, String instructor) {
         this.ID = ID;
@@ -29,17 +30,29 @@ public class Course {
     }
 
     public Boolean isStudentEnrolled(String student){
-        if(this.studentList.contains(student))
+        if(studentList.contains(student))
             return true;
         return false;
     }
+    //For Testing purposes
+    public String printCourses(){
+        studentList.trimToSize();
+        i = studentList.size();
+        stuff = "";
+        for (int y = 0; y<i; y++) {
+            stuff = stuff + studentList.get(y);
+        }
+        return stuff;
+    }
 
     public void addStudent(String student){
-        this.studentList.add(student);
+        studentList.add(student);
+        studentList.trimToSize();
     }
 
     public void removeStudent(String student){
-        this.studentList.remove(student);
+        studentList.remove(student);
+        studentList.trimToSize();
     }
 
     public Integer getTime() {

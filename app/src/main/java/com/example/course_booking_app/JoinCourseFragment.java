@@ -52,7 +52,7 @@ public class JoinCourseFragment extends Fragment {
         //Set TextViews
         courseName.setText(course.getName());
         courseDescription.setText("SET COURSE DESCRIPTION LATER");
-        if (!course.isStudentEnrolled(CustomActivity.currentUser)){//the current user is not enrolled in the course
+        if (!course.isStudentEnrolled(course.getCode())){//the current user is not enrolled in the course
             textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
         } else {
             textView.setText("I no longer want to be enrolled in " + StudentActivity.courseToJoin.getCode());
@@ -62,13 +62,14 @@ public class JoinCourseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!course.isStudentEnrolled(CustomActivity.currentUser)) {//the current user is not in the class
-                    StudentActivity.courseToJoin.addStudent(CustomActivity.currentUser);
+                if (!course.isStudentEnrolled(course.getCode())) {//the current user is not in the class
+                    course.addStudent(course.getCode());
 
                     //Success message
+                    //Toast.makeText(getActivity(), "You are in " + course.printCourses(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS in the class
-                    StudentActivity.courseToJoin.removeStudent(CustomActivity.currentUser);
+                    course.removeStudent(course.getCode());
                     //Success message
                     Toast.makeText(getActivity(), "You are no longer enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 }
