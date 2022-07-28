@@ -39,8 +39,4 @@ public class CourseTests  {
     public void test_setInstructor(){
         testCourse.setInstructor("Jordan");
         assertEquals("Jordan",testCourse.getInstructor());}
-    @Test
-    public void test_setID(){
-        testCourse.setID("5678");
-        assertEquals("5678",testCourse.getID());}
 }

@@ -52,10 +52,10 @@ public class JoinCourseFragment extends Fragment {
         //Set TextViews
         courseName.setText(course.getName());
         courseDescription.setText("SET COURSE DESCRIPTION LATER");
-        if (! course.getInstructor().equals(CustomActivity.currentUser)){//the current user is not the current instructor
-            textView.setText("I want to instruct " + InstructorActivity.courseToJoin.getCode());
+        if (true){//the current user is not enrolled in the course
+            textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
         } else {
-            textView.setText("I no longer want to instruct " + InstructorActivity.courseToJoin.getCode());
+            textView.setText("I no longer want to be enrolled in " + StudentActivity.courseToJoin.getCode());
         }
 
         confirm.setOnClickListener(new View.OnClickListener() {

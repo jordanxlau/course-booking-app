@@ -20,13 +20,14 @@ public class StudentActivity extends CustomActivity implements ItemClick {
     protected TextView usernameDisplay;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
-    public static Course courseToJoin;
     private ArrayList<Course> searchedCourseList, myCourseList;
     public static ArrayList<Course> courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
     private ItemClick onClick;
 
+    //For joining a course
+    public static Course courseToJoin;
 
     //declaration for modified course
     public static Course modifiedCourse;
