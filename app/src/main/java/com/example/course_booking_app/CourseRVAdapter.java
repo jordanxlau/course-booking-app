@@ -76,6 +76,11 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
             return 0;
     }
 
+    public void updateList(ArrayList<Course> newList){
+        courseArrayList = newList;
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         // creating variables for our text views.

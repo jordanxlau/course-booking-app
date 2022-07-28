@@ -57,8 +57,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COURSE_COL_INSTRUCTOR + " STRING, "
                 + COURSE_COL_DESCRIPTION + " STRING, "
                 + COURSE_COL_CAPACITY + " STRING, "
-                + COURSE_COL_DAYS + "STRING, "
-                + COURSE_COL_HOURS + "STRING"
+                + COURSE_COL_DAYS + " STRING, "
+                + COURSE_COL_HOURS + " STRING"
                 + ")";
 
         db.execSQL(createUsers);
@@ -69,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Add preset users to the database
         this.addUser("admin", "admin123", "administrator");
 
-        //add preset courses
+        //add preset course
         this.addCourse("SEG2105Z", "Intro to Software Engineering", "Omar Badreddin");
     }
 
@@ -165,10 +165,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
-            values.put(COURSE_COL_DESCRIPTION, "");
-            values.put(COURSE_COL_CAPACITY, "");
-            values.put(COURSE_COL_DAYS, "");
-            values.put(COURSE_COL_HOURS, "");
+            values.put(COURSE_COL_CAPACITY, "0");
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
         } else if (courseCode.equals("") || courseName.equals("")){
@@ -176,7 +173,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } else {//Course already exists
             return 4;
         }
-
     }
 
     //Determines if a username and password match
@@ -199,20 +195,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean modifyCourse(Course course) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        boolean result = false;
 
-        try {
-            values.put(COURSE_COL_CODE, course.getCode());
-            values.put(COURSE_COL_NAME, course.getName());
+        values.put(COURSE_COL_CODE, course.getCode());
+        values.put(COURSE_COL_NAME, course.getName());
+
+        if(course.getInstructor() != null){
             values.put(COURSE_COL_INSTRUCTOR, course.getInstructor());
-            values.put(COURSE_COL_DESCRIPTION, course.getDescription());
-            values.put(COURSE_COL_CAPACITY, course.getCapacity());
-            values.put(COURSE_COL_DAYS, course.getDays());
-            values.put(COURSE_COL_HOURS, course.getHours());
-            db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
-            return true;
-        } catch (NullPointerException n){
-            return false;
         }
+
+        if(course.getDescription() != null){
+            if(course.getDescription().length() > 0){
+                values.put(COURSE_COL_DESCRIPTION, course.getDescription());
+            }
+        }
+
+        if(course.getCapacity().length() > 0){
+            values.put(COURSE_COL_CAPACITY, course.getCapacity());
+        }
+
+        if(course.getDays() != null){
+            if(course.getDays().length() > 0){
+                values.put(COURSE_COL_DAYS, course.getDays());
+            }
+        }
+
+        if(course.getHours() != null){
+            if(course.getHours().length() > 0){
+                values.put(COURSE_COL_HOURS, course.getHours());
+            }
+        }
+
+        db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
+        result = true;
+
+        return result;
 
     }
 

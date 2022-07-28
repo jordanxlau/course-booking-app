@@ -1,5 +1,6 @@
 package com.example.course_booking_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -37,6 +38,12 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
     //status for assigning/unassigning oneself to/from a course.
     public static AssignStatus assignStatus;
 
+    //status for editing course
+    public static RefreshStatus refreshStatus;
+
+    //status for filter
+    private FilterStatus filterStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,11 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
         searchCode = findViewById(R.id.searchCode);
         searchName = findViewById(R.id.searchName);
         coursesRV = findViewById(R.id.recyclerView);
+
+        //initialize statuses
+        refreshStatus = RefreshStatus.NOCHANGE;
+        assignStatus = AssignStatus.NOTALLOWED;
+        filterStatus = FilterStatus.NOFILTER;
 
         //Initialize usernameDisplay
         usernameDisplay.setText("logged in as instructor: " + currentUser);
@@ -103,19 +115,23 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
                     if (course.getInstructor().equals(currentUser))
                         myCourseList.add(course);
                 }
-
                 //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(myCourseList, InstructorActivity.this, InstructorActivity.this);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                coursesRV.setLayoutManager(linearLayoutManager);
-                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                coursesRV.setAdapter(courseRVAdapter);
+                filterStatus = FilterStatus.MYFILTER;
+                courseRVAdapter.updateList(myCourseList);
             }
         });
 
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(refreshStatus == RefreshStatus.EDITCOURSE){
+                    refreshStatus = RefreshStatus.NOCHANGE;
+                    MainActivity.db.modifyCourse(modifiedCourse);
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+
                 //Setup
                 String desiredCode = searchCode.getText().toString().toLowerCase();
                 if (desiredCode == null)
@@ -126,36 +142,35 @@ public class InstructorActivity extends CustomActivity implements ItemClick{
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){
-                    MainActivity.db.modifyCourse(modifiedCourse);
-                    courseRVAdapter = new CourseRVAdapter(courseList, InstructorActivity.this, InstructorActivity.this);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                    coursesRV.setLayoutManager(linearLayoutManager);
-                    //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                    coursesRV.setAdapter(courseRVAdapter);
-                    return;
+                    filterStatus = FilterStatus.NOFILTER;
+                    courseRVAdapter.updateList(courseList);
                 }
-
-                //Creates a list of the courses that contain the searched course code
-                searchedCourseList = new ArrayList<Course>();
-                for (Course course: courseList){
-                    if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
-                        searchedCourseList.add(course);
+                else{
+                    //Creates a list of the courses that contain the searched course code
+                    searchedCourseList = new ArrayList<Course>();
+                    for (Course course: courseList){
+                        if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
+                            searchedCourseList.add(course);
+                    }
+                    //Sets the RV to the newly created list
+                    filterStatus = FilterStatus.SEARCHFILTER;
+                    courseRVAdapter.updateList(searchedCourseList);
                 }
-                
-                //Sets the RV to the newly created list
-                courseRVAdapter = new CourseRVAdapter(searchedCourseList, InstructorActivity.this, InstructorActivity.this);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InstructorActivity.this, RecyclerView.VERTICAL, false);
-                coursesRV.setLayoutManager(linearLayoutManager);
-                //new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(coursesRV);
-                coursesRV.setAdapter(courseRVAdapter);
             }
         });
-
     }
 
     @Override
     public void onItemClick(int position) {
-        modifiedCourse = courseList.get(position);
+        if(filterStatus == FilterStatus.NOFILTER){
+            modifiedCourse = courseList.get(position);
+        }
+        else if(filterStatus == FilterStatus.SEARCHFILTER){
+            modifiedCourse = searchedCourseList.get(position);
+        }
+        else if(filterStatus == FilterStatus.MYFILTER){
+            modifiedCourse = myCourseList.get(position);
+        }
 
         if(modifiedCourse.getInstructor().equals(currentUser)){
             assignStatus = AssignStatus.UNASSIGNABLE;

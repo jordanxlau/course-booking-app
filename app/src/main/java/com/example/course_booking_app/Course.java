@@ -6,9 +6,9 @@ public class Course {
     private String name;
     private String instructor;
     private String description;
+    private String capacity;
     private String days;
     private String hours;
-    private String capacity;
 
     public Course(String ID, String code, String name, String instructor) {
         this.ID = ID;
@@ -82,6 +82,8 @@ public class Course {
     public void setCapacity(String capacity){
         this.capacity = capacity;
     }
+
+    public void setID(String id){this.ID = id;}
 
 
     public void resetCourse(){

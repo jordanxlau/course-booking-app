@@ -79,7 +79,6 @@ public class MainActivity extends CustomActivity {
                         toast.show();
                         break;
                 }
-
             }
         });
 

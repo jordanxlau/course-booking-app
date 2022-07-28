@@ -150,6 +150,7 @@
                 android:layout_marginRight="10dp"
                 android:elevation="2dp"
                 android:ems="10"
+                android:hint="XX:XX-XX:XX; XX:XX-XX:XX (24h format)"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:textColor="@color/black"

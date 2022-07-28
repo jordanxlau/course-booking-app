@@ -96,7 +96,36 @@ public class InstructorCourseFragment extends Fragment {
         saveChanges.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "SAVE CHANGES TOAST", Toast.LENGTH_SHORT).show();
+                //temporary fields
+                String tempDescription = editDescription.getText().toString().trim();
+                String tempCapacity = editCapacity.getText().toString().trim();
+                String tempDays = editDays.getText().toString().trim();
+                String tempHours = editHours.getText().toString().trim();
+
+                ValidationResults validationResults = new ValidationResults(tempDescription, tempCapacity, tempDays, tempHours);
+
+                if(validationResults.getValidity() == true){
+                    ((InstructorActivity)getActivity()).modifiedCourse.setDescription(tempDescription);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setCapacity(tempCapacity);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setDays(tempDays);
+                    ((InstructorActivity)getActivity()).modifiedCourse.setHours(tempHours);
+                    Toast.makeText(getActivity(), "Changes saved", Toast.LENGTH_SHORT).show();
+
+                    ((InstructorActivity)getActivity()).refreshStatus = RefreshStatus.EDITCOURSE;
+                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
+                }
+                else{
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    alertDialog.setTitle("Alert");
+                    alertDialog.setMessage(validationResults.getMessage());
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
             }
         });
 
@@ -114,9 +143,11 @@ public class InstructorCourseFragment extends Fragment {
                                 new DialogInterface.OnClickListener(){
                                     @Override
                                     public void onClick(DialogInterface dialog, int which){
-
+                                        Toast.makeText(getActivity(), "You have successfully assigned yourself.", Toast.LENGTH_SHORT).show();
+                                        ((InstructorActivity)getActivity()).modifiedCourse.setInstructor(((InstructorActivity)getActivity()).currentUser);
+                                        ((InstructorActivity)getActivity()).refreshStatus = RefreshStatus.EDITCOURSE;
+                                        getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
                                     }
-
                                 });
                         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
                             @Override
@@ -139,6 +170,8 @@ public class InstructorCourseFragment extends Fragment {
                                 public void onClick(DialogInterface dialog2, int which){
                                     Toast.makeText(getActivity(), "You have successfully unassigned yourself.", Toast.LENGTH_SHORT).show();
                                     ((InstructorActivity)getActivity()).modifiedCourse.resetCourse();
+                                    ((InstructorActivity)getActivity()).refreshStatus = RefreshStatus.EDITCOURSE;
+                                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
                                 }
                             });
                     builder2.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
@@ -156,4 +189,6 @@ public class InstructorCourseFragment extends Fragment {
 
         return view;
     }
+
+
 }
