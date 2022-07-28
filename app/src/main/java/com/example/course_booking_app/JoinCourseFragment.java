@@ -63,12 +63,12 @@ public class JoinCourseFragment extends Fragment {
             public void onClick(View v) {
 
                 if (!course.isStudentEnrolled(CustomActivity.currentUser)) {//the current user is not in the class
-                    course.addStudent(CustomActivity.currentUser);
+                    StudentActivity.courseToJoin.addStudent(CustomActivity.currentUser);
 
                     //Success message
                     Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS in the class
-                    course.removeStudent(CustomActivity.currentUser);
+                    StudentActivity.courseToJoin.removeStudent(CustomActivity.currentUser);
                     //Success message
                     Toast.makeText(getActivity(), "You are no longer enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 }

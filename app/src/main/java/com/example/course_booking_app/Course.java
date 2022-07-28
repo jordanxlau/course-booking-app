@@ -17,7 +17,7 @@ public class Course {
         this.name = name;
         this.instructor = instructor;
         this.timeBlock = 0;
-        studentList = new ArrayList<>();
+        this.studentList = new ArrayList<>();
     }
 
     public String getID() {
@@ -29,7 +29,7 @@ public class Course {
     }
 
     public Boolean isStudentEnrolled(String student){
-        if(studentList.contains(student))
+        if(this.studentList.contains(student))
             return true;
         return false;
     }
