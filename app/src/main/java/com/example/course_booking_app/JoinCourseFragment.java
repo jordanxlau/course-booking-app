@@ -52,7 +52,7 @@ public class JoinCourseFragment extends Fragment {
         //Set TextViews
         courseName.setText(course.getName());
         courseDescription.setText("SET COURSE DESCRIPTION LATER");
-        if (true){//the current user is not enrolled in the course
+        if (!course.isStudentEnrolled(CustomActivity.currentUser)){//the current user is not enrolled in the course
             textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
         } else {
             textView.setText("I no longer want to be enrolled in " + StudentActivity.courseToJoin.getCode());
