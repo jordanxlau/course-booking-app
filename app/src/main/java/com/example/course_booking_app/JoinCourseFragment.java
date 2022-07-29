@@ -62,7 +62,7 @@ public class JoinCourseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!course.isStudentEnrolled(course.getCode())) {//the current user is not in the class
+                if (!course.isStudentEnrolled(course.getCode())) {//the current user is not enrolled in the course
                     course.addStudent(course.getCode());
 
                     //Success message
