@@ -24,6 +24,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_CODE = "courseCode"; //First column name (course codes)
     public static final String COURSE_COL_NAME = "courseName"; //Second column name (course names)
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
+    public static final String COURSE_COL_DESCRIPTION = "courseDescription"; //Fourth column name (course descriptions)
+    public static final String COURSE_COL_TIMEBLOCK = "courseTimeBlock"; //Fifth column name (course times)
+
 
     public DatabaseHandler(Context context){
         super(context, "users4.db", null, 5);
@@ -50,7 +53,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COURSE_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
                 + COURSE_COL_CODE + " STRING, "
                 + COURSE_COL_NAME + " STRING, "
-                + COURSE_COL_INSTRUCTOR + " STRING"
+                + COURSE_COL_INSTRUCTOR + " STRING,"
+                + COURSE_COL_DESCRIPTION + " STRING,"
+                + COURSE_COL_TIMEBLOCK + " INTEGER"
                 + ")";
 
         db.execSQL(createUsers);
@@ -111,7 +116,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursorCourses.getString(0),
                     cursorCourses.getString(1),
                     cursorCourses.getString(2),
-                    cursorCourses.getString(3)
+                    cursorCourses.getString(3),
+                    cursorCourses.getString(4),
+                    cursorCourses.getInt(5)
                 ));
             } while(cursorCourses.moveToNext());
         }
