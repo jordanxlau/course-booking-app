@@ -46,17 +46,6 @@ public class Course {
         return false;
     }
 
-    /*//For Testing purposes
-    public String printCourses(){
-        studentList.trimToSize();
-        i = studentList.size();
-        stuff = "";
-        for (int y = 0; y<i; y++) {
-            stuff = stuff + studentList.get(y);
-        }
-        return stuff;
-    }*/
-
     public void addStudent(String student){
         studentList.add(student);
         studentList.trimToSize();
