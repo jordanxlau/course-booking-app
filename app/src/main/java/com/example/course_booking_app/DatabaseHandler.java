@@ -228,18 +228,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query = "SELECT " + COURSE_COL_NAME + " FROM " + COURSE_TABLE_NAME + " WHERE " + COURSE_COL_CODE + " = \"" + code + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
-        String found = null;
+        boolean found = false;
 
         if(cursor.moveToFirst())//If code matches a code in the database
-            found = cursor.getString(0);
+            found = true;
 
         cursor.close();
-
-        //If user doesn't match any in database, foundPassword will be null
-        if (found == null)
-            return false;
-        else
-            return true;
+        return found;
     }
 
     //Finds the type of a certain user
