@@ -170,6 +170,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    //Adds a course to the courses table
+    //Returns 0 if course was successfully added, returns 4 if course already exists, returns 8 if code or name is blank
+    public int addCourse(String courseCode, String courseName, String courseInstructor, String courseDescription, Integer courseTimeBlock) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        if (!this.courseExists(courseCode)) { //Course does not already exist
+            values.put(COURSE_COL_CODE, courseCode);
+            values.put(COURSE_COL_NAME, courseName);
+            values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            values.put(COURSE_COL_DESCRIPTION, courseDescription);
+            values.put(COURSE_COL_TIMEBLOCK, courseTimeBlock);
+            db.insert(COURSE_TABLE_NAME, null, values);
+            return 0;
+        } else if (courseCode.equals("") || courseName.equals("")){
+            return 8;
+        } else {//Course already exists
+            return 4;
+        }
+
+    }
+
     //Determines if a username and password match
     //Returns 0 if password and username match, returns 2 if user doesn't exist, returns 4 if user exists but pass is incorrect
     public int match(String username, String password){
@@ -195,6 +217,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, course.getCode());
             values.put(COURSE_COL_NAME, course.getName());
             values.put(COURSE_COL_INSTRUCTOR, course.getInstructor());
+            values.put(COURSE_COL_DESCRIPTION, course.getDescription());
+            values.put(COURSE_COL_TIMEBLOCK, course.getTimeBlock());
             db.update(COURSE_TABLE_NAME, values, COURSE_PRIMARY_KEY + "=?", new String[]{course.getID()});
             return true;
         } catch (NullPointerException n){

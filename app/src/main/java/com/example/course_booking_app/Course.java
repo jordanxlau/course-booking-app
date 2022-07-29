@@ -67,11 +67,11 @@ public class Course {
         studentList.trimToSize();
     }
 
-    public Integer getTime() {
+    public Integer getTimeBlock() {
         return timeBlock;
     }
 
-    public void setTime(Integer timeBlock) {
+    public void setTimeBlock(Integer timeBlock) {
         this.timeBlock = timeBlock;
     }
 
