@@ -22,14 +22,14 @@ public class Course {
         this.studentList = new ArrayList<>();
     }
 
-    public Course(String ID, String code, String name, String instructor, String description, Integer timeBlock ) {
+    public Course(String ID, String code, String name, String instructor, String description, Integer timeBlock, ArrayList<String> studentList ) {
         this.ID = ID;
         this.code = code;
         this.name = name;
         this.instructor = instructor;
         this.description = description;
         this.timeBlock = timeBlock;
-        this.studentList = new ArrayList<>();
+        this.studentList = studentList;
     }
 
     public String getID() {
@@ -54,6 +54,10 @@ public class Course {
     public void removeStudent(String student){
         studentList.remove(student);
         studentList.trimToSize();
+    }
+
+    public ArrayList<String> getStudentList(){
+        return this.studentList;
     }
 
     public Integer getTimeBlock() {

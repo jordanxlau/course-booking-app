@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_INSTRUCTOR = "courseInstructor"; //Third column name (instructor names)
     public static final String COURSE_COL_DESCRIPTION = "courseDescription"; //Fourth column name (course descriptions)
     public static final String COURSE_COL_TIMEBLOCK = "courseTimeBlock"; //Fifth column name (course times)
-
+    public static final String COURSE_COL_STUDENTLIST = "courseStudentList"; //Sixth column name (course students)
 
     public DatabaseHandler(Context context){
         super(context, "users4.db", null, 5);
@@ -55,7 +55,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COURSE_COL_NAME + " STRING, "
                 + COURSE_COL_INSTRUCTOR + " STRING,"
                 + COURSE_COL_DESCRIPTION + " STRING,"
-                + COURSE_COL_TIMEBLOCK + " INTEGER"
+                + COURSE_COL_TIMEBLOCK + " INTEGER,"
+                + COURSE_COL_STUDENTLIST + " STRING"
                 + ")";
 
         db.execSQL(createUsers);
@@ -118,7 +119,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursorCourses.getString(2),
                     cursorCourses.getString(3),
                     cursorCourses.getString(4),
-                    cursorCourses.getInt(5)
+                    cursorCourses.getInt(5),
+                    Utils.stringToList(cursorCourses.getString(6))
                 ));
             } while(cursorCourses.moveToNext());
         }
@@ -172,7 +174,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Adds a course to the courses table
     //Returns 0 if course was successfully added, returns 4 if course already exists, returns 8 if code or name is blank
-    public int addCourse(String courseCode, String courseName, String courseInstructor, String courseDescription, Integer courseTimeBlock) {
+    public int addCourse(String courseCode, String courseName, String courseInstructor, String courseDescription, Integer courseTimeBlock, ArrayList<String> courseStudentList) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -182,6 +184,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
             values.put(COURSE_COL_DESCRIPTION, courseDescription);
             values.put(COURSE_COL_TIMEBLOCK, courseTimeBlock);
+            values.put(COURSE_COL_STUDENTLIST, Utils.listToString(courseStudentList));
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
         } else if (courseCode.equals("") || courseName.equals("")){
