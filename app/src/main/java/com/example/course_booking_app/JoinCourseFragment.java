@@ -20,12 +20,10 @@ public class JoinCourseFragment extends Fragment {
     TextView textView, courseName, courseDescription;
     Button confirm, cancel;
 
-
     public JoinCourseFragment() {
         // Required empty public constructor
     }
-
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
