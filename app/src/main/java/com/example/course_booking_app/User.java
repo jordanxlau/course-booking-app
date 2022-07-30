@@ -7,14 +7,16 @@ public class User {
     private String username;
     private String password;
     private String usertype;
-    private boolean[] availableBlocks; //Represents availability of all 10 possible course blocks in a standard timetable
+    private ArrayList<String> availableBlocks = new ArrayList<String>(); //Represents availability of all 10 possible course blocks in a standard timetable
+    //Note: blocks start at 0
 
     public User(String ID, String username, String password, String usertype) {
         this.ID = ID;
         this.username = username;
         this.password = password;
         this.usertype = usertype;
-        this.availableBlocks = new boolean[]{true, true, true, true, true, true, true, true, true, true};
+        for (int i = 0; i < 10; i++)
+            availableBlocks.add("true");
     }
 
     public String getID() {
@@ -26,15 +28,17 @@ public class User {
     }
 
     public boolean isAvailableAtBlock(int block){
-        return availableBlocks[block];
+        return Boolean.parseBoolean(  availableBlocks.get(block)  );
     }
 
     public void addCourseAtBlock(int block){
-        this.availableBlocks[block] = false;
+        if (block >= 0 && block < 10)
+            availableBlocks.set(block, "false");
     }
 
     public void removeCourseAtBlock(int block){
-        this.availableBlocks[block] = true;
+        if (block >= 0 && block < 10)
+            availableBlocks.set(block, "true");
     }
 
     public String toString(){

@@ -54,8 +54,6 @@ public class JoinCourseFragment extends Fragment {
             textView.setText("I no longer want to be enrolled in " + StudentActivity.courseToJoin.getCode());
         }
 
-        System.out.println("TRACE STUDENT LIST " + course.getStudentList());
-
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

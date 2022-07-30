@@ -151,7 +151,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-
     //Adds a course to the courses table
     //Returns 0 if course was successfully added, returns 4 if course already exists, returns 8 if code or name is blank
     public int addCourse(String courseCode, String courseName, String courseInstructor) {
@@ -212,6 +211,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    //Adds a course at block, "block" to the user with the specified username
+    //Returns true if successful, returns false if unable to add the course
+    public boolean addCourseAtBlock(String username, int block) {
+
+    }
 
     //modify a course
     //returns true if successful
