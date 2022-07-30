@@ -53,5 +53,11 @@ public class UserTests  {
         testUser.setID("5678");
         assertEquals("5678",testUser.getID());}
 
+    @Test
+    public void test_removeCourseAtBlock(){}
+    @Test
+    public void test_addCourseAtBlock(){}
+    @Test
+    public void test_isAvailableAtBlock(){}
 
 }

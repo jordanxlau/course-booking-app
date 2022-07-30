@@ -64,12 +64,20 @@ public class JoinCourseFragment extends Fragment {
                 MainActivity.db.removeCourse(course.getID());
 
                 if (!course.isStudentEnrolled(CustomActivity.currentUser)) {//the current user is not enrolled in the course
-                    //add the new course with the new student
-                    newCourse.addStudent(CustomActivity.currentUser);
-                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
+                    //TIME CONFLICT FEATURE
+                    User user = new User();
+                    if (user.isAvailableAtBlock(course.getTimeBlock())) {//If the user has a time conflict
+                        MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), course.getStudentList());
 
-                    //Success message
-                    Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
+                        //Error message
+                        Toast.makeText(getActivity(), "Failed. You have a time conflict.", Toast.LENGTH_SHORT).show();
+                    } else { //Else, proceed and add the new course with the new student
+                        newCourse.addStudent(CustomActivity.currentUser);
+                        MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
+
+                        //Success message
+                        Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
+                    }
                 } else {//the current user IS in the class
                     //add the new course without the student
                     newCourse.removeStudent(CustomActivity.currentUser);
