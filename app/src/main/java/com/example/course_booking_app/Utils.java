@@ -8,10 +8,11 @@ public abstract class Utils {
 
     //converts an array list of Strings (the students names) to a single string to be stored in the database
     public static String listToString(ArrayList<String> list){
-        String string = "";
+        String string = list.get(0);
 
         for (String item: list)
-            string = string + ";" + item;
+            if (! item.equals(list.get(0)) )
+                string = string + ";" + item;
 
         return string;
     }
@@ -23,8 +24,6 @@ public abstract class Utils {
 
         for (String item: split)
             list.add(item);
-
-        list.remove(0);//the first item is a semicolon because of how the String representation was made
 
         return list;
     }
