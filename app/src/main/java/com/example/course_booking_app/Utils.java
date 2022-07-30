@@ -9,14 +9,14 @@ public abstract class Utils {
         String string = "";
 
         for (String item: list)
-            string = string + "," + item;
+            string = string + ";" + item;
 
         return string;
     }
 
-    public static ArrayList stringToList(String string){
+    public static ArrayList<String> stringToList(String string){
         ArrayList<String> list = new ArrayList<>();
-        String[] split = string.split(",");
+        String[] split = string.split(";");
 
         for (String item: split)
             list.add(item);

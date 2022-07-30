@@ -15,7 +15,6 @@ public class User {
         this.password = password;
         this.usertype = usertype;
         this.timeBlock = new int[15];
-
     }
 
     public String getID() {
@@ -34,8 +33,12 @@ public class User {
         return true;
     }
 
-    public void addTime(Integer n){
+    public void addCourseAtBlock(int timeBlock){
 
+    }
+
+    public String toString(){
+        return "";
     }
 
     public String getUsername() {
