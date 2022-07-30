@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_STUDENTLIST = "courseStudentList"; //Sixth column name (course students)
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 5);
+        super(context, "users.db", null, 10);
     }
 
     public DatabaseHandler(Context context, String name, int version){
@@ -162,6 +162,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            values.put(COURSE_COL_DESCRIPTION, "SET COURSE DESCRIPTION");
+            values.put(COURSE_COL_TIMEBLOCK, 0);
+            values.put(COURSE_COL_STUDENTLIST, Utils.listToString(new ArrayList<>()));
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
         } else if (courseCode.equals("") || courseName.equals("")){
