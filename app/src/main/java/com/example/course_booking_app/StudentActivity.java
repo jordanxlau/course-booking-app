@@ -15,10 +15,9 @@ import java.util.ArrayList;
 public class StudentActivity extends CustomActivity implements ItemClick {
 
     //Attribute Declarations
-    protected Button back, delete, search, myCourses;
+    protected Button back, search, myCourses;
     protected TextView usernameDisplay;
     protected EditText searchCode, searchName;
-    protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
     private ArrayList<Course> searchedCourseList, myCourseList;
     public static ArrayList<Course> courseList;
@@ -39,7 +38,6 @@ public class StudentActivity extends CustomActivity implements ItemClick {
 
         //Initialize widgets
         back = findViewById(R.id.back);
-        //delete = findViewById(R.id.viewCourses);
         usernameDisplay = findViewById(R.id.usernameDisplay);
 
         //Initialize usernameDisplay
@@ -128,23 +126,6 @@ public class StudentActivity extends CustomActivity implements ItemClick {
                 coursesRV.setAdapter(courseRVAdapter);
             }
         });
-
-        /*delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (doublePressed == true) {
-                    toast = Toast.makeText(context, "Account deleted.", duration);
-                    toast.show();
-                    (MainActivity.db).removeUser(currentUser);
-                    doublePressed = false;
-                    openMain();
-                } else {
-                    toast = Toast.makeText(context, "Press again to confirm.", duration);
-                    toast.show();
-                    doublePressed = true;
-                }
-            }
-        });*/
 
     }
 
