@@ -14,6 +14,7 @@ public class CourseTests  {
     @Before
     public void setUp(){
         testCourse = new Course("1234", "ITI1121B", "Software Eng","Eric");
+        testCourse.addStudent("Jordan");
     }
 
     @Test
@@ -41,12 +42,15 @@ public class CourseTests  {
         assertEquals("Jordan",testCourse.getInstructor());}
     @Test
     public void test_isStudentEnrolled_true(){
-        testCourse.addStudent("Jordan Lau");
-        assertTrue(testCourse.isStudentEnrolled("Jordan Lau"));
+        assertTrue(testCourse.isStudentEnrolled("Jordan"));
     }
     @Test
     public void test_isStudentEnrolled_false(){
-        testCourse.addStudent("Jordan Lau");
-        assertFalse(testCourse.isStudentEnrolled("Michael Cong"));
+        assertFalse(testCourse.isStudentEnrolled("Michael"));
+    }
+    @Test
+    public void test_removeStudent(){
+        testCourse.removeStudent("Jordan");
+        assertFalse(testCourse.isStudentEnrolled("Jordan"));
     }
 }
