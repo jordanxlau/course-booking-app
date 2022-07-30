@@ -34,7 +34,6 @@ public class AddInstructorFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_course_instruct, container, false);
 
-
         //Attribute initializations
         confirm = view.findViewById(R.id.confirm);
         cancel = view.findViewById(R.id.cancel);
