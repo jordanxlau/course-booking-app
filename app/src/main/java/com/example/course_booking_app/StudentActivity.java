@@ -24,7 +24,6 @@ public class StudentActivity extends CustomActivity implements ItemClick {
     public static ArrayList<Course> courseList;
     private CourseRVAdapter courseRVAdapter;
     private RecyclerView coursesRV;
-    private ItemClick onClick;
 
     //For joining a course
     public static Course courseToJoin;

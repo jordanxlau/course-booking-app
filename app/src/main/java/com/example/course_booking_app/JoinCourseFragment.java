@@ -37,8 +37,6 @@ public class JoinCourseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_join_course, container, false);
 
-
-
         //Attribute initializations
         confirm = view.findViewById(R.id.confirm);
         cancel = view.findViewById(R.id.cancel);
@@ -66,7 +64,6 @@ public class JoinCourseFragment extends Fragment {
                     course.addStudent(course.getCode());
 
                     //Success message
-                    //Toast.makeText(getActivity(), "You are in " + course.printCourses(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS in the class
                     course.removeStudent(course.getCode());
