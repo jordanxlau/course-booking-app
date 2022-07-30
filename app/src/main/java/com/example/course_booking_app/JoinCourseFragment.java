@@ -49,7 +49,7 @@ public class JoinCourseFragment extends Fragment {
 
         //Set TextViews
         courseName.setText(course.getName());
-        courseDescription.setText("SET COURSE DESCRIPTION LATER");
+        courseDescription.setText(course.getDescription());
         if (!course.isStudentEnrolled(course.getCode())){//the current user is not enrolled in the course
             textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
         } else {
@@ -66,14 +66,14 @@ public class JoinCourseFragment extends Fragment {
                 if (!course.isStudentEnrolled(course.getCode())) {//the current user is not enrolled in the course
                     //add the new course with the new student
                     newCourse.addStudent(CustomActivity.currentUser);
-                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), course.getStudentList());
+                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
 
                     //Success message
                     Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS in the class
                     //add the new course without the student
                     newCourse.removeStudent(CustomActivity.currentUser);
-                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), course.getStudentList());
+                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
 
                     //Success message
                     Toast.makeText(getActivity(), "You are no longer enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
