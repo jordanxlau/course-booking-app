@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class UtilsTests {
 
     private ArrayList<String> testList;
-    private User testUser1, testUser2;
 
     @Before
     public void setUp(){
@@ -26,10 +25,14 @@ public class UtilsTests {
         testList.add("Eric");
         testList.add("Michael");
         String s = Utils.listToString(testList);
-        assertEquals("",s);
+        assertEquals("Jordan;Eric;Michael",s);
     }
     @Test
     public void test_stringToList(){
-
+        ArrayList l = Utils.stringToList("Jordan;Eric;Michael");
+        assertEquals(3, l.size());
+        assertEquals("Jordan", l.get(0));
+        assertEquals("Eric", l.get(1));
+        assertEquals("Michael", l.get(2));
     }
 }

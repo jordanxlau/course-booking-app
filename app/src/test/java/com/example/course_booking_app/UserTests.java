@@ -52,10 +52,6 @@ public class UserTests  {
     public void test_setID(){
         testUser.setID("5678");
         assertEquals("5678",testUser.getID());}
-    @Test
-    public void test_toString(){
-        testUser.setID("5678");
-        assertEquals("5678",testUser.getID());}
 
 
 }
