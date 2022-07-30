@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_STUDENTLIST = "courseStudentList"; //Sixth column name (course students)
 
     public DatabaseHandler(Context context){
-        super(context, "users.db", null, 10);
+        super(context, "users.db", null, 13);
     }
 
     public DatabaseHandler(Context context, String name, int version){

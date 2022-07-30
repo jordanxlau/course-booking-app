@@ -116,7 +116,7 @@ public class StudentActivity extends CustomActivity implements ItemClick {
                 //Creates a list of the courses that are instructed by the current user
                 myCourseList = new ArrayList<Course>();
                 for (Course course: courseList){
-                    if (course.isStudentEnrolled(CustomActivity.currentUser))
+                    if (course.isStudentEnrolled(currentUser))
                         myCourseList.add(course);
                 }
 
