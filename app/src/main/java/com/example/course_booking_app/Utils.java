@@ -8,13 +8,16 @@ public abstract class Utils {
 
     //converts an array list of Strings (the students names) to a single string to be stored in the database
     public static String listToString(ArrayList<String> list){
-        String string = list.get(0);
+        try{
+            String string = list.get(0);
 
-        for (String item: list)
-            if (! item.equals(list.get(0)) )
-                string = string + ";" + item;
+            for (String item: list)
+                if (! item.equals(list.get(0)) )
+                    string = string + ";" + item;
 
-        return string;
+            return string;
+
+        } catch (Exception e) { return ""; }
     }
 
     //converts a String representation of an array list (of students names) back to an actual array list
