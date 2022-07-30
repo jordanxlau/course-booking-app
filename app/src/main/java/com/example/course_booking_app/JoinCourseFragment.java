@@ -50,7 +50,7 @@ public class JoinCourseFragment extends Fragment {
         //Set TextViews
         courseName.setText(course.getName());
         courseDescription.setText(course.getDescription());
-        if (!course.isStudentEnrolled(course.getCode())){//the current user is not enrolled in the course
+        if (!course.isStudentEnrolled(CustomActivity.currentUser)){//the current user is not enrolled in the course
             textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
         } else {
             textView.setText("I no longer want to be enrolled in " + StudentActivity.courseToJoin.getCode());
@@ -63,7 +63,7 @@ public class JoinCourseFragment extends Fragment {
                 StudentActivity.courseList.remove(course);
                 MainActivity.db.removeCourse(course.getID());
 
-                if (!course.isStudentEnrolled(course.getCode())) {//the current user is not enrolled in the course
+                if (!course.isStudentEnrolled(CustomActivity.currentUser)) {//the current user is not enrolled in the course
                     //add the new course with the new student
                     newCourse.addStudent(CustomActivity.currentUser);
                     MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
