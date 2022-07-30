@@ -10,7 +10,7 @@ public class Course {
     private String instructor;
     private Integer timeBlock;
     private String description;
-    public static ArrayList<String> studentList;
+    public ArrayList<String> studentList;
 
     public Course(String ID, String code, String name, String instructor) {
         this.ID = ID;
