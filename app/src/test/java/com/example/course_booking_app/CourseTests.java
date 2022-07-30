@@ -39,4 +39,14 @@ public class CourseTests  {
     public void test_setInstructor(){
         testCourse.setInstructor("Jordan");
         assertEquals("Jordan",testCourse.getInstructor());}
+    @Test
+    public void test_isStudentEnrolled_true(){
+        testCourse.addStudent("Jordan Lau");
+        assertTrue(testCourse.isStudentEnrolled("Jordan Lau"));
+    }
+    @Test
+    public void test_isStudentEnrolled_false(){
+        testCourse.addStudent("Jordan Lau");
+        assertFalse(testCourse.isStudentEnrolled("Michael Cong"));
+    }
 }
