@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class StudentActivity extends CustomActivity implements ItemClick {
 
     //Attribute Declarations
-    protected EditText searchCode, searchName;
     protected Button back, delete, search, myCourses;
     protected TextView usernameDisplay;
+    protected EditText searchCode, searchName;
     protected boolean doublePressed = false; //this boolean confirms whether the user has confirmed their account deletion by double pressing delete
 
     private ArrayList<Course> searchedCourseList, myCourseList;

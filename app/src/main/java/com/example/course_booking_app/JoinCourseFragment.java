@@ -59,14 +59,20 @@ public class JoinCourseFragment extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.db.removeCourse(course.getID());
 
                 if (!course.isStudentEnrolled(course.getCode())) {//the current user is not enrolled in the course
-                    course.addStudent(course.getCode());
+                    //add the course with the new student
+                    course.addStudent(CustomActivity.currentUser);
+                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), course.getStudentList());
 
                     //Success message
                     Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 } else {//the current user IS in the class
-                    course.removeStudent(course.getCode());
+                    //add the course without the student
+                    course.removeStudent(CustomActivity.currentUser);
+                    MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), course.getStudentList());
+
                     //Success message
                     Toast.makeText(getActivity(), "You are no longer enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
                 }
