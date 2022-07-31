@@ -17,7 +17,7 @@ public class UserTests  {
     public void setUp(){
         testUser = new User("1234", "Jordan Lau", "password123","instructor");
     }
-    
+
     @Test
     public void test_getUsertype() {
         assertEquals("instructor", testUser.getUsertype());

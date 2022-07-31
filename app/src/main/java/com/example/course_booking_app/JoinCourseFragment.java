@@ -63,8 +63,7 @@ public class JoinCourseFragment extends Fragment {
 
                 if (!course.isStudentEnrolled(CustomActivity.currentUser)) {//the current user is not enrolled in the course
                     //TIME CONFLICT FEATURE
-                    User user = new User();
-                    if (user.isAvailableAtBlock(course.getTimeBlock())) {//If the user has a time conflict
+                    if (!   MainActivity.db.isAvailableAtBlock( CustomActivity.currentUser, course.getTimeBlock() )   ) {//If the user has a time conflict
                         MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), course.getStudentList());
 
                         //Error message
@@ -72,6 +71,7 @@ public class JoinCourseFragment extends Fragment {
                     } else { //Else, proceed and add the new course with the new student
                         newCourse.addStudent(CustomActivity.currentUser);
                         MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
+                        MainActivity.db.addCourseAtBlock( CustomActivity.currentUser, course.getTimeBlock() );
 
                         //Success message
                         Toast.makeText(getActivity(), "You have enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();
@@ -80,6 +80,7 @@ public class JoinCourseFragment extends Fragment {
                     //add the new course without the student
                     newCourse.removeStudent(CustomActivity.currentUser);
                     MainActivity.db.addCourse(course.getCode(), course.getName(), course.getInstructor(), course.getDescription(), course.getTimeBlock(), newCourse.getStudentList());
+                    MainActivity.db.removeCourseAtBlock( CustomActivity.currentUser, course.getTimeBlock() );
 
                     //Success message
                     Toast.makeText(getActivity(), "You are no longer enrolled in " + course.getCode(), Toast.LENGTH_SHORT).show();

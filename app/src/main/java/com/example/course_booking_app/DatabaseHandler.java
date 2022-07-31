@@ -17,6 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String USER_COL_NAME = "username"; //First column name (user names)
     public static final String USER_COL_PASS = "password"; //Second column name (user passwords)
     public static final String USER_COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
+    public static final String USER_COL_AVAILABLEBLOCKS = "availableBlocks"; //Fourth column name (times where this user is not in a course)
 
     //Initializations for Courses table
     public static final String COURSE_TABLE_NAME = "courses"; //Table name
@@ -44,7 +45,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + USER_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
                 + USER_COL_NAME + " STRING, "
                 + USER_COL_PASS + " STRING, "
-                + USER_COL_TYPE + " STRING"
+                + USER_COL_TYPE + " STRING,"
+                + USER_COL_AVAILABLEBLOCKS + " STRING"
                 + ")";
 
         //Courses table
@@ -135,10 +137,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        //Starting array list of empty time blocks
+        ArrayList<String> emptyTimeTable = new ArrayList<String>();
+        for (int i = 0; i < 10; i++)
+           emptyTimeTable.add("true");
+
         if (this.findPassword(username) == null && !type.equals("--Select account type for creation--")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
+            values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(emptyTimeTable));
             db.insert(USER_TABLE_NAME, null, values);
             return 0;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
@@ -212,9 +220,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Adds a course at block, "block" to the user with the specified username
-    //Returns true if successful, returns false if unable to add the course
-    public boolean addCourseAtBlock(String username, int block) {
+    //Should be called after isAvailableAtBlock()
+    public void addCourseAtBlock(String username, int block) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        //SELECT availableBlocks FROM users WHERE username = ""
+        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        availableBlocks.add(block, "false");
+        values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(availableBlocks));
+    }
+
+    //Removes a course at block, "block" to the user with the specified username
+    //Should be called after ! isAvailableAtBlock()
+    public void removeCourseAtBlock(String username, int block) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //SELECT availableBlocks FROM users WHERE username = ""
+        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        availableBlocks.add(block, "true");
+        values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(availableBlocks));
+    }
+
+    //Returns true if available at block, "block"
+    public boolean isAvailableAtBlock(String username, int block) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //SELECT availableBlocks FROM users WHERE username = ""
+        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+
+        return Boolean.parseBoolean(  availableBlocks.get(block)  );
     }
 
     //modify a course
