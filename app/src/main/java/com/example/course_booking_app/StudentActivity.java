@@ -17,7 +17,7 @@ public class StudentActivity extends CustomActivity implements ItemClick {
     //Attribute Declarations
     protected Button back, search, myCourses;
     protected TextView usernameDisplay;
-    protected EditText searchCode, searchName;
+    protected EditText searchCode, searchName, searchDays;
 
     private ArrayList<Course> searchedCourseList, myCourseList;
     public static ArrayList<Course> courseList;
@@ -46,6 +46,7 @@ public class StudentActivity extends CustomActivity implements ItemClick {
         search = findViewById(R.id.search);
         searchCode = findViewById(R.id.searchCode);
         searchName = findViewById(R.id.searchName);
+        searchDays = findViewById(R.id.searchDays);
         coursesRV = findViewById(R.id.recyclerView);
         myCourses = findViewById(R.id.viewUsers);
 
@@ -81,9 +82,12 @@ public class StudentActivity extends CustomActivity implements ItemClick {
                 String desiredName = searchName.getText().toString().toLowerCase();
                 if (desiredName == null)
                     desiredName = "";
+                String desiredDay = searchDays.getText().toString().toLowerCase();
+                if (desiredDay == null)
+                    desiredDay = "";
 
                 //Reset to the view of all courses
-                if (desiredCode == "" && desiredName == ""){
+                if (desiredCode == "" && desiredName == "" && desiredDay == ""){
                     courseRVAdapter = new CourseRVAdapter(courseList, StudentActivity.this, StudentActivity.this);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(StudentActivity.this, RecyclerView.VERTICAL, false);
                     coursesRV.setLayoutManager(linearLayoutManager);
@@ -95,7 +99,7 @@ public class StudentActivity extends CustomActivity implements ItemClick {
                 //Creates a list of the courses that contain the searched course code
                 searchedCourseList = new ArrayList<Course>();
                 for (Course course: courseList){
-                    if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName))
+                    if (course.getCode().toLowerCase().contains(desiredCode) && course.getName().toLowerCase().contains(desiredName) && course.getDays().toLowerCase().contains(desiredDay))
                         searchedCourseList.add(course);
                 }
 
