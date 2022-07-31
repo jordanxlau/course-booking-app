@@ -59,6 +59,22 @@
             android:layout_marginTop="10dp"
             android:text="Course Description"
             android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/courseDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Course Days"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/courseTimes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Course Times"
+            android:textAlignment="center" />
     </LinearLayout>
 
 

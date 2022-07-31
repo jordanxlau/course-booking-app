@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class JoinCourseFragment extends Fragment {
 
     //Attribute declarations
-    TextView textView, courseName, courseDescription;
+    TextView textView, courseName, courseDescription, courseDays, courseTimes;
     Button confirm, cancel;
 
     public JoinCourseFragment() {
@@ -41,6 +41,8 @@ public class JoinCourseFragment extends Fragment {
         textView = view.findViewById(R.id.textView);
         courseName = view.findViewById(R.id.courseName);
         courseDescription = view.findViewById(R.id.courseDescription);
+        courseDays = view.findViewById(R.id.courseDays);
+        courseTimes = view.findViewById(R.id.courseTimes);
 
         //Declare course currently in question
         Course course = StudentActivity.courseToJoin;
@@ -48,6 +50,8 @@ public class JoinCourseFragment extends Fragment {
         //Set TextViews
         courseName.setText(course.getName());
         courseDescription.setText(course.getDescription());
+        courseDays.setText(course.getDays());
+        courseTimes.setText(course.getHours());
         if (!course.isStudentEnrolled(CustomActivity.currentUser)){//the current user is not enrolled in the course
             textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
         } else {

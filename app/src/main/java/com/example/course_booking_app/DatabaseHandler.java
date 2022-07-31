@@ -97,10 +97,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursorUsers.moveToFirst()){
             do{
                 userArrayList.add(new User(
-                    cursorUsers.getString(0),
-                    cursorUsers.getString(1),
-                    cursorUsers.getString(2),
-                    cursorUsers.getString(3)
+                        cursorUsers.getString(0),
+                        cursorUsers.getString(1),
+                        cursorUsers.getString(2),
+                        cursorUsers.getString(3)
                 ));
             } while(cursorUsers.moveToNext());
         }
@@ -120,15 +120,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursorCourses.moveToFirst()){
             do{
                 courseArrayList.add(new Course(
-                    cursorCourses.getString(0),
-                    cursorCourses.getString(1),
-                    cursorCourses.getString(2),
-                    cursorCourses.getString(3),
-                    cursorCourses.getString(4),
-                    cursorCourses.getString(5),
-                    cursorCourses.getString(6),
-                    cursorCourses.getString(7),
-                    Utils.stringToList(cursorCourses.getString(8))
+                        cursorCourses.getString(0),
+                        cursorCourses.getString(1),
+                        cursorCourses.getString(2),
+                        cursorCourses.getString(3),
+                        cursorCourses.getString(4),
+                        cursorCourses.getString(5),
+                        cursorCourses.getString(6),
+                        cursorCourses.getString(7),
+                        Utils.stringToList(cursorCourses.getString(8))
                 ));
             } while(cursorCourses.moveToNext());
         }
