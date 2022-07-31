@@ -363,7 +363,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
-    //Monday-Wednesday;11:00-12:00;13:00-14:00,Monday-Wednesday;11:00-12:00;13:00-14:00
+    //Monday,Wednesday11:00-12:00,13:00-14:00;Monday,Tuesday12:00-13:00,14:00-15:00
     public boolean isAvailableAt(String username, String days, String hours){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -376,9 +376,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ArrayList<String> unavailableBlocks = Utils.stringToList(cursor.getString(0));
 
             for (String block : unavailableBlocks) {
-                System.out.println("TOOPYDOOP: " + block);
                 if (block.equals(days + hours)){
-                    System.out.println("BEEDOOO: " + days + hours);
                     return false;
                 }
             }
