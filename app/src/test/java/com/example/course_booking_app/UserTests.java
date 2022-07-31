@@ -17,8 +17,7 @@ public class UserTests  {
     public void setUp(){
         testUser = new User("1234", "Jordan Lau", "password123","instructor");
     }
-
-
+    
     @Test
     public void test_getUsertype() {
         assertEquals("instructor", testUser.getUsertype());
@@ -52,12 +51,4 @@ public class UserTests  {
     public void test_setID(){
         testUser.setID("5678");
         assertEquals("5678",testUser.getID());}
-
-    @Test
-    public void test_removeCourseAtBlock(){}
-    @Test
-    public void test_addCourseAtBlock(){}
-    @Test
-    public void test_isAvailableAtBlock(){}
-
 }
