@@ -58,6 +58,13 @@ public abstract class CustomActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    //Opens join course fragment
+    protected void joinCourseFragment(){
+        JoinCourseFragment fragment = new JoinCourseFragment();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).add(R.id.coordinatorLayout, fragment).commit();
+
+    }
+
     //Opens main page
     protected void openMain(){
         Intent intent = new Intent(this, MainActivity.class);
