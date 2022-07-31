@@ -1,5 +1,7 @@
 package com.example.course_booking_app;
 
+import java.util.ArrayList;
+
 public class Course {
     private String ID;
     private String code;
@@ -9,6 +11,7 @@ public class Course {
     private String capacity;
     private String days;
     private String hours;
+    private ArrayList<String> studentList;
 
     public Course(String ID, String code, String name, String instructor) {
         this.ID = ID;
@@ -19,6 +22,7 @@ public class Course {
         this.capacity = "0";
         this.days = "";
         this.hours = "";
+        this.studentList = new ArrayList<>();
     }
 
     //overload constructor
@@ -31,6 +35,20 @@ public class Course {
         this.capacity = capacity;
         this.days = days;
         this.hours = hours;
+        this.studentList = new ArrayList<>();
+    }
+
+    //second overload constructor
+    public Course(String ID, String code, String name, String instructor, String description, String capacity, String days, String hours, ArrayList<String> studentList){
+        this.ID = ID;
+        this.code = code;
+        this.name = name;
+        this.instructor = instructor;
+        this.description = description;
+        this.capacity = capacity;
+        this.days = days;
+        this.hours = hours;
+        this.studentList = studentList;
     }
 
     public String getID() {return ID;}
@@ -85,13 +103,33 @@ public class Course {
 
     public void setID(String id){this.ID = id;}
 
-
+    //Other instance methods
     public void resetCourse(){
         this.setDescription("");
         this.setCapacity("0");
         this.setDays("");
         this.setHours("");
         this.setInstructor("");
+    }
+
+    public void addStudent(String student){
+        studentList.add(student);
+        studentList.trimToSize();
+    }
+
+    public void removeStudent(String student){
+        studentList.remove(student);
+        studentList.trimToSize();
+    }
+
+    public ArrayList<String> getStudentList(){
+        return this.studentList;
+    }
+
+    public Boolean isStudentEnrolled(String student){
+        if(studentList.contains(student))
+            return true;
+        return false;
     }
 
 }
