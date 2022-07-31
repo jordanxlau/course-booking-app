@@ -18,7 +18,7 @@ public class Course {
         this.name = name;
         this.instructor = instructor;
         this.description = "SET COURSE DESCRIPTION";
-        this.timeBlock = 0;
+        this.timeBlock = 0;//default time block is the first valid time block
         this.studentList = new ArrayList<>();
     }
 
