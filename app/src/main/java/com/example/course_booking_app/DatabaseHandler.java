@@ -158,7 +158,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-
     //Adds a course to the courses table
     //Returns 0 if course was successfully added, returns 4 if course already exists, returns 8 if code or name is blank
     public int addCourse(String courseCode, String courseName, String courseInstructor) {
@@ -179,6 +178,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    //Adds a course to the courses table
+    //Returns 0 if course was successfully added, returns 4 if course already exists, returns 8 if code or name is blank
+    public int addCourse(String courseCode, String courseName, String courseInstructor, String courseDescription, String courseDays, String courseHours, ArrayList<String> courseStudentList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        if (!this.courseExists(courseCode)) { //Course does not already exist
+            values.put(COURSE_COL_CODE, courseCode);
+            values.put(COURSE_COL_NAME, courseName);
+            values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            values.put(COURSE_COL_DESCRIPTION, courseDescription);
+            values.put(COURSE_COL_DAYS, courseDays);
+            values.put(COURSE_COL_HOURS, courseHours);
+            values.put(COURSE_COL_STUDENTLIST, Utils.listToString(courseStudentList));
+            db.insert(COURSE_TABLE_NAME, null, values);
+            return 0;
+        } else if (courseCode.equals("") || courseName.equals("")){
+            return 8;
+        } else {//Course already exists
+            return 4;
+        }
+
+    }
+
     //Determines if a username and password match
     //Returns 0 if password and username match, returns 2 if user doesn't exist, returns 4 if user exists but pass is incorrect
     public int match(String username, String password){
@@ -192,7 +215,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return 4;
 
     }
-
 
     //modify a course
     //returns true if successful
@@ -329,6 +351,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         return result;
+    }
+
+    public boolean isAvailableAt(String username, String days, String hours){
+
+    }
+
+    public void addCourseAt(String username, String days, String hours){
+
+    }
+
+    public void removeCourseAt(String username, String days, String hours){
+
     }
 
 }
