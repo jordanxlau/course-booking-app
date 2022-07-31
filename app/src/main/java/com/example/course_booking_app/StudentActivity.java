@@ -132,7 +132,8 @@ public class StudentActivity extends CustomActivity implements ItemClick {
     @Override
     public void onItemClick(int position) {
         courseToJoin = courseList.get(position);
-        joinCourseFragment();
+        if (! courseToJoin.getDescription().equals(""))//the course info has been created (the description is no longer just "")
+            joinCourseFragment();
     }
 
 }

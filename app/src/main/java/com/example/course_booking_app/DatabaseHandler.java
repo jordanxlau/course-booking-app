@@ -17,8 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String USER_COL_NAME = "username"; //First column name (user names)
     public static final String USER_COL_PASS = "password"; //Second column name (user passwords)
     public static final String USER_COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
-    public static final String USER_COL_UNAVAILABLEDAYS = "unavailableDays";
-    public static final String USER_COL_UNAVAILABLEHOURS = "unavailableHours";
+    public static final String USER_COL_UNAVAILABLEBLOCKS = "unavailableBlocks";
 
     //Initializations for Courses table
     public static final String COURSE_TABLE_NAME = "courses"; //Table name
@@ -33,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_STUDENTLIST = "courseStudentList";
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 5);
+        super(context, "users4.db", null, 7);
     }
 
     public DatabaseHandler(Context context, String name, int version){
@@ -49,8 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + USER_COL_NAME + " STRING, "
                 + USER_COL_PASS + " STRING, "
                 + USER_COL_TYPE + " STRING,"
-                + USER_COL_UNAVAILABLEDAYS + " STRING,"
-                + USER_COL_UNAVAILABLEHOURS + " STRING"
+                + USER_COL_UNAVAILABLEBLOCKS + " STRING"
                 + ")";
 
         //Courses table
@@ -146,17 +144,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         //EDITS NEEDED HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //Starting array list of empty time blocks
-        ArrayList<String> emptyTimeTable = new ArrayList<String>();
-        for (int i = 0; i < 10; i++)
-            emptyTimeTable.add("true");
 
         if (this.findPassword(username) == null && !type.equals("--Select account type for creation--")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
-            values.put(USER_COL_UNAVAILABLEDAYS, Utils.listToString(emptyTimeTableDays));
-            values.put(USER_COL_UNAVAILABLEHOURS, Utils.listToString(emptyTimeTableHours));
+            values.put(USER_COL_UNAVAILABLEBLOCKS, Utils.listToString(new ArrayList<String>()));
+            System.out.println("LICKITY SPLIT: " + Utils.listToString(new ArrayList<String>()));
             db.insert(USER_TABLE_NAME, null, values);
             return 0;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
@@ -369,52 +363,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+    //Monday-Wednesday;11:00-12:00;13:00-14:00,Monday-Wednesday;11:00-12:00;13:00-14:00
     public boolean isAvailableAt(String username, String days, String hours){
-        throw new NoSuchMethodException();
-        /*SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
 
         //SELECT availableBlocks FROM users WHERE username = ""
-        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        String query = "SELECT " + USER_COL_UNAVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+        if (cursor.moveToNext()) {
+            ArrayList<String> unavailableBlocks = Utils.stringToList(cursor.getString(0));
 
-        return Boolean.parseBoolean(  availableBlocks.get(block)  );*/
+            for (String block : unavailableBlocks) {
+                System.out.println("TOOPYDOOP: " + block);
+                if (block.equals(days + hours)){
+                    System.out.println("BEEDOOO: " + days + hours);
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public void addCourseAt(String username, String days, String hours){
-        throw new NoSuchMethodException();
-        /*SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
 
         //SELECT availableBlocks FROM users WHERE username = ""
-        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        String query = "SELECT " + USER_COL_UNAVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+        if (cursor.moveToNext()) {
+            ArrayList<String> unavailableBlocks = Utils.stringToList(cursor.getString(0));
 
-        db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
 
-        availableBlocks.add(block, "false");
-        values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(availableBlocks));*/
+            unavailableBlocks.add(days + hours);
+            values.put(USER_COL_UNAVAILABLEBLOCKS, Utils.listToString(unavailableBlocks));
+            db.insert(USER_TABLE_NAME, null, values);
+        }
     }
 
     public void removeCourseAt(String username, String days, String hours){
-        throw new NoSuchMethodException();
-        /*SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
 
         //SELECT availableBlocks FROM users WHERE username = ""
-        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        String query = "SELECT " + USER_COL_UNAVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+        if (cursor.moveToNext()) {
+            ArrayList<String> unavailableBlocks = Utils.stringToList(cursor.getString(0));
 
-        db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
 
-        availableBlocks.add(block, "true");
-        values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(availableBlocks));*/
+            unavailableBlocks.remove(days + hours);
+            values.put(USER_COL_UNAVAILABLEBLOCKS, Utils.listToString(unavailableBlocks));
+            db.insert(USER_TABLE_NAME, null, values);
+        }
     }
 
 }
