@@ -134,6 +134,8 @@ public class StudentActivity extends CustomActivity implements ItemClick {
         courseToJoin = courseList.get(position);
         if (! courseToJoin.getDescription().equals(""))//the course info has been created (the description is no longer just "")
             joinCourseFragment();
+        else
+            Toast.makeText(context, "Course does not have dates and times yet.", Toast.LENGTH_SHORT).show();
     }
 
 }
