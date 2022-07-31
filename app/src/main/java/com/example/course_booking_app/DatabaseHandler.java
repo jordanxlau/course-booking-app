@@ -32,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_STUDENTLIST = "courseStudentList";
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 7);
+        super(context, "users4.db", null, 8);
     }
 
     public DatabaseHandler(Context context, String name, int version){
@@ -97,10 +97,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursorUsers.moveToFirst()){
             do{
                 userArrayList.add(new User(
-                    cursorUsers.getString(0),
-                    cursorUsers.getString(1),
-                    cursorUsers.getString(2),
-                    cursorUsers.getString(3)
+                        cursorUsers.getString(0),
+                        cursorUsers.getString(1),
+                        cursorUsers.getString(3)
                 ));
             } while(cursorUsers.moveToNext());
         }
@@ -120,15 +119,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursorCourses.moveToFirst()){
             do{
                 courseArrayList.add(new Course(
-                    cursorCourses.getString(0),
-                    cursorCourses.getString(1),
-                    cursorCourses.getString(2),
-                    cursorCourses.getString(3),
-                    cursorCourses.getString(4),
-                    cursorCourses.getString(5),
-                    cursorCourses.getString(6),
-                    cursorCourses.getString(7),
-                    Utils.stringToList(cursorCourses.getString(8))
+                        cursorCourses.getString(0),
+                        cursorCourses.getString(1),
+                        cursorCourses.getString(2),
+                        cursorCourses.getString(3),
+                        cursorCourses.getString(4),
+                        cursorCourses.getString(5),
+                        cursorCourses.getString(6),
+                        cursorCourses.getString(7),
+                        Utils.stringToList(cursorCourses.getString(8))
                 ));
             } while(cursorCourses.moveToNext());
         }
@@ -150,7 +149,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
             values.put(USER_COL_UNAVAILABLEBLOCKS, Utils.listToString(new ArrayList<String>()));
-            System.out.println("LICKITY SPLIT: " + Utils.listToString(new ArrayList<String>()));
             db.insert(USER_TABLE_NAME, null, values);
             return 0;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet

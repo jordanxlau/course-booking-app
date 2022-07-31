@@ -17,7 +17,11 @@ import android.widget.Toast;
 public class JoinCourseFragment extends Fragment {
 
     //Attribute declarations
+<<<<<<< HEAD
     TextView statusText, courseName, courseDescription;
+=======
+    TextView textView, courseName, courseDescription, courseDays, courseTimes;
+>>>>>>> 1d4cee3baa36b5a8c3cda65cd873b4b145d0008b
     Button confirm, cancel;
 
     public JoinCourseFragment() {
@@ -41,15 +45,26 @@ public class JoinCourseFragment extends Fragment {
         statusText = view.findViewById(R.id.statusText);
         courseName = view.findViewById(R.id.courseName);
         courseDescription = view.findViewById(R.id.courseDescription);
+        courseDays = view.findViewById(R.id.courseDays);
+        courseTimes = view.findViewById(R.id.courseTimes);
 
         //Declare course currently in question
         Course selectedCourse = ((StudentActivity)getActivity()).courseToJoin;
 
         //Set TextViews
+<<<<<<< HEAD
         courseName.setText(selectedCourse.getName());
         courseDescription.setText(selectedCourse.getDescription());
         if (selectedCourse.isStudentEnrolled(((StudentActivity)getActivity()).currentUser)){//the current user is enrolled in the course
             statusText.setText("I want to enroll in " + selectedCourse.getCode());
+=======
+        courseName.setText(course.getName());
+        courseDescription.setText(course.getDescription());
+        courseDays.setText(course.getDays());
+        courseTimes.setText(course.getHours());
+        if (!course.isStudentEnrolled(CustomActivity.currentUser)){//the current user is not enrolled in the course
+            textView.setText("I want to enroll in " + StudentActivity.courseToJoin.getCode());
+>>>>>>> 1d4cee3baa36b5a8c3cda65cd873b4b145d0008b
         } else {
             statusText.setText("I no longer want to be enrolled in " + selectedCourse.getCode());
         }

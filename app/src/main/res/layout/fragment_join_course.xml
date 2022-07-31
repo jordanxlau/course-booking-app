@@ -65,14 +65,28 @@
         <TextView
             android:id="@+id/courseDays"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="75dp"
             android:text="Course Days" />
+=======
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Course Days"
+            android:textAlignment="center" />
+>>>>>>> 1d4cee3baa36b5a8c3cda65cd873b4b145d0008b
 
         <TextView
             android:id="@+id/courseTimes"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="84dp"
             android:text="Course Times" />
+=======
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Course Times"
+            android:textAlignment="center" />
+>>>>>>> 1d4cee3baa36b5a8c3cda65cd873b4b145d0008b
     </LinearLayout>
 
 
