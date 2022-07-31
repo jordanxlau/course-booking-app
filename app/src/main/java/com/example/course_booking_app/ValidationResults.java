@@ -206,7 +206,8 @@ public class ValidationResults{
         if(s.length() == 0) return false;
 
         //parse s into String array delim. by semi-colons
-        String[] parsed = parseSemicolon(s);
+        //String[] parsed = parseSemicolon(s);
+        String[] parsed = parseComma(s);
         //then for each field, validate format
         for(String eachField : parsed) {
             if(!checkTimeFormat(eachField)) {
@@ -247,7 +248,8 @@ public class ValidationResults{
     //check that the number of days = number of hours
     private boolean validateEquality(String days, String hours){
         String[] s1 = parseComma(days);
-        String[] s2 = parseSemicolon(hours);
+        //String[] s2 = parseSemicolon(hours);
+        String[] s2 = parseComma(hours);
         if(s1.length == s2.length){
             return true;
         }
@@ -371,7 +373,7 @@ public class ValidationResults{
     }
 
     private static String getTimePeriodError() {
-        String s = "Time period format: \"HH:MM-HH:MM; HH:MM-HH:MM\". Multiple periods must be separated by a semi-colon (i.e. ';').";
+        String s = "Time period format: \"HH:MM-HH:MM; HH:MM-HH:MM\". Multiple periods must be separated by a comma (i.e. ',').";
         return s;
     }
 
