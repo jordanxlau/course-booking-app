@@ -99,6 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 userArrayList.add(new User(
                         cursorUsers.getString(0),
                         cursorUsers.getString(1),
+                        cursorUsers.getString(2),
                         cursorUsers.getString(3)
                 ));
             } while(cursorUsers.moveToNext());
