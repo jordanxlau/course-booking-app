@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_first.xml" value="0.3509963768115942" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_instructor__edit__course_.xml" value="0.35280797101449274" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_instructor_course.xml" value="0.33" />
+        <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_join_course.xml" value="0.2864583333333333" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/fragment_second.xml" value="0.3509963768115942" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/layout/user_list_item.xml" value="0.33" />
         <entry key="..\:/Users/Michael Cong/Documents/GitHub/course-booking-app/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
@@ -33,8 +34,6 @@
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_main.xml" value="0.1578125" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/activity_student.xml" value="0.2875" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/course_list_item.xml" value="0.27037037037037037" />
-        <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/fragment_instructor_course.xml" value="0.2875" />
-        <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/layout/fragment_join_course.xml" value="0.2734375" />
         <entry key="..\:/Users/jorda/Desktop/course-booking-app/app/src/main/res/menu/select_course_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_courses.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/activity_instructor.xml" value="0.33" />

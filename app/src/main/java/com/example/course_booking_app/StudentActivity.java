@@ -27,8 +27,6 @@ public class StudentActivity extends CustomActivity implements ItemClick {
     //For joining a course
     public static Course courseToJoin;
 
-    //declaration for modified course
-    public static Course modifiedCourse;
     public static RefreshStatus refreshStatus;
 
     @Override
@@ -50,7 +48,6 @@ public class StudentActivity extends CustomActivity implements ItemClick {
         myCourses = findViewById(R.id.viewUsers);
 
         //setup related to course information
-        modifiedCourse = new Course("","","","");
         refreshStatus = RefreshStatus.NOCHANGE;
 
         courseList = new ArrayList<>();
@@ -81,6 +78,7 @@ public class StudentActivity extends CustomActivity implements ItemClick {
                 String desiredName = searchName.getText().toString().toLowerCase();
                 if (desiredName == null)
                     desiredName = "";
+
 
                 //Reset to the view of all courses
                 if (desiredCode == "" && desiredName == ""){

@@ -77,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         this.addCourse("SEG2105Z", "Intro to Software Engineering", "Omar Badreddin");
     }
 
-    @Override //"DROP" Removes both tables (never called?)
+    @Override //"DROP" Removes both tables
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String upgrade = "DROP TABLE IF EXISTS " + USER_TABLE_NAME;
         db.execSQL(upgrade);

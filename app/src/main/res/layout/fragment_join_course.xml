@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".JoinCourseFragment">
 
     <LinearLayout
@@ -14,7 +16,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/statusText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -55,10 +57,22 @@
         <TextView
             android:id="@+id/courseDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="78dp"
             android:layout_marginTop="10dp"
             android:text="Course Description"
             android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/courseDays"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:text="Course Days" />
+
+        <TextView
+            android:id="@+id/courseTimes"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:text="Course Times" />
     </LinearLayout>
 
 
