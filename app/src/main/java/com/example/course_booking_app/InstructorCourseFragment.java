@@ -28,7 +28,7 @@ public class InstructorCourseFragment extends Fragment {
 
     protected TextView textCourseCode, textCourseName, textCourseInstructor;
     protected EditText editDescription, editCapacity, editDays, editHours;
-    protected Button saveChanges, close, assign;
+    protected Button saveChanges, close, assign, studentlist;
 
     public static InstructorCourseFragment newInstance(String param1, String param2) {
         InstructorCourseFragment fragment = new InstructorCourseFragment();
@@ -61,6 +61,8 @@ public class InstructorCourseFragment extends Fragment {
         close = view.findViewById(R.id.close);
         assign = view.findViewById(R.id.assign);
 
+        studentlist = view.findViewById(R.id.studentlist);
+
         //initialize the text for our widgets
         textCourseCode.setText(((InstructorActivity)getActivity()).modifiedCourse.getCode());
         textCourseName.setText(((InstructorActivity)getActivity()).modifiedCourse.getName());
@@ -75,21 +77,40 @@ public class InstructorCourseFragment extends Fragment {
             assign.setText("Assign");
             assign.setVisibility(View.VISIBLE);
             saveChanges.setVisibility(View.GONE);
+            studentlist.setVisibility(View.GONE);
         }
         else if(((InstructorActivity)getActivity()).assignStatus == AssignStatus.UNASSIGNABLE){
             assign.setText("Unassign");
             assign.setVisibility(View.VISIBLE);
             saveChanges.setVisibility(View.VISIBLE);
+            studentlist.setVisibility(View.VISIBLE);
         }
         else{
             assign.setVisibility(View.GONE);
             saveChanges.setVisibility(View.GONE);
+            studentlist.setVisibility(View.GONE);
         }
 
         close.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_right_to_left).remove(InstructorCourseFragment.this).commit();
+            }
+        });
+
+        studentlist.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                alertDialog.setTitle("Student List");
+                alertDialog.setMessage(((InstructorActivity)getActivity()).modifiedCourse.getStudentList().toString());
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
             }
         });
 
