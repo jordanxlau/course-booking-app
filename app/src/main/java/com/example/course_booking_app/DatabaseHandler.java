@@ -17,6 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String USER_COL_NAME = "username"; //First column name (user names)
     public static final String USER_COL_PASS = "password"; //Second column name (user passwords)
     public static final String USER_COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
+    public static final String USER_COL_AVAILABLEBLOCKS = "availableBlocks";
 
     //Initializations for Courses table
     public static final String COURSE_TABLE_NAME = "courses"; //Table name
@@ -28,6 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_CAPACITY = "courseCapacity";
     public static final String COURSE_COL_DAYS = "courseDays";
     public static final String COURSE_COL_HOURS = "courseHours";
+    public static final String COURSE_COL_STUDENTLIST = "courseStudentList";
 
     public DatabaseHandler(Context context){
         super(context, "users4.db", null, 5);
