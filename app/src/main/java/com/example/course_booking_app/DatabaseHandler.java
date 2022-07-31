@@ -17,7 +17,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String USER_COL_NAME = "username"; //First column name (user names)
     public static final String USER_COL_PASS = "password"; //Second column name (user passwords)
     public static final String USER_COL_TYPE = "userType"; //Third column name ("admin", "student" or "instructor")
-    public static final String USER_COL_AVAILABLEBLOCKS = "availableBlocks";
+    public static final String USER_COL_UNAVAILABLEDAYS = "unavailableDays";
+    public static final String USER_COL_UNAVAILABLEHOURS = "unavailableHours";
 
     //Initializations for Courses table
     public static final String COURSE_TABLE_NAME = "courses"; //Table name
@@ -48,7 +49,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + USER_COL_NAME + " STRING, "
                 + USER_COL_PASS + " STRING, "
                 + USER_COL_TYPE + " STRING,"
-                + USER_COL_AVAILABLEBLOCKS + " STRING"
+                + USER_COL_UNAVAILABLEDAYS + " STRING,"
+                + USER_COL_UNAVAILABLEHOURS + " STRING"
                 + ")";
 
         //Courses table
@@ -127,7 +129,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursorCourses.getString(4),
                     cursorCourses.getString(5),
                     cursorCourses.getString(6),
-                    cursorCourses.getString(7)
+                    cursorCourses.getString(7),
+                    Utils.stringToList(cursorCourses.getString(8))
                 ));
             } while(cursorCourses.moveToNext());
         }
@@ -142,10 +145,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        //EDITS NEEDED HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //Starting array list of empty time blocks
+        ArrayList<String> emptyTimeTable = new ArrayList<String>();
+        for (int i = 0; i < 10; i++)
+            emptyTimeTable.add("true");
+
         if (this.findPassword(username) == null && !type.equals("--Select account type for creation--")) { //cannot find a password associated with that user (the user doesn't yet exist)
             values.put(USER_COL_NAME, username);
             values.put(USER_COL_PASS, password);
             values.put(USER_COL_TYPE, type);
+            values.put(USER_COL_UNAVAILABLEDAYS, Utils.listToString(emptyTimeTableDays));
+            values.put(USER_COL_UNAVAILABLEHOURS, Utils.listToString(emptyTimeTableHours));
             db.insert(USER_TABLE_NAME, null, values);
             return 0;
         } else if (type.equals("--Select account type for creation--")){//Account type not selected yet
@@ -168,7 +179,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_CODE, courseCode);
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
+            values.put(COURSE_COL_DESCRIPTION, "");
             values.put(COURSE_COL_CAPACITY, "0");
+            values.put(COURSE_COL_DAYS, "");
+            values.put(COURSE_COL_HOURS, "");
+            values.put(COURSE_COL_STUDENTLIST, Utils.listToString(new ArrayList<String>()));
             db.insert(COURSE_TABLE_NAME, null, values);
             return 0;
         } else if (courseCode.equals("") || courseName.equals("")){
@@ -189,6 +204,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COURSE_COL_NAME, courseName);
             values.put(COURSE_COL_INSTRUCTOR, courseInstructor);
             values.put(COURSE_COL_DESCRIPTION, courseDescription);
+            values.put(COURSE_COL_CAPACITY, courseDescription);
             values.put(COURSE_COL_DAYS, courseDays);
             values.put(COURSE_COL_HOURS, courseHours);
             values.put(COURSE_COL_STUDENTLIST, Utils.listToString(courseStudentList));
@@ -354,15 +370,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public boolean isAvailableAt(String username, String days, String hours){
+        throw new NoSuchMethodException();
+        /*SQLiteDatabase db = this.getReadableDatabase();
 
+        //SELECT availableBlocks FROM users WHERE username = ""
+        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+
+        return Boolean.parseBoolean(  availableBlocks.get(block)  );*/
     }
 
     public void addCourseAt(String username, String days, String hours){
+        throw new NoSuchMethodException();
+        /*SQLiteDatabase db = this.getReadableDatabase();
 
+        //SELECT availableBlocks FROM users WHERE username = ""
+        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        availableBlocks.add(block, "false");
+        values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(availableBlocks));*/
     }
 
     public void removeCourseAt(String username, String days, String hours){
+        throw new NoSuchMethodException();
+        /*SQLiteDatabase db = this.getReadableDatabase();
 
+        //SELECT availableBlocks FROM users WHERE username = ""
+        String query = "SELECT " + USER_COL_AVAILABLEBLOCKS + " FROM " + USER_TABLE_NAME + " WHERE " + USER_COL_NAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<String> availableBlocks = Utils.stringToList(cursor.getString(0));
+
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        availableBlocks.add(block, "true");
+        values.put(USER_COL_AVAILABLEBLOCKS, Utils.listToString(availableBlocks));*/
     }
 
 }
