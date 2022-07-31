@@ -47,7 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + USER_PRIMARY_KEY + " INTEGER " + "PRIMARY KEY,"
                 + USER_COL_NAME + " STRING, "
                 + USER_COL_PASS + " STRING, "
-                + USER_COL_TYPE + " STRING"
+                + USER_COL_TYPE + " STRING,"
+                + USER_COL_AVAILABLEBLOCKS + " STRING"
                 + ")";
 
         //Courses table
@@ -60,7 +61,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COURSE_COL_DESCRIPTION + " STRING, "
                 + COURSE_COL_CAPACITY + " STRING, "
                 + COURSE_COL_DAYS + " STRING, "
-                + COURSE_COL_HOURS + " STRING"
+                + COURSE_COL_HOURS + " STRING,"
+                + COURSE_COL_STUDENTLIST + " STRING"
                 + ")";
 
         db.execSQL(createUsers);
