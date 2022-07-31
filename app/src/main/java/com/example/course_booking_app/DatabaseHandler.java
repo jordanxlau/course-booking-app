@@ -32,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COURSE_COL_STUDENTLIST = "courseStudentList";
 
     public DatabaseHandler(Context context){
-        super(context, "users4.db", null, 8);
+        super(context, "users4.db", null, 9);
     }
 
     public DatabaseHandler(Context context, String name, int version){
